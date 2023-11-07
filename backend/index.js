@@ -1,74 +1,59 @@
-import express  from "express";
-import mysql from 'mysql'
-import cors from 'cors'
-import jwt from "jsonwebtoken";
-import bcrypt, { hash } from 'bcrypt'
-import cookieParser from "cookie-parser";
+import express from "express";
+import mongoose from "mongoose";
+import multer from "multer";
+import cors from 'cors';
+
+import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
+
+import {UserController, PostController}  from './controllers/index.js'
+import {handleValidationErorrs ,cheackAuth} from "./utils/index.js";
+
+mongoose.connect('mongodb+srv://admin:wwwwww@cluster0.qztfr1k.mongodb.net/blog?retryWrites=true&w=majority')
+    .then(() => console.log('DB OK'))
+    .catch((err) => console.log('connection failed', err))
 
 
-const salt = 10;
+const app = express();
 
-function main(){
-    try{
-        const app = express();
-app.use(express.json())
-app.use(cors())
-app.use(cookieParser())
+const storage = multer.diskStorage({
+    destination: (_, __, cb) =>{
+        cb(null, 'uploads');
+    },
+    filename: (_, file, cb) =>{
+        cb(null, file.originalname);
+    },
+})
 
-const db = mysql.createConnection({
-   host: "http://127.0.0.1",
-   user: 'root',
-   password: 'root',
-   database: 'signup'
+const upload =  multer({storage})
+
+app.use(express.json());
+app.use(cors());
+app.use('/uploads', express.static('uploads'));
+
+app.post('/auth/login', loginValidation,  handleValidationErorrs,UserController.login)
+app.post('/auth/register', registerValidation, handleValidationErorrs,UserController.register);
+app.get('/auth/me', cheackAuth, UserController.getMe )
+
+app.post('/upload/',cheackAuth, upload.single('image'), (res, req) =>{
+    res.json({
+        url: `uploads/${req.file.originalname}`
+    })
 });
 
-app.get('/',  (req, res)=>{
-   
-    res.json("qwewqe")
-    
-})
+app.get('/tags', PostController.getLastTags )
 
-app.post('/register', (req, res)=>{
-    console.log(req.body.name);
-    try{ const sql = 'INSERT INTO login (`name`, `email`, `password`) VALIES(?)';
-    bcrypt.hash(req.body.password.toString(), salt, (err, hash)=> {
-        if(err) return res.json({Error: 'error for hashing password'})
-        const values =[
-            req.body.name,
-            req.body.email,
-            hash
-        ]
-        db.query(sql, [values], (err, result)=> {
-            if(err) return res.json({Error: 'Inserting data error'})
-            return res.json({Status: 'Secsuss'})
-        })
-    })}
-   catch(e){console.log(e)}
-})
+app.get('/posts', PostController.getAll )
+app.get('/posts/tags/',PostController.getLastTags )
+app.get('/posts/:id', PostController.getOne )
+app.post('/posts',cheackAuth, postCreateValidation,handleValidationErorrs, PostController.create )
+app.delete('/posts/:id',cheackAuth, PostController.remove )
+app.patch('/posts/:id',cheackAuth,postCreateValidation,handleValidationErorrs, PostController.update )
+
 
 app.listen(4444, (err) => {
     if (err) {
         return console.log(err)
+    } else {
+        console.log('server ok')
     }
-    console.log('server ok')
 })
-
-}
-catch(error){
-    console.log(error)
-}
-}
-
-main()
-
-
-
-
-
-
-
-// app.get('/', function (req, res) {
-//   res.send('Hello World')
-// })
-
-// app.listen(3000)
