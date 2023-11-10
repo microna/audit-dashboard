@@ -29,41 +29,6 @@ export const getAll = async (req, res) => {
     }
 }
 
-// export const getOne = async (req, res) => {
-//     try {
-
-//         const postId = req.params.id;
-//         PostModel.findOneAndUpdate({
-//             _id: postId, 
-//         },
-//         {
-//             $inc: {viewsCount: 1}
-//         },
-//         {
-//             returnDocument: 'after'
-//         },
-//         (err, doc)=>{
-//             if(err){
-//                 console.log(err)
-//                return res.status(500).json({
-//                     message: 'can not get post'
-//                 })
-//             }
-//             if(!doc){
-//                 return res.status(404).json({
-//                     message: 'Post not found'
-//                 })
-//             }
-//             res.json(doc);
-//         }
-//         )
-//     } catch (err) {
-//         console.log(err)
-//         res.status(500).json({
-//             message: 'can not get posts'
-//         })
-//     }
-// }
 
 
 export const getOne = async (req, res) => {
@@ -74,7 +39,7 @@ export const getOne = async (req, res) => {
             { _id: postId },
             { $inc: { viewsCount: 1 } },
             { new: true }
-        );
+        ).populate('user');
 
         if (!doc) {
             return res.status(404).json({
@@ -91,35 +56,7 @@ export const getOne = async (req, res) => {
     }
 };
 
-// export const remove = async (req, res) => {
-//     try {
-//         const postId = req.params.id;
 
-//         PostModel.findOneAndDelete({
-//             _id: postId,
-//         }, (err, doc)=> {
-//             if(err){
-//                 console.log(err)
-//                 res.status(500).json({
-//                     message: 'can not delete post'
-//                 })
-//             }
-//             if(!doc){
-//                 return res.status(404).json({
-//                     message: 'Post not found'
-//                 });
-//             }
-//             res.json({
-//                 success: true
-//             });
-//         })
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({
-//             message: 'Unable to get the post'
-//         });
-//     }
-// };
 
 export const remove = async (req, res) => {
     try {
