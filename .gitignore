@@ -1,4 +1,5 @@
 /backend/node_modules
-/frontend/audit-dashboard/.idea
-/frontend/audit-dashboard/node_modules
-/frontend/audit-dashboard/README.md
+/frontend/node_modules
+/frontend/.idea
+
+
