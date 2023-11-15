@@ -1,15 +1,17 @@
-$blue: #4361ee;
+$blue: #ee43bb;
 
 .root {
-  background-color: #fff;
-  border: 1px solid #dedede;
+  background-color: rgb(227, 226, 226);
+  border: 5px solid #dedede;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 15px;
   position: relative;
+  display: flex;
+
 
   &:hover {
-    border: 1px solid $blue;
+    border: 5px solid $blue;
     box-shadow: 0 0 0 1px $blue;
 
     .editButtons {
@@ -19,26 +21,29 @@ $blue: #4361ee;
 
   &Full {
     &:hover {
-      background-color: #fff;
-      border: 1px solid #dedede;
+      background-color:  rgba(171, 171, 171, 0.795);;
+      // border: 1px solid #dedede;
       box-shadow: none;
     }
   }
 }
 
 .image {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
+  width: 200px;
+  height: 200px;
+ 
+
+  object-fit:cover;
 
   &Full {
-    min-height: 300px;
+    min-height: 100px;
     height: 100%;
   }
 }
 
 .wrapper {
   padding: 10px 20px 20px;
+ justify-content: space-between;
 }
 
 .content {

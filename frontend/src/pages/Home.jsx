@@ -27,10 +27,10 @@ export const Home = () => {
 
   return (
     <>
-      <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
+      {/* <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
         <Tab label="New" />
         <Tab label="Popular" />
-      </Tabs>
+      </Tabs> */}
       <Grid container spacing={4}>
         <Grid xs={8} item>
           {(isPostsLoading ? [...Array(5)] : posts.items).map((obj, index) =>  isPostsLoading ? <Post key={index} isLoading={true} /> : 
@@ -45,7 +45,7 @@ export const Home = () => {
             commentsCount={3}
             tags={obj.tags}
           
-            isEditable={userData?._id === obj.user._id}
+            // isEditable={userData?._id === obj.user._id}
           />
         )  
         
@@ -53,7 +53,7 @@ export const Home = () => {
         </Grid>
         <Grid xs={4} item>
         
-          <TagsBlock items={tags.items} isLoading={isTagsLoading} />
+          {/* <TagsBlock items={tags.items} isLoading={isTagsLoading} /> */}
           {/* <CommentsBlock
             items={[
               {

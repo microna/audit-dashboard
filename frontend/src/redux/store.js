@@ -1,13 +1,14 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {postsReducer} from './slices/posts'
-import {authReducer} from './slices/auth'
 
+import { configureStore } from "@reduxjs/toolkit";
+import { postsReducer } from "./slices/posts";
+import { authReducer } from "./slices/auth";
 
-const store = configureStore({
-    reducer:{
-        posts : postsReducer,
-        auth : authReducer
+//создаем store через reduxjs/toolkit
+const store = configureStore ({
+    reducer: {
+        posts: postsReducer,
+        auth: authReducer
     }
 })
 
-export default store;
+export default store; 

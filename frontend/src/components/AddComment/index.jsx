@@ -5,26 +5,41 @@ import styles from "./AddComment.module.scss";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import { useSelector } from "react-redux"; //для стейтов
 
-export const Index = () => {
+import { selectIsAuth } from "../../redux/slices/auth"; //проверит auth state на true или false
+
+export const AddComment = ({ handleClickPost, data }) => {
+ 
+  const isAuth = useSelector(selectIsAuth); //проверит auth state на true иначе false если хоть один false
+
   return (
     <>
-      <div className={styles.root}>
-        <Avatar
-          classes={{ root: styles.avatar }}
-          src="https://mui.com/static/images/avatar/5.jpg"
-        />
-        <div className={styles.form}>
-          <TextField
-            label="Написать комментарий"
-            variant="outlined"
-            maxRows={10}
-            multiline
-            fullWidth
+      {isAuth ? (
+        <div className={styles.root}>
+          <Avatar
+            classes={{ root: styles.avatar }}
+            src={data.avatarUrl ? 'http://localhost:4444'+data.avatarUrl : '/noavatar.png'}
           />
-          <Button variant="contained">Отправить</Button>
+          <form onSubmit={handleClickPost} className={styles.form}>
+            <TextField
+              label="Add comment"
+              variant="outlined"
+              maxRows={10}
+              multiline
+              type="text"
+            
+              fullWidth
+            />
+            <Button type="submit" variant="contained" >
+              Send
+            </Button>
+            
+          </form>
         </div>
-      </div>
+      ) : (
+        <div></div>
+      )}
     </>
   );
 };
