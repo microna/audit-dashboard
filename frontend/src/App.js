@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import React from "react";
 
 import { Header } from "./components/Header/Header";
-import { Home, FullPost, Registration, AddPost, Login, FullTag, PieChartWithNeedle, PieChartWithPaddingAngle } from "./pages";
+import { Home, FullPost, Registration, AddPost, Login, FullTag, PieChartWithNeedle, PieChartWithPaddingAngle, TableList } from "./pages";
 import { fetchAuthMe, selectIsAuth } from "./redux/slices/auth";
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
           <Route path="/register" element={<Registration/>}/>
           <Route path="/pie-chart-with-needle" element={<PieChartWithNeedle/>}/>
           <Route path="/pie-chart-with-padding" element={<PieChartWithPaddingAngle/>}/>
+          <Route path="/table-list" element={<TableList/>}/>
           {/* <Route path="/tags/:name" element={<FullTag/>}/> */}
         </Routes>
        

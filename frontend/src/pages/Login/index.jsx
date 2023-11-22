@@ -1,12 +1,12 @@
 import React from "react";
-import { useForm } from "react-hook-form"; //формы для react'a
-import { useDispatch } from 'react-redux'; //для отправки async action от сюда
-import { useSelector } from 'react-redux'; //вытаскиваем state
+import { useForm } from "react-hook-form"; 
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 import styles from "./Login.module.scss";
 import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
-import { Navigate, NavLink} from "react-router-dom"; //тоже самое что Link только сделает автопереход (а не по клику)
+import { Navigate, NavLink} from "react-router-dom"; 
 
 export const Login = () => {
 
@@ -47,43 +47,15 @@ export const Login = () => {
 
   }
 
-  console.log(errors, isValid) //isValid ответит на валидная форма или нет. errors покажет какие ошибки
-
+  console.log(errors, isValid) //is form valid 
   console.log('isAuth', isAuth)
 
-  if (isAuth) {//если все state true (в том числе и логин то пойдем на главную)
+  if (isAuth) {
     return <Navigate to='/' />
   }
 
   return (
-    // <Paper elevation={1} classNamees={{ root: styles.root }}>
-    //   <p classNameName="text-blue-500">
-    //     Login
-    //   </p>
-    //   <form onSubmit={handleSubmit(onSubmit)}> 
-    //     <TextField
-    //       classNameName={styles.field}
-    //       label="E-Mail"
-    //       type="email" //валидация браузера
-    //       error={Boolean(errors.email?.message)} //будет красным подсвечиваться если ошибка
-    //       //helperText выводит текст ошибки
-    //       helperText={errors.email?.message}//если отсутствует текст ошибки то не нужно его вытаскивать
-    //       {...register('email', { required: 'Enter the mail' })}
-    //       fullWidth
-    //     />
-    //     <TextField 
-    //       classNameName={styles.field} 
-    //       label="Password" 
-    //       error={Boolean(errors.password?.message)} //будет красным подсвечиваться если ошибка
-    //          //helperText выводит текст ошибки
-    //       helperText={errors.password?.message}//если отсутствует текст ошибки то не нужно его вытаскивать 
-    //        {...register('password', { required: 'Enter the password' })}
-    //      fullWidth />
-    //     <Button disabled={!isValid} type='submit' size="large" variant="contained" fullWidth>
-    //       Login
-    //     </Button>
-    //   </form>
-    // </Paper>
+  
 
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -108,7 +80,7 @@ export const Login = () => {
               helperText={errors.password?.message}
               {...register('password', { required: 'Enter the password' })} />
             </div>
-            <button disabled={!isValid} type="submit" className="w-full text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+            <button disabled={!isValid} type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign in</button>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
               Don’t have an account yet? <NavLink  to="/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</NavLink >
             </p>
