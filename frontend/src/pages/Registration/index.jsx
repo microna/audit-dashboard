@@ -1,11 +1,4 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useForm } from "react-hook-form"; //формы для react'a
 import { useDispatch } from 'react-redux'; //для отправки async action от сюда
 import { useSelector } from 'react-redux'; //вытаскиваем state
@@ -14,7 +7,6 @@ import { Navigate } from "react-router-dom"; //тоже самое что Link �
 
 import axios from '../../axios'
 import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
-import styles from './Login.module.scss';
 
 
 export const Registration = () => {
