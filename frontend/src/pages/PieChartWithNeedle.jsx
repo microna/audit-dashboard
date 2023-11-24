@@ -11,25 +11,27 @@ const data = [
 
 
 export const PieChartWithNeedle = () => {
-  console.log(data);
 
-  const [inputDataValue, setInputDataValue] = useState(90);
-  const textInput = React.useRef(null);
-  const displayInputValue = () => {
-    const inputValue = textInput.current.value;
-    setInputDataValue(inputValue);
+
+  const [inputValue, setInputValue] = useState('');
+  const [inputDataValue, setInputDataValue] = useState(0)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setInputDataValue(inputValue)
+
     data.map(item => {
-        if (item.name === 'A') {
-        item.value = parseInt(inputDataValue)
-        }
-        if(item.name === 'B'){
-          item.value =  180 - parseInt(inputDataValue)
-        }
-        console.log(data);
-        console.log( parseInt(inputDataValue));
-      });
-  
+            if (item.name === 'A') {
+            item.value = parseInt(inputValue)
+            }
+            if(item.name === 'B'){
+              item.value =  180 - parseInt(inputValue)
+            }
+            console.log(data);
+            console.log( parseInt(inputValue));
+          });
   };
+
+
 
   
  
@@ -39,7 +41,7 @@ const cx = 150; //postion x
 const cy = 130; //postion y
 const iR = 50; // fill radius
 const oR = 100;
-// const value = 10;
+const value = 10;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
@@ -93,14 +95,21 @@ const oR = 100;
         <p className=''>At risk</p>
       </div>
 
-      <input
-        ref={textInput}
+    <form 
+    onSubmit={handleSubmit}
+    action="">
+    <input
+        // ref={textInput}
+        // onChange={}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         type="number"
       />
       <button 
-      onClick={displayInputValue}
-       className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Submit</button>
-       <div>{inputDataValue}</div>
+      type='submit'
+      className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Submit</button>
+      </form>
+      
    
     </>
   );
