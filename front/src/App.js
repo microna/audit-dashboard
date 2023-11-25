@@ -1,9 +1,30 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { StateProvider } from "./state/StateProvider.jsx";
+import { LayoutProvider } from "./layout/LayoutProvider.jsx";
+import { AuthLayout } from "./layout/AuthLayout.jsx";
+import { Dashboard } from "./page/Dashboard.jsx";
+import { Login } from "./page/Login.jsx";
+import { Product } from "./page/product/Product.jsx";
+import { Home } from "./page/home/Home.jsx";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
-   <BrowserRouter></BrowserRouter>
+    <BrowserRouter>
+      <StateProvider>
+        <LayoutProvider>
+          <Routes>
+            <Route element={<AuthLayout />}>
+              <Route index element={<Home />} />
+              <Route path=":id" element={<Product />} />
+              <Route path="dashboard" element={<Dashboard />} />
+            </Route>
+            <Route path="login" element={<Login />} />
+          </Routes>
+        </LayoutProvider>
+      </StateProvider>
+    </BrowserRouter>
   );
 }
 
