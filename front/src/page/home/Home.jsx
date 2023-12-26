@@ -9,9 +9,9 @@ export const Home = () => {
   console.log(state, "loginpage");
   return (
     <div>
-      <p>Count: {state.count}</p>
+      {/* <p>Count: {state.count}</p>
       <button onClick={() => dispatch({ type: "INCREMENT" })}>Increment</button>
-      <button onClick={() => dispatch({ type: "DECREMENT" })}>Decrement</button>
+      <button onClick={() => dispatch({ type: "DECREMENT" })}>Decrement</button> */}
       <button
         onClick={() => {
           navigate("dashboard");

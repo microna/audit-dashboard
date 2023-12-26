@@ -1,7 +1,9 @@
+import { Header } from "../components/Header";
+
 export const LayoutProvider = ({ children }) => {
   return (
-    <div className="">
-      <div className="w-full h-[50px] bg-red-400"></div>
+    <div className="container mx-auto px-4">
+      <Header />
       {children}
     </div>
   );
