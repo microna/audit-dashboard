@@ -1,105 +1,109 @@
 import React, { useState } from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
+import { FaComputer } from "react-icons/fa6";
 
-const initialData = [
-  { name: "Group A", value: 0 },
-  { name: "Group B", value: 100 },
+const data = [
+  { name: "Group A", value: 400 },
+  { name: "Group B", value: 300 },
+  { name: "Group C", value: 300 },
 ];
 
-const color = "red";
-
-export const PieChartWithPaddingAngleDouble = (props) => {
-  const [inputValue, setInputValue] = useState("");
-  const [inputDataValue, setInputDataValue] = useState(0);
-  const [data, setData] = useState(initialData);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const inputValueNumber = parseInt(inputValue);
-    setInputDataValue(`${inputValueNumber}%`);
-
-    const newData = data.map((item) => {
-      if (item.name === "Group A") {
-        return { ...item, value: inputValueNumber };
-      }
-      if (item.name === "Group B") {
-        return { ...item, value: 100 - inputValueNumber };
-      }
-      return item;
-    });
-
-    setData(newData);
-  };
-
-  const COLORS = ["green", "#f1f1f1"];
+const renderActiveShape = (props) => {
+  const RADIAN = Math.PI / 180;
+  const {
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    fill,
+    payload,
+    percent,
+    value,
+  } = props;
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius + 10) * cos;
+  const sy = cy + (outerRadius + 10) * sin;
+  const mx = cx + (outerRadius + 30) * cos;
+  const my = cy + (outerRadius + 30) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const ey = my;
+  const textAnchor = cos >= 0 ? "start" : "end";
 
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100%",
-        width: "100%",
-        position: "relative",
-      }}
-    >
-      <PieChart width={100} height={100}>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius="60%"
-          outerRadius="90%"
-          fill="#8884d8"
-          paddingAngle={0}
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-      <PieChart width={100} height={100}>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius="60%"
-          outerRadius="90%"
-          fill="#8884d8"
-          paddingAngle={0}
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-      <div
-        style={{
-          fontSize: "32px",
-          fontWeight: "bold",
-          position: "absolute",
-          color: "#0088FE",
-          top: "30%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
+    <g>
+      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+        123
+      </text>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+      <path
+        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+        stroke={fill}
+        fill="none"
+      />
+      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      <text
+        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        y={ey}
+        textAnchor={textAnchor}
+        fill="#333"
+      >{`PV ${value}`}</text>
+      <text
+        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        y={ey}
+        dy={18}
+        textAnchor={textAnchor}
+        fill="#999"
       >
-        {inputDataValue}
-      </div>
-      <div className="flex justify-center">
-        <form onSubmit={handleSubmit}>
-          <input
-            className="w-[100px]"
-            type="number"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-            Click
-          </button>
-        </form>
-      </div>
-    </div>
+        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+      </text>
+    </g>
+  );
+};
+
+export const PieChartWithPaddingAngleDouble = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const onPieEnter = (_, index) => {
+    setActiveIndex(index);
+  };
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart width={200} height={200}>
+        <Pie
+          // activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius={60}
+          outerRadius={80}
+          fill="#8884d8"
+          dataKey="value"
+          onMouseEnter={onPieEnter}
+        />
+      </PieChart>
+    </ResponsiveContainer>
   );
 };

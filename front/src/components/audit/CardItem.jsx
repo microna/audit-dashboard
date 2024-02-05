@@ -4,27 +4,20 @@ export const CardItem = () => {
       <div>
         <div class="flex items-end items-center  mb-4 rounded-full">
           <svg height="100" width="100">
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-            
-              stroke-width="3"
-              fill="green"
-            />
+            <circle cx="50" cy="50" r="40" stroke-width="3" fill="green" />
           </svg>
           <div className="">
             <h2>Test file recovery</h2>
-            <p className="text-green-500 weight-bold font-bold p-3">
-              19/02/2024
+            <p className="text-green-500 weight-bold font-bold pt-3">
+              <input type="date" />
             </p>
           </div>
         </div>
-        <p class="text-gray-500 dark:text-gray-400">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa esse,
-          temporibus facere consequatur quae illo magnam suscipit, excepturi,
-          numquam eaque est fuga illum neque quam quis qui earum. Veritatis,
-          modi.
+        <p class="">
+          We recovered the following files ‘master document’ from your main
+          SharePoint library, we also recovered ‘email to client’ from
+          01/01/2023 from Chris’ email. If you would like other backup sources
+          checked please let us know
         </p>
       </div>
     </div>

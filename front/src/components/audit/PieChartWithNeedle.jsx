@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useState } from "react";
+import axios from "axios";
 import { PieChart, Pie, Cell } from "recharts";
 
 let color = "";
@@ -11,14 +12,13 @@ const data = [
 
 console.log(data[0].color);
 
-export const PieChartWithNeedle = () => {
+export const PieChartWithNeedle = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [inputDataValue, setInputDataValue] = useState(0);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setInputDataValue(inputValue);
-
-    data.map((item) => {
+    const newData = data.map((item) => {
       if (item.name === "A") {
         item.value = parseInt(inputValue);
       }
@@ -28,6 +28,7 @@ export const PieChartWithNeedle = () => {
       console.log(data);
       console.log(parseInt(inputValue));
     });
+    // await axios.post(process.env.REACT_APP_SERVER_URL + "/posts", newData);
   };
 
   data[0].color =
@@ -103,20 +104,21 @@ export const PieChartWithNeedle = () => {
         <p className="">At risk</p>
         <p className="">At risk</p>
       </div>
+      <div className="text-xl text-center mb-4">{props.title}</div>
 
-      <form onSubmit={handleSubmit} action="">
-        <input
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          type="number"
-        />
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
-      </form>
+      <input
+        name={props.id}
+        id={props.id}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        type="number"
+      />
+      <button
+        type="submit"
+        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Submit
+      </button>
     </>
   );
 };

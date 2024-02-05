@@ -18,6 +18,7 @@ import * as UserControllers from "./UserControllers/UserController.js";
 import * as PostController from "./UserControllers/PostController.js";
 import handleValidationErrors from "./utils/handleValidationErrors.js";
 // import { env } from "process";
+import AuditModel from "./models/Audit.js";
 
 mongoose
   .connect(process.env.DB_URL)
@@ -73,6 +74,13 @@ app.use(express.json());
 //     res.header("Access-Control-Allow-Origin", "*");
 //     next();
 // });
+
+app.post("/audit", async (req, res) => {
+  console.log(req.body);
+  const result = await AuditModel({ techHealth: req.body.techHealth }).save();
+  console.log(result);
+  res.status(200).json({ message: "kek" });
+});
 
 app.post(
   "/auth/login",
