@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PieChart, Pie, Cell } from "recharts";
 
@@ -15,6 +15,17 @@ console.log(data[0].color);
 export const PieChartWithNeedle = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [inputDataValue, setInputDataValue] = useState(0);
+  const [test, setTest] = useState(null);
+  useEffect(() => {
+    async function getData() {
+      const result = await axios.get(
+        process.env.REACT_APP_SERVER_URL + "/audit"
+      );
+      setTest(result.data);
+    }
+    getData();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setInputDataValue(inputValue);

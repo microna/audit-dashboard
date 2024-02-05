@@ -82,6 +82,12 @@ app.post("/audit", async (req, res) => {
   res.status(200).json({ message: "kek" });
 });
 
+app.get("/audit", async (req, res) => {
+  const result = await AuditModel().find();
+  console.log(result);
+  res.status(200).json({ result });
+});
+
 app.post(
   "/auth/login",
   loginValidation,
