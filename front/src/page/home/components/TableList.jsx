@@ -8,13 +8,20 @@ export const TableList = () => {
   const navigate = useNavigate();
 
   const getItems = async () => {
-    const result = await axios.get("/posts");
-    setObj(result.data);
+    try {
+      const result = await axios.get("/audits");
+      setObj(result.data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
     getItems();
   }, []);
+
+  // console.log('obj', obj);
+  // return null;
 
   return (
     <div className="pt-10 overflow-x-auto">
@@ -48,15 +55,16 @@ export const TableList = () => {
                     scope="row"
                     className="cursor-pointer px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     onClick={() => {
-                      navigate(item._id);
+                      navigate(item.userId);
                     }}
                   >
-                    {item.title}
+                    {item.auditName}
                   </th>
-                  <td className="px-4 py-3">{item.tags}</td>
+                  <td className="px-4 py-3">Audit</td>
                   <td className="px-4 py-3">[Lucidica]</td>
-
                   <td className="px-4 py-3">{item.createdAt}</td>
+
+                  {/* <td className="px-4 py-3">{item.timestamps}</td> */}
                   <td className="px-4 py-3 flex items-center justify-end">
                     <button
                       id="apple-ipad-air-dropdown-button"

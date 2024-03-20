@@ -6,58 +6,16 @@ import { PieChart, Pie, Cell } from "recharts";
 let color = "";
 const RADIAN = Math.PI / 180;
 const data = [
-  { name: "A", value: 0, color: color },
-  { name: "B", value: 180, color: "#f1f1f1" },
+  { name: "A", value: 80, color: "#DE8344" },
+  { name: "B", value: 45, color: "#f1f1f1" },
 ];
 
-console.log(data[0].color);
-
 export const PieChartWithNeedle = (props) => {
-  const [inputValue, setInputValue] = useState("");
-  const [inputDataValue, setInputDataValue] = useState(0);
-  const [test, setTest] = useState(null);
-  useEffect(() => {
-    async function getData() {
-      const result = await axios.get(
-        process.env.REACT_APP_SERVER_URL + "/audit"
-      );
-      setTest(result.data);
-    }
-    getData();
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setInputDataValue(inputValue);
-    const newData = data.map((item) => {
-      if (item.name === "A") {
-        item.value = parseInt(inputValue);
-      }
-      if (item.name === "B") {
-        item.value = 180 - parseInt(inputValue);
-      }
-      console.log(data);
-      console.log(parseInt(inputValue));
-    });
-    // await axios.post(process.env.REACT_APP_SERVER_URL + "/posts", newData);
-  };
-
-  data[0].color =
-    inputValue >= 180
-      ? "#00B0F0"
-      : inputValue >= 120
-      ? "#70AD47"
-      : inputValue >= 70
-      ? "#FFC000"
-      : inputValue >= 40
-      ? "#ED7D31"
-      : data[0].color;
-
   const cx = 150; //postion x
   const cy = 130; //postion y
   const iR = 50; // fill radius
   const oR = 100;
-  // const value = 10;
+  const value = 60;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
@@ -90,8 +48,8 @@ export const PieChartWithNeedle = (props) => {
   };
 
   return (
-    <>
-      <PieChart width={300} height={150}>
+    <div className="border border-solid border-grey rounded-md shadow-md">
+      <PieChart width={300} height={190}>
         <Pie
           dataKey="value"
           startAngle={180}
@@ -108,28 +66,14 @@ export const PieChartWithNeedle = (props) => {
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>
-        {needle(inputDataValue, data, cx, cy, iR, oR, "#d0d000")}
+        {needle(value, data, cx, cy, iR, oR, "#d0d000")}
       </PieChart>
 
       <div className="flex items-center justify-between w-[300px]">
         <p className="">At risk</p>
-        <p className="">At risk</p>
+        <p className="">Protected</p>
       </div>
       <div className="text-xl text-center mb-4">{props.title}</div>
-
-      <input
-        name={props.id}
-        id={props.id}
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        type="number"
-      />
-      <button
-        type="submit"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-      >
-        Submit
-      </button>
-    </>
+    </div>
   );
 };

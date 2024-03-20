@@ -2,7 +2,15 @@ import mongoose from "mongoose";
 
 const AuditScheme = new mongoose.Schema(
   {
-    techHealth: { type: String, require: true },
+    auditName: {
+      type: String,
+      required: true,
+    },
+
+    userId: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

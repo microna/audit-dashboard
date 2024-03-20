@@ -16,6 +16,7 @@ import {
 import checkAuth from "./utils/checkAuth.js";
 import * as UserControllers from "./UserControllers/UserController.js";
 import * as PostController from "./UserControllers/PostController.js";
+import * as AuditController from "./UserControllers/AuditController.js";
 import handleValidationErrors from "./utils/handleValidationErrors.js";
 // import { env } from "process";
 import AuditModel from "./models/Audit.js";
@@ -30,12 +31,6 @@ const app = express();
 app.use(cors());
 
 console.log(process.env.DB_URL);
-
-// //Check user google login
-// function isLoggedIn(req, res, next) {
-//     console.log('isLoggedIn',req.user)
-//     req ? next() : res.sendStatus(401);
-// }
 
 ////UPLOADS FILES
 const storage = multer.diskStorage({
@@ -70,16 +65,31 @@ app.use("/uploads/avatars", express.static("uploads"));
 
 app.use(express.json());
 
-// app.all('/*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     next();
-// });
+// app.get("/audits", AuditController.getAll);
+app.get("/audits", async (req, res) => {
+  try {
+    console.log(req.body);
+    console.log('req.userId', req.userId);
+    const result = await AuditModel.find({ userId: "123" });
+    res.status(200).json({ message: result });
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.post("/audit", async (req, res) => {
-  console.log(req.body);
-  const result = await AuditModel({ techHealth: req.body.techHealth }).save();
-  console.log(result);
-  res.status(200).json({ message: "kek" });
+  try {
+
+    const result = await AuditModel({
+      auditName: req.body.auditName,
+      userId: "123", //TODO
+    }).save();
+    console.log(result);
+    res.status(200).json({ message: "audit saved" });
+  } catch (error) {
+    res.status(404).json("failed to post audit");
+  }
 });
 
 // app.get("/audit", async (req, res) => {
@@ -105,14 +115,6 @@ app.post(
 
 ////GOOGLE LOGIN
 app.post("/auth/googleauth", UserControllers.googleAuthOrRegister);
-// app.use(UserControllers.sessionGoogle);
-// app.use(UserControllers.googleInitialize)
-// app.use(UserControllers.passportSession)
-// app.get('/auth/google',  UserControllers.googleAuth)
-// app.get('/auth/google/callback', cors(), UserControllers.googleAuthCallback)
-// app.get('/auth/google/failure', UserControllers.googleAuthFailure)
-// app.get('/auth/google/success',isLoggedIn, cors(), UserControllers.googleAuthSuccess)
-// app.get('/auth/google/logout', UserControllers.googleAuthLogout)
 
 ////CHECK INFO FOR MYSELF (USER)
 app.get("/auth/me", checkAuth, UserControllers.checkLogin);
@@ -142,18 +144,6 @@ app.patch(
 );
 
 app.patch("/comment/:id", checkAuth, PostController.addComment);
-
-// import { createRequire } from 'module';
-// const require = createRequire(import.meta.url);
-// const http = require("http")
-// const server = http.createServer()
-// // We define a function that runs in response a request event
-// server.on("request", (request, response) => {
-//   // handle request based on method then URL
-//   response.statusCode = 200
-//   response.write("Hello World")
-//   response.end()
-// })
 
 /////START SERVER ON PORT
 //4444

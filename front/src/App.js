@@ -6,6 +6,7 @@ import { Dashboard } from "./page/Dashboard.jsx";
 import { Login } from "./page/Login.jsx";
 import { Product } from "./page/product/Product.jsx";
 import { AddAudit } from "./page/AddAudit.jsx";
+import { Audit } from "./page/Audit.jsx";
 import { Home } from "./page/home/Home.jsx";
 
 import "./App.css";
@@ -21,6 +22,7 @@ function App() {
               <Route path=":id" element={<Product />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="add-audit" element={<AddAudit />} />
+              <Route path="audit" element={<Audit />} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>

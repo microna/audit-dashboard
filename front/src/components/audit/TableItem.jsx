@@ -22,23 +22,8 @@ export const TableItem = (props) => {
       const selectedColor = statusColors[selectedStatus[i]] || "";
       rows.push(
         <tr key={i} className={`bg-white dark:bg-gray-800 ${selectedColor}`}>
-          <td className="px-4 py-2">
-            <input type="text" defaultValue="default" />
-          </td>
-          <td className="py-2 flex">
-            <input className="w-[100px]" type="text" defaultValue="default" />
-            <select
-              className="w-[50px]"
-              name=""
-              id=""
-              onChange={(e) => handleStatusChange(i, e.target.value)}
-            >
-              <option value="No risk">No risk</option>
-              <option value="Medium risk">Medium risk</option>
-              <option value="At risk">At risk</option>
-              <option value="N/a">N/a</option>
-            </select>
-          </td>
+          <td className="px-4 py-2">On Premise Server</td>
+          <td className="py-2 flex bg-gray-500 text-white pl-4">N/A</td>
         </tr>
       );
     }
