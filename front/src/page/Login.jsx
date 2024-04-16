@@ -4,7 +4,7 @@ import { useMyContext } from '../state/StateProvider';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-   const { state, dispatch } = useMyContext();
+   const { dispatch } = useMyContext();
    const [loginEmail, seLoginEmail] = useState();
    const [loginPassword, setLoginPassword] = useState();
    const [error, setError] = useState();
@@ -18,7 +18,8 @@ export const Login = () => {
          if (!result.data) {
             setError(true);
          }
-         await dispatch({ type: 'USER', payload: result.data });
+         const { email, fullName } = result.data.userData;
+         await dispatch({ type: 'USER', payload: { email, fullName } });
          window.localStorage.setItem('token', result.data.token);
          navigate('/');
       } catch (e) {

@@ -1,17 +1,32 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useMyContext } from '../state/StateProvider';
+import axios from '../api';
+import { useEffect } from 'react';
 
 export const Header = () => {
    const { state, dispatch } = useMyContext();
    const navigate = useNavigate();
-   console.log('Header', state.user);
+
+   const fetchLoginUser = async () => {
+      try {
+         const result = await axios.get('/auth/me');
+
+         await dispatch({ type: 'USER', payload: result.data });
+      } catch (err) {
+         console.log(err);
+      }
+   };
+   useEffect(() => {
+      fetchLoginUser();
+   }, []);
 
    const onClickLogout = async () => {
       await dispatch({ type: 'USER', payload: null });
+      localStorage.removeItem('token');
       navigate('/login');
    };
 
-   const userData = state.user?.userData;
+   const userData = state.user;
    return (
       <header className='antialiased'>
          <nav className='bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800'>

@@ -6,7 +6,7 @@ import { TableList } from './components/TableList';
 export const Home = () => {
    const { state, dispatch } = useMyContext();
    const navigate = useNavigate();
-   console.log(state, 'loginpage');
+
    return (
       <div className='text-black mt-20'>
          123
@@ -20,7 +20,7 @@ export const Home = () => {
          >
             Click me
          </button>
-         <TableList />
+         {/* <TableList /> */}
       </div>
    );
 };

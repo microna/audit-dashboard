@@ -8,7 +8,8 @@ const MyContext = createContext();
 export const StateProvider = ({ children }) => {
    const initialState = {
       // Your initial state properties go here
-      user: null
+      user: null,
+      token: localStorage.getItem('token') || null
    };
 
    const reducer = (state, action) => {
