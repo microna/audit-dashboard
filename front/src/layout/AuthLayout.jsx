@@ -1,12 +1,12 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { useMyContext } from "../state/StateProvider";
+import { Outlet, Navigate } from 'react-router-dom';
+import { useMyContext } from '../state/StateProvider';
 
 export const AuthLayout = () => {
-  const { state } = useMyContext();
-  // console.log(state);
-  if (!state.user) {
-    return <Navigate to="/login" replace />;
-  }
+   const { state } = useMyContext();
 
-  return <Outlet />;
+   if (!state.token) {
+      return <Navigate to='/login' replace />;
+   }
+
+   return <Outlet />;
 };

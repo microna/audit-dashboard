@@ -102,9 +102,13 @@ export const checkLogin = async (req, res) => {
             message: 'User not finded'
          });
       }
-      const { passwordHash, ...userData } = user._doc;
+      // console.log('user', user);
+      // const { token, userData } = user._doc;
 
-      res.json({ userData });
+      res.status(200).json({
+         email: user.email,
+         fullName: user.fullName
+      });
    } catch (err) {
       console.log(err);
       res.status(500).json({

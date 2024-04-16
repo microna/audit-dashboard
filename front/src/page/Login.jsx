@@ -18,10 +18,10 @@ export const Login = () => {
          if (!result.data) {
             setError(true);
          }
-         console.log(result.data);
-         // await dispatch({ type: "USER", payload: result.data });
+         const { email, fullName } = result.data.userData;
+         await dispatch({ type: 'USER', payload: { email, fullName } });
          window.localStorage.setItem('token', result.data.token);
-         //  navigate('/');
+         navigate('/');
       } catch (e) {
          setError(true);
       }
