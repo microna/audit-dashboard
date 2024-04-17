@@ -2,15 +2,47 @@ import mongoose from "mongoose";
 
 const AuditScheme = new mongoose.Schema(
   {
-    auditName: {
-      type: String,
-      required: true,
-    },
-
     userId: {
       type: String,
       required: true,
     },
+    auditName: {
+      type: String,
+      required: true,
+    },
+    overallTechHealth: {
+      type: String,
+      required: true,
+    },
+    overallInformation: {
+      type: String,
+      required: true,
+    },
+    computerCovered: {
+      type: Number,
+      required: true,
+    },
+    hostingCost: {
+      type: Number,
+      required: true,
+    },
+    contractCost: {
+      type: Number,
+      required: true,
+    },
+    overallBackupLevel: {
+      type: Number,
+      required: true,
+    },
+    overallSecurityLevel: {
+      type: Number,
+      required: true,
+    },
+    overallHardwareLevel: {
+      type: Number,
+      required: true,
+    },
+ 
   },
   {
     timestamps: true,

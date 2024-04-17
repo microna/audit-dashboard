@@ -9,18 +9,13 @@ export const Home = () => {
 
    return (
       <div className='text-black mt-20'>
-         123
-         {/* <p>Count: {state.count}</p>
-      <button onClick={() => dispatch({ type: "INCREMENT" })}>Increment</button>
-      <button onClick={() => dispatch({ type: "DECREMENT" })}>Decrement</button> */}
          <button
             onClick={() => {
                navigate('dashboard');
             }}
          >
-            Click me
          </button>
-         {/* <TableList /> */}
+         <TableList />
       </div>
    );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../api";
 
 export const AddAudit = () => {
   const options = {};
@@ -10,6 +10,14 @@ export const AddAudit = () => {
       const data = new FormData(event.target);
       const body = {
         auditName: data.get("audit-name"),
+        overallTechHealth: data.get("overall-tech-health"),
+        overallInformation: data.get("overall-information"),
+        computerCovered: data.get("computer-covered"),
+        hostingCost: data.get("hosting-cost"),
+        contractCost: data.get("contract-cost"),
+        overallBackupLevel: data.get("overall-backup-level"),
+        overallSecurityLevel: data.get("overall-security-level"),
+        overallHardwareLevel: data.get("overall-hardware-level"),
       };
       const result = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/audit",
@@ -28,6 +36,8 @@ export const AddAudit = () => {
       <form className="mt-5" action="" onSubmit={handleOnSubmitForm}>
         <label htmlFor="audit-name">Add new audit</label>
         <input
+          
+          required
           type="text"
           name="audit-name"
           placeholder="Type audit name here"
@@ -40,7 +50,8 @@ export const AddAudit = () => {
             Overall tech helth
           </label>
           <input
-            type="text"
+            required
+            type="number"
             name="overall-tech-health"
             id="overall-tech-health"
             className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -54,6 +65,7 @@ export const AddAudit = () => {
                 Overall information
               </label>
               <select
+                required
                 id="overall-information"
                 name="overall-information"
                 className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -70,6 +82,7 @@ export const AddAudit = () => {
               Computers Covered
             </label>
             <input
+              required
               type="number"
               name="computer-covered"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -79,6 +92,7 @@ export const AddAudit = () => {
               Cloud/Hosting Cost
             </label>
             <input
+              required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hosting-cost"
@@ -88,6 +102,7 @@ export const AddAudit = () => {
               Contract Cost
             </label>
             <input
+              required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="contract-cost"
@@ -98,6 +113,7 @@ export const AddAudit = () => {
               Overall backup level
             </label>
             <input
+              required
               id="overall-backup-level"
               type="number"
               name="overall-backup-level"
@@ -107,6 +123,7 @@ export const AddAudit = () => {
               Overall Security Level
             </label>
             <input
+              required
               id="overall-security-level"
               type="number"
               name="overall-security-level"
@@ -116,6 +133,7 @@ export const AddAudit = () => {
               Overall Hardware/Software Health Level
             </label>
             <input
+              required
               id="overall-hardware-level"
               type="number"
               name="overall-hardware-level"
