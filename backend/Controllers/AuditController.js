@@ -2,7 +2,7 @@ import AuditModel from "../models/Audit.js";
 
 export const create = async (req, res) => {
   try {
-    const result = await AuditModel({
+    await AuditModel({
       userId: req.userId,
       auditName: req.body.auditName,
       overallTechHealth: req.body.overallTechHealth,
@@ -22,12 +22,10 @@ export const create = async (req, res) => {
 
 export const many = async (req, res) => {
   try {
-    console.log(req.body);
-    console.log("req.userId", req.userId);
+
     const result = await AuditModel.find({ userId: req.userId });
     res.status(200).json({ message: result });
-    console.log(result);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ message: error.message });
   }
 };
