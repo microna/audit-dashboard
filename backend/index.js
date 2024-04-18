@@ -18,8 +18,6 @@ import * as PostController from "./Controllers/PostController.js";
 import * as AuditController from "./Controllers/AuditController.js";
 import handleValidationErrors from "./utils/handleValidationErrors.js";
 
-import AuditModel from "./models/Audit.js";
-
 mongoose
   .connect(process.env.DB_URL)
   .then(() => console.log("DB Ok"))
@@ -67,6 +65,7 @@ app.use("/uploads/avatars", express.static("uploads"));
 app.use(express.json());
 
 app.get("/audit", checkAuth, AuditController.many);
+app.get("/audit/:id", checkAuth, AuditController.getOne);
 app.post("/audit", checkAuth, AuditController.create);
 
 app.post(

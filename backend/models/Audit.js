@@ -42,7 +42,6 @@ const AuditScheme = new mongoose.Schema(
       type: Number,
       required: true,
     },
- 
   },
   {
     timestamps: true,

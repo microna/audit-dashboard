@@ -36,7 +36,6 @@ export const AddAudit = () => {
       <form className="mt-5" action="" onSubmit={handleOnSubmitForm}>
         <label htmlFor="audit-name">Add new audit</label>
         <input
-          
           required
           type="text"
           name="audit-name"

@@ -1,5 +1,5 @@
 import axios from "../../../api";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -43,11 +43,18 @@ export const TableList = () => {
             </th>
           </tr>
         </thead>
+
         <tbody>
           {obj &&
             obj.map((item) => {
               return (
-                <tr key={item._id} className="border-b dark:border-gray-700">
+                <tr
+                  onClick={() => {
+                    navigate("audit/" + item._id);
+                  }}
+                  key={item._id}
+                  className="border-b dark:border-gray-700"
+                >
                   <th
                     scope="row"
                     className="cursor-pointer px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -169,4 +176,6 @@ export const TableList = () => {
       </table>
     </div>
   );
+
+  
 };
