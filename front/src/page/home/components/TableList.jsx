@@ -1,5 +1,5 @@
 import axios from "../../../api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -9,7 +9,7 @@ export const TableList = () => {
 
   const getItems = async () => {
     try {
-      const result = await axios.get("/audits");
+      const result = await axios.get("/audit");
       setObj(result.data.message);
     } catch (error) {
       console.log(error.message);
@@ -19,9 +19,6 @@ export const TableList = () => {
   useEffect(() => {
     getItems();
   }, []);
-
-  // console.log('obj', obj);
-  // return null;
 
   return (
     <div className="pt-10 overflow-x-auto">
