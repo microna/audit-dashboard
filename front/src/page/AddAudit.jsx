@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "../api";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const AddAudit = () => {
+  const navigate = useNavigate();
+
   const options = {};
   const [loading, setIsLoading] = useState(false);
   const handleOnSubmitForm = async (event) => {
@@ -25,6 +28,7 @@ export const AddAudit = () => {
       );
       console.log(result);
       setIsLoading(false);
+      navigate(result.data.id, { replace: true });
     } catch (err) {
       setIsLoading(false);
       console.log(err);
@@ -142,7 +146,6 @@ export const AddAudit = () => {
         </div>
 
         <button
-          //   onClick={handleSubmitBtn}
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
