@@ -44,7 +44,6 @@ export const PieChartWithCustomizedLabel = () => {
         height={400}
         // margin={{ top: 5, right: 0, bottom: 5, left: 0 }}
       >
-      
         <Pie
           data={data}
           cx="50%"
