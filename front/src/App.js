@@ -22,7 +22,7 @@ function App() {
               <Route path="audit/:id" element={<AuditOne />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="add-audit" element={<AddAudit />} />
-              <Route path="audit" element={<Audit />} />
+              <Route path="audit" element={<AuditOne />} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>

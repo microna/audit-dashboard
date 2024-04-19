@@ -1,21 +1,22 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api";
 import { PieChart, Pie, Cell } from "recharts";
 
 let color = "";
 const RADIAN = Math.PI / 180;
-const data = [
-  { name: "A", value: 80, color: "#DE8344" },
-  { name: "B", value: 45, color: "#f1f1f1" },
-];
 
-export const PieChartWithNeedle = (props) => {
+export const PieChartWithNeedle = ({ componentData, title }) => {
+  const data = [
+    { name: "A", value: componentData, color: "#DE8344" },
+    { name: "B", value: 20, color: "#f1f1f1" },
+  ];
+
   const cx = 150; //postion x
   const cy = 130; //postion y
   const iR = 50; // fill radius
   const oR = 100;
-  const value = 60;
+  const value = 10;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
@@ -73,7 +74,7 @@ export const PieChartWithNeedle = (props) => {
         <p className="">At risk</p>
         <p className="">Protected</p>
       </div>
-      <div className="text-xl text-center mb-4">{props.title}</div>
+      <div className="text-xl text-center mb-4">{title}</div>
     </div>
   );
 };

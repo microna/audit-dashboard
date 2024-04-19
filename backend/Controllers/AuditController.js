@@ -2,7 +2,7 @@ import AuditModel from "../models/Audit.js";
 
 export const create = async (req, res) => {
   try {
-    await AuditModel({
+    const result = await AuditModel({
       userId: req.userId,
       auditName: req.body.auditName,
       overallTechHealth: req.body.overallTechHealth,
@@ -14,7 +14,8 @@ export const create = async (req, res) => {
       overallSecurityLevel: req.body.overallSecurityLevel,
       overallHardwareLevel: req.body.overallHardwareLevel,
     }).save();
-    res.status(201).json({ isSuccess: true });
+    console.log(result);
+    res.status(201).json({ isSuccess: true, id: result._id });
   } catch (error) {
     res.status(404).json("failed to post audit");
   }
