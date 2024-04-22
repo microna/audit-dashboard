@@ -57,17 +57,6 @@ export const login = async (req, res) => {
         message: "Login or Password incorrect (User not finded)",
       });
     }
-    // const isValidPass = await bcrypt.compare(
-    //    req.body.password,
-    //    user._doc.passwordHash
-    // );
-
-    // if (!isValidPass) {
-    //    return res.status(404).json({
-    //       message: 'Login or Password incorrect'
-    //    });
-    // }
-
     const token = jwt.sign(
       {
         _id: user._id,
@@ -102,8 +91,6 @@ export const checkLogin = async (req, res) => {
         message: "User not finded",
       });
     }
-    // console.log('user', user);
-    // const { token, userData } = user._doc;
 
     res.status(200).json({
       email: user.email,

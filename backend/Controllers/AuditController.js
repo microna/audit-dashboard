@@ -38,36 +38,49 @@ export const getOne = async (req, res) => {
     });
     console.log(result);
     if (!result) {
-      // throw new Error("cannot find audit");
       res.status(404).json({
         message: "Cannot find audit",
       });
       return;
     }
-
     res.json(result);
-    // AuditModel.findOne(
-    //   {
-    //     _id: postId,
-    //   },
-    //   (err, doc) => {
-    //     if(err){
-    //       console.log(err);
-    //      return res.status(500).json({
-    //         message: 'Cannot return audit'
-    //       })
-    //     }
-    //     if(!doc){
-    //       return res.status(404).json({
-    //         message: 'Cannot find audit'
-    //       })
-    //     }
-
-    //   }
-    // );
   } catch (err) {
     res.status(500).json({
       message: err.message,
+    });
+  }
+};
+
+
+export const remove = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    AuditModel.findOneAndDelete(
+      {
+        _id: postId,
+      },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            message: "failed remove this post",
+          });
+        }
+        if (!doc) {
+          return res.status(404).json({
+            message: "Post not finded",
+          });
+        }
+
+        res.json({
+          success: true,
+        });
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "failed finded this one post",
     });
   }
 };

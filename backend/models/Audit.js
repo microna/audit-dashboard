@@ -11,7 +11,7 @@ const AuditScheme = new mongoose.Schema(
       required: true,
     },
     overallTechHealth: {
-      type: String,
+      type: Number,
       required: true,
     },
     overallInformation: {

@@ -32,7 +32,7 @@ export const AuditOne = () => {
       <div class="grid grid-cols-4 gap-4 mt-10">
         <div className=" ">
           <PieChartWithNeedle
-            componentData={auditData.overallSecurityLevel}
+            componentData={auditData.overallTechHealth}
             title="Overall Tech Health"
           />
         </div>

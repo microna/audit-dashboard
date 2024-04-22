@@ -81,7 +81,7 @@ export const Audit = () => {
         <div className=" ">
           <ClientInfoItem title="Contract Level" data="Gold" />
           <ClientInfoItem title="Computers Covered" data="5" />
-          <ClientInfoItem title="$Cloud/Hosting Cost" data="£100" />
+          <ClientInfoItem title="Cloud/Hosting Cost" data="£100" />
           <ClientInfoItem title="Contract Cost" data="£175" />
         </div>
         <div className=" ">
