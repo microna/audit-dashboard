@@ -1,22 +1,36 @@
-/* eslint-disable no-shadow */
-import React, { useEffect, useState } from "react";
 import axios from "../../api";
 import { PieChart, Pie, Cell } from "recharts";
 
-let color = "";
+let colors = {
+  color1: "#DE8344",
+  color2: "#F5C342",
+  color3: "#7EAB55",
+  color4: "#4599CF",
+};
 const RADIAN = Math.PI / 180;
 
 export const PieChartWithNeedle = ({ componentData, title }) => {
   const data = [
-    { name: "A", value: componentData, color: "#DE8344" },
-    { name: "B", value: 20, color: "#f1f1f1" },
+    {
+      name: "A",
+      value: componentData,
+      color:
+        componentData >= 75
+          ? colors.color4
+          : componentData >= 50
+            ? colors.color3
+            : componentData >= 35
+              ? colors.color2
+              : colors.color1,
+    },
+    { name: "B", value: 100 - componentData, color: "#f1f1f1" },
   ];
 
   const cx = 150; //postion x
   const cy = 130; //postion y
   const iR = 50; // fill radius
   const oR = 100;
-  const value = 10;
+  const value = componentData;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;

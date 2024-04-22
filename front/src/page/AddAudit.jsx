@@ -28,7 +28,7 @@ export const AddAudit = () => {
       );
       console.log(result);
       setIsLoading(false);
-      navigate(result.data.id, { replace: true });
+      navigate("/audit/" + result.data.id, { replace: true });
     } catch (err) {
       setIsLoading(false);
       console.log(err);

@@ -1,10 +1,8 @@
 import express from "express";
-import multer from "multer";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
-import fs from "fs"; //auto create folder
 
 import {
   registerValidation,
@@ -27,46 +25,16 @@ const app = express();
 
 app.use(cors());
 
-////UPLOADS FILES
-const storage = multer.diskStorage({
-  destination: (_, __, callback) => {
-    if (!fs.existsSync("uploads")) {
-      //if fs cant fild folder 'uploads'
-      fs.mkdirSync("uploads"); //create /uploads folder (for heroku/vercel)
-    }
-    callback(null, "uploads");
-  },
-
-  filename: (_, file, callback) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    callback(null, file.fieldname + "-" + uniqueSuffix + `.png`);
-  },
-});
-
-const upload = multer({ storage });
-app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
-  res.json({
-    url: `/uploads/${req.file.filename}`,
-  });
-});
-
 app.get("/", (req, res) => {
   res.status(200).json("Hello world!");
 });
-
-app.post("/upload/avatars", upload.single("image"), (req, res) => {
-  res.json({
-    url: `/uploads/avatars/${req.file.filename}`,
-  });
-});
-app.use("/uploads/", express.static("uploads"));
-app.use("/uploads/avatars", express.static("uploads"));
 
 app.use(express.json());
 
 app.get("/audit", checkAuth, AuditController.many);
 app.get("/audit/:id", checkAuth, AuditController.getOne);
 app.post("/audit", checkAuth, AuditController.create);
+app.delete("/audit/:id", checkAuth, AuditController.remove);
 
 app.post(
   "/auth/login",
