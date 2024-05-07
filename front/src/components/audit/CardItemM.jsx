@@ -1,4 +1,5 @@
-export const CardItemM = () => {
+export const CardItemM = ({ auditData }) => {
+
   return (
     <div class="py-8 px-4 mx-auto ">
       <div className="flex flex-col items-center justify-center w-[100%]">
@@ -7,7 +8,8 @@ export const CardItemM = () => {
         </svg>
 
         <h2 className="mb-2">
-          DR Status - <span className="text-red-500 font-bold">At Risk</span>
+          DR Status -{" "}
+          <span className="text-red-500 font-bold">{auditData.drStatus}</span>
         </h2>
 
         <p className="text-center text-sm text-gray-500">

@@ -42,6 +42,94 @@ const AuditScheme = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    overallHardwareLevel: {
+      type: Number,
+      required: true,
+    },
+    overallHardwareLevel: {
+      type: Number,
+      required: true,
+    },
+    overallHardwareLevel: {
+      type: Number,
+      required: true,
+    },
+    onlinePremiseServersStatus: {
+      type: String,
+      required: true,
+    },
+    onlineFileStorageStatus: {
+      type: String,
+      required: true,
+    },
+    onlineDedicatedServersStatus: {
+      type: String,
+      required: true,
+    },
+    emailOnlinePersonalStatus: {
+      type: String,
+      required: true,
+    },
+    personalComputerStatus: {
+      type: String,
+      required: true,
+    },
+    fileTestRecovery: {
+      type: Date,
+      required: true,
+    },
+    backupSuccessRate: {
+      type: Number,
+      required: true,
+    },
+    drStatus: {
+      type: String,
+      required: true,
+    },
+    hardwareSystemSupport: {
+      type: Number,
+      required: true,
+    },
+    hardwareSystemOverdue: {
+      type: Number,
+      required: true,
+    },
+    digitalMaturitIndex: {
+      type: Number,
+      required: true,
+    },
+    hardwareAssetsSupported: {
+      type: Number,
+      required: true,
+    },
+    hardwareAssetsUnsupportedSoon: {
+      type: Number,
+      required: true,
+    },
+    hardwareAssetsUnsupported: {
+      type: Number,
+      required: true,
+    },
+    hardwareAssetsUnknown: {
+      type: Number,
+      required: true,
+    },
+    officeSuiteSupported: {
+      type: Number,
+      required: true,
+    },
+    officeSuiteUnsupportedSoon: {
+      type: Number,
+      required: true,
+    },
+    officeSuiteUnsupported: {
+      type: Number,
+      required: true,
+    },
+    officeSuiteAssetsUnknown: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

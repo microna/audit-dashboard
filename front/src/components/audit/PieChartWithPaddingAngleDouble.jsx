@@ -8,6 +8,7 @@ const data = [
   { name: "Group C", value: 300 },
 ];
 
+
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
   const {
@@ -34,6 +35,7 @@ const renderActiveShape = (props) => {
   const textAnchor = cos >= 0 ? "start" : "end";
 
   return (
+  
     <g>
       <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
         123

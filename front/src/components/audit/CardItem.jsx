@@ -1,4 +1,4 @@
-export const CardItem = () => {
+export const CardItem = ({ auditData }) => {
   return (
     <div class="px-4 mx-auto max-w-screen-xl">
       <div>
@@ -9,7 +9,7 @@ export const CardItem = () => {
           <div className="">
             <h2>Test file recovery</h2>
             <p className="text-green-500 weight-bold font-bold pt-3">
-              <input type="date" />
+              {auditData.fileTestRecovery}
             </p>
           </div>
         </div>
