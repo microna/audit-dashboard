@@ -1,11 +1,6 @@
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-];
-
 const COLORS = ["#4472c4", "#ed7d31"];
 
 const RADIAN = Math.PI / 180;
@@ -31,19 +26,23 @@ const renderCustomizedLabel = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {`${(percent * 100).toFixed(0)}%`}
+      {`${(percent * 100).toFixed(0)}`}
     </text>
   );
 };
 
-export const PieChartWithCustomizedLabel = () => {
+export const PieChartWithCustomizedLabel = ({
+  support = 145,
+  overdue = 55,
+}) => {
+  const total = support + support;
+  const data = [
+    { name: "Group A", value: (support / total) * 100 },
+    { name: "Group B", value: (overdue / total) * 100 },
+  ];
   return (
     <ResponsiveContainer width="100%" height="100%" maxHeight={180}>
-      <PieChart
-        width={400}
-        height={400}
-        // margin={{ top: 5, right: 0, bottom: 5, left: 0 }}
-      >
+      <PieChart width={400} height={400}>
         <Pie
           data={data}
           cx="50%"

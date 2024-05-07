@@ -1,37 +1,31 @@
 import React, { useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
-const initialData = [
-  { name: "Group A", value: 0 },
-  { name: "Group B", value: 100 },
-];
+export const PieChartWithPaddingAngle = ({ componentData, status }) => {
+  const data = [
+    { name: "Group A", value: componentData },
+    { name: "Group B", value: 100 - componentData },
+  ];
 
-const color = "red";
+  let statusState;
+  if (componentData >= 100) {
+    statusState = "Good";
+  } else if (componentData >= 50) {
+    statusState = "Normal";
+  } else {
+    statusState = "Not Good";
+  }
 
-export const PieChartWithPaddingAngle = (props) => {
-  const [inputValue, setInputValue] = useState("");
-  const [inputDataValue, setInputDataValue] = useState(0);
-  const [data, setData] = useState(initialData);
+  let statusColor;
+  if (statusState === "Normal") {
+    statusColor = "#DE8344";
+  } else if (statusState === "Not Good") {
+    statusColor = "#F5C342";
+  } else {
+    statusColor = "#4599CF";
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const inputValueNumber = parseInt(inputValue);
-    setInputDataValue(`${inputValueNumber}%`);
-
-    const newData = data.map((item) => {
-      if (item.name === "Group A") {
-        return { ...item, value: inputValueNumber };
-      }
-      if (item.name === "Group B") {
-        return { ...item, value: 100 - inputValueNumber };
-      }
-      return item;
-    });
-
-    setData(newData);
-  };
-
-  const COLORS = ["green", "#f1f1f1"];
+  const COLORS = [statusColor, "#f1f1f1"];
 
   return (
     <div style={{ height: "100%", width: "100%", position: "relative" }}>
@@ -56,24 +50,19 @@ export const PieChartWithPaddingAngle = (props) => {
           fontSize: "32px",
           fontWeight: "bold",
           position: "absolute",
-          color: "#0088FE",
+          color: statusColor,
           top: "30%",
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
       >
-        {inputDataValue}
+        {componentData}%
       </div>
-      <div className="flex justify-center">
-        <input
-          className="w-[100px]"
-          type="number"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Click
-        </button>
+      <div className="">
+        <div className="text-center">30 Days Backup Success Rate</div>
+        <div className="text-center font-bold" style={{ color: statusColor }}>
+          {statusState}
+        </div>
       </div>
     </div>
   );

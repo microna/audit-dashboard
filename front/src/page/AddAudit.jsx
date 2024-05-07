@@ -21,6 +21,29 @@ export const AddAudit = () => {
         overallBackupLevel: data.get("overall-backup-level"),
         overallSecurityLevel: data.get("overall-security-level"),
         overallHardwareLevel: data.get("overall-hardware-level"),
+        onlinePremiseServersStatus: data.get("online-premise-servers-status"),
+        onlineFileStorageStatus: data.get("online-file-storage-status"),
+        onlineDedicatedServersStatus: data.get(
+          "online-dedicated-servers-status"
+        ),
+        emailOnlinePersonalStatus: data.get("email-online-personal-status"),
+        personalComputerStatus: data.get("personal-computer-status"),
+        fileTestRecovery: data.get("file-test-recovery"),
+        backupSuccessRate: data.get("backup-success-rate"),
+        drStatus: data.get("dr-status"),
+        hardwareSystemSupport: data.get("hardware-system-support"),
+        hardwareSystemOverdue: data.get("hardware-system-overdue"),
+        digitalMaturitIndex: data.get("digital-maturit-index"),
+        hardwareAssetsSupported: data.get("hardware-assets-supported"),
+        hardwareAssetsUnsupportedSoon: data.get(
+          "hardware-assets-unsupported-soon"
+        ),
+        hardwareAssetsUnsupported: data.get("hardware-assets-unsupported"),
+        hardwareAssetsUnknown: data.get("hardware-assets-unknown"),
+        officeSuiteSupported: data.get("office-suite-supported"),
+        officeSuiteUnsupportedSoon: data.get("office-suite-unsupported-soon"),
+        officeSuiteUnsupported: data.get("office-suite-unsupported"),
+        officeSuiteAssetsUnknown: data.get("office-suite-unknown"),
       };
       const result = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/audit",
@@ -144,6 +167,238 @@ export const AddAudit = () => {
             />
           </div>
         </div>
+
+        {/* backup scorecard section*/}
+        <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+          <div className="block w-[70%]">
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for="name"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Online On Premise Servers
+              </label>
+              <select
+                required
+                id="online-premise-servers-status"
+                name="online-premise-servers-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5  gap-5">
+              <label
+                for="name"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Online Dedicated Servers
+              </label>
+              <select
+                required
+                id="online-dedicated-servers-status"
+                name="online-dedicated-servers-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for="name"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Email and Online Personal Files
+              </label>
+              <select
+                required
+                id="email-online-personal-status"
+                name="email-online-personal-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5  gap-5">
+              <label
+                for="online-file-storage-status"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Online File Storage
+              </label>
+              <select
+                required
+                id="online-file-storage-status"
+                name="online-file-storage-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="N/A">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for="personal-computer-status"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Personal Computers
+              </label>
+              <select
+                required
+                id="personal-computer-status"
+                name="personal-computer-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Unmonitored">Unmonitored</option>
+              </select>
+            </div>
+          </div>
+          <div className="block w-[70%]">
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for="file-test-recovery"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Test File Recovery
+              </label>
+              <input
+                id="file-test-recovery"
+                name="file-test-recovery"
+                type="date"
+                className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for="backup-success-rate"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Backup Success Rate
+              </label>
+              <input
+                required
+                id="backup-success-rate"
+                name="backup-success-rate"
+                type="number"
+                className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                htmlFor="dr-status"
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                DR Status
+              </label>
+              <select
+                required
+                id="dr-status"
+                name="dr-status"
+                className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">At Risk</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* hardware scorecard section*/}
+        <div class="grid gap-4 mb-4 sm:grid-cols-3 sm:gap-6 sm:mb-5">
+          <div className="block w-[70%]">
+            <label className="block" htmlFor="">
+              The Digital Maturity Index{" "}
+            </label>
+            <input
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="digital-maturit-index"
+            />
+            <label className="block" htmlFor="">
+              Systems still within useful life
+            </label>
+            <input
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="hardware-system-support"
+            />
+            <input
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="hardware-system-overdue"
+            />
+          </div>
+          <div className="block w-[70%]">
+            <label className="block" htmlFor="">
+              All hardware assets in the report
+            </label>
+            <input
+              placeholder="supported"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="hardware-assets-supported"
+            />
+            <input
+              placeholder="unsupported soon"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="hardware-assets-unsupported-soon"
+            />
+            <input
+              placeholder="unsupported"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="hardware-assets-unsupported"
+            />
+            <input
+              placeholder="unknown"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="hardware-assets-unknown"
+            />
+          </div>
+          <div className="block w-[70%]">
+            <label className="block" htmlFor="">
+              Not installed
+            </label>
+            <input
+              placeholder="supported"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="office-suite-supported"
+            />
+            <input
+              placeholder="unsupported soon"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="office-suite-unsupported-soon"
+            />
+            <input
+              placeholder="unsupported"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="office-suite-unsupported"
+            />
+            <input
+              placeholder="unknown"
+              required
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="number"
+              name="office-suite-unknown"
+            />
+          </div>
+        </div>
+
+        
 
         <button
           type="submit"

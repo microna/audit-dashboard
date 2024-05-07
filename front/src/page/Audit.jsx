@@ -228,11 +228,6 @@ export const Audit = () => {
         </div>
       </div>
 
-      {/* row-1 end */}
-
-      {/* row-2 start */}
-      {/* row-2 end */}
-
       {/* security scorecard end  */}
     </>
   );
