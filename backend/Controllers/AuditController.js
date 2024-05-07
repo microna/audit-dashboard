@@ -36,7 +36,7 @@ export const create = async (req, res) => {
     console.log(result);
     res.status(201).json({ isSuccess: true, id: result._id });
   } catch (error) {
-    res.status(404).json("failed to post audit");
+    res.status(404).json(error.message);
   }
 };
 

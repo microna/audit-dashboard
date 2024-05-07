@@ -2,6 +2,19 @@ import { useState } from "react";
 import axios from "../api";
 import { Navigate, useNavigate } from "react-router-dom";
 
+const CustomSelect = ({ children, id, name }) => {
+  return (
+    <select
+      required
+      id={id}
+      name={name}
+      className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    >
+      {children}
+    </select>
+  );
+};
+
 export const AddAudit = () => {
   const navigate = useNavigate();
 
@@ -90,18 +103,13 @@ export const AddAudit = () => {
               <label className="block" htmlFor="overall-information">
                 Overall information
               </label>
-              <select
-                required
-                id="overall-information"
-                name="overall-information"
-                className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
+              <CustomSelect id="overall-information" name="overall-information">
                 <option value="Bronze">Bronze</option>
                 <option value="Silver">Silver</option>
                 <option value="Gold">Gold</option>
                 <option value="Platinum">Platinum</option>
                 <option value="No contract">No contract</option>
-              </select>
+              </CustomSelect>
             </div>
 
             <label className=" block" htmlFor="">
@@ -397,8 +405,6 @@ export const AddAudit = () => {
             />
           </div>
         </div>
-
-        
 
         <button
           type="submit"

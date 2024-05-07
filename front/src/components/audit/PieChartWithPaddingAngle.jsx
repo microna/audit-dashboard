@@ -1,5 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
+
+const checkStatusState = (componentData) => {
+  if (componentData >= 100) {
+    return { text: "Good", color: "#DE8344" };
+  } else if (componentData >= 50) {
+    return { text: "Normal", color: "#4599CF" };
+  } else {
+    return { text: "Not Good", color: "#F5C342" };
+  }
+};
 
 export const PieChartWithPaddingAngle = ({ componentData, status }) => {
   const data = [
@@ -7,25 +17,9 @@ export const PieChartWithPaddingAngle = ({ componentData, status }) => {
     { name: "Group B", value: 100 - componentData },
   ];
 
-  let statusState;
-  if (componentData >= 100) {
-    statusState = "Good";
-  } else if (componentData >= 50) {
-    statusState = "Normal";
-  } else {
-    statusState = "Not Good";
-  }
+  const statusState = checkStatusState(componentData);
 
-  let statusColor;
-  if (statusState === "Normal") {
-    statusColor = "#DE8344";
-  } else if (statusState === "Not Good") {
-    statusColor = "#F5C342";
-  } else {
-    statusColor = "#4599CF";
-  }
-
-  const COLORS = [statusColor, "#f1f1f1"];
+  const COLORS = [statusState.color, "#f1f1f1"];
 
   return (
     <div style={{ height: "100%", width: "100%", position: "relative" }}>
@@ -50,7 +44,7 @@ export const PieChartWithPaddingAngle = ({ componentData, status }) => {
           fontSize: "32px",
           fontWeight: "bold",
           position: "absolute",
-          color: statusColor,
+          color: checkStatusState(componentData),
           top: "30%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -60,8 +54,11 @@ export const PieChartWithPaddingAngle = ({ componentData, status }) => {
       </div>
       <div className="">
         <div className="text-center">30 Days Backup Success Rate</div>
-        <div className="text-center font-bold" style={{ color: statusColor }}>
-          {statusState}
+        <div
+          className="text-center font-bold"
+          style={{ color: statusState.color }}
+        >
+          {statusState.text}
         </div>
       </div>
     </div>
