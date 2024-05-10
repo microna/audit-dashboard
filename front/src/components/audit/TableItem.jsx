@@ -7,14 +7,34 @@ const statusColors = {
   "N/a": "bg-gray-300",
 };
 
-export const TableItem = ({ componentData }) => {
+const securityTableTiles = {
+  title1: "Multi factor authentication implemented Protected",
+  title2: "Security training given to end users when onboarded/regularly",
+  title3: "Accounts audited, disabled and deleted –oldest password/account",
+  title4: "Vulnerability Management Status",
+  title5: "Mobile Device Management implemented & level of compliance",
+};
+
+export const TableItem = ({
+  statusRow1,
+  statusRow2,
+  statusRow3,
+  statusRow4,
+  statusRow5,
+  tableTitle,
+  titleRow1,
+  titleRow2,
+  titleRow3,
+  titleRow4,
+  titleRow5,
+}) => {
   return (
     <div className="relative overflow-x-auto">
       <table className="w-[100%] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-3 py-3">
-              Device type
+              {tableTitle}
             </th>
             <th scope="col" className="px-6 py-3">
               Status
@@ -23,37 +43,37 @@ export const TableItem = ({ componentData }) => {
         </thead>
         <tbody>
           <tr className="bg-white dark:bg-gray-800">
-            <td className="px-4 py-2">On Premise Servers</td>
-            <td className="py-2 flex bg-gray-500 text-white pl-4">
-              {componentData.onlinePremiseServersStatus}
+            <td className="px-4 py-2">{titleRow1}</td>
+            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+              {statusRow1}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
-            <td className="px-4 py-2">Online Dedicated Servers</td>
-            <td className="py-2 flex bg-gray-500 text-white pl-4">
-              {componentData.onlinePremiseServersStatus}
+            <td className="px-4 py-2">{titleRow2}</td>
+            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+              {statusRow2}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
-            <td className="px-4 py-2">Email and Online Personal Files</td>
-            <td className="py-2 flex bg-gray-500 text-white pl-4">
-              {componentData.emailOnlinePersonalStatus}
+            <td className="px-4 py-2">{titleRow3}</td>
+            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+              {statusRow3}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
-            <td className="px-4 py-2">Online File Storage</td>
-            <td className="py-2 flex bg-gray-500 text-white pl-4">
-              {componentData.onlineFileStorageStatus}
+            <td className="px-4 py-2">{titleRow4}</td>
+            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+              {statusRow4}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
-            <td className="px-4 py-2">Personal Computers</td>
-            <td className="py-2 flex bg-gray-500 text-white pl-4">
-              {componentData.personalComputerStatus}
+            <td className="px-4 py-2">{titleRow5}</td>
+            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+              {statusRow5}
             </td>
           </tr>
         </tbody>

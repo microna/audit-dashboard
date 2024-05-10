@@ -32,6 +32,16 @@ export const create = async (req, res) => {
       officeSuiteUnsupportedSoon: req.body.officeSuiteUnsupportedSoon,
       officeSuiteUnsupported: req.body.officeSuiteUnsupported,
       officeSuiteAssetsUnknown: req.body.officeSuiteAssetsUnknown,
+      multiFactorAuthentication: req.body.multiFactorAuthentication,
+      securityTrainingGiven: req.body.securityTrainingGiven,
+      accountsAudited: req.body.accountsAudited,
+      vulnerabilityManagement: req.body.vulnerabilityManagement,
+      mobileDeviceManagement: req.body.mobileDeviceManagement,
+      allComputersUpToDate: req.body.allComputersUpToDate,
+      allComputersRunningAntiVirus: req.body.allComputersRunningAntiVirus,
+      advanceEmailProtectionWithAdvancedMalware: req.body.advanceEmailProtectionWithAdvancedMalware,
+      businessFilesProtected: req.body.businessFilesProtected,
+      aiImplemented: req.body.aiImplemented,
     }).save();
     console.log(result);
     res.status(201).json({ isSuccess: true, id: result._id });
