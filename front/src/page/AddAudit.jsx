@@ -57,6 +57,20 @@ export const AddAudit = () => {
         officeSuiteUnsupportedSoon: data.get("office-suite-unsupported-soon"),
         officeSuiteUnsupported: data.get("office-suite-unsupported"),
         officeSuiteAssetsUnknown: data.get("office-suite-unknown"),
+        multiFactorAuthentication: data.get("multi-factor-authentication"),
+        securityTrainingGiven: data.get("security-training-given"),
+        accountsAudited: data.get("accounts-audited"),
+        vulnerabilityManagement: data.get("vulnerability-management"),
+        mobileDeviceManagement: data.get("mobile-device-management"),
+        allComputersUpToDate: data.get("all-computers-up-to-date"),
+        allComputersRunningAntiVirus: data.get(
+          "all-computers-running-anti-virus"
+        ),
+        advanceEmailProtectionWithAdvancedMalware: data.get(
+          "advance-email-protection-with-advanced-malware"
+        ),
+        businessFilesProtected: data.get("business-files-protected"),
+        aiImplemented: data.get("ai-implemented"),
       };
       const result = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/audit",
@@ -404,7 +418,177 @@ export const AddAudit = () => {
               name="office-suite-unknown"
             />
           </div>
+
+          {/* security scorecard */}
         </div>
+        <div class="grid mb-4 gap-4 sm:grid-cols-2 sm:mb-5">
+          <div className="block w-[100%]">
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Multi factor authentication implemented
+              </label>
+              <select
+                required
+                id="multi-factor-authentication"
+                name="multi-factor-authentication"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5  gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Security training given to end users when onboarded/regularly
+              </label>
+              <select
+                required
+                id="security-training-given"
+                name="security-training-given"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Accounts audited, disabled and deleted – oldest password/account
+              </label>
+              <select
+                required
+                id="accounts-audited"
+                name="accounts-audited"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5  gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Vulnerability Management Status
+              </label>
+              <select
+                required
+                id="vulnerability-management"
+                name="vulnerability-management"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="N/A">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Mobile Device Management implemented & level of compliance
+              </label>
+              <select
+                required
+                id="mobile-device-management"
+                name="mobile-device-management"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Unmonitored">Unmonitored</option>
+              </select>
+            </div>
+          </div>
+          <div className="block w-[100%]">
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                All computers up to date & running supported software
+              </label>
+              <select
+                required
+                id="all-computers-up-to-date"
+                name="all-computers-up-to-date"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5  gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                All computers running anti-virus & ideally NextGen Anti-Virus
+              </label>
+              <select
+                required
+                id="all-computers-running-anti-virus"
+                name="all-computers-running-anti-virus"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Advance email protection with advanced malware & spam filtering
+              </label>
+              <select
+                required
+                id="advance-email-protection-with-advanced-malware"
+                name="advance-email-protection-with-advanced-malware"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Protected">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5  gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Business files protected against attack including ransomware
+              </label>
+              <select
+                required
+                id="business-files-protected"
+                name="business-files-protected"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="N/A">Protected</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                AI implemented to look for suspicious file activity
+              </label>
+              <select
+                required
+                id="ai-implemented"
+                name="ai-implemented"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Unmonitored">Unmonitored</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid my-4 sm:grid-cols-2 sm:mb-5"></div>
 
         <button
           type="submit"

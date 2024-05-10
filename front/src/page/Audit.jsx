@@ -213,7 +213,8 @@ export const Audit = () => {
           </p>
         </div>
         <div className="">
-          <TableItem title="Access Control Protection" rowCount={5} />
+          
+          <TableItem />
           <div className="grid grid-cols-2 gap-2">
             <Features title="Microsoft Security Score" imgLink={svgIcon4} />
             <Features title="Microsoft Security Score" imgLink={svgIcon4} />

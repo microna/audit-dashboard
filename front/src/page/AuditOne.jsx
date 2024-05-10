@@ -138,7 +138,19 @@ export const AuditOne = () => {
         </div>
 
         <div className="col-span-2">
-          <TableItem componentData={auditData} />
+          <TableItem
+            tableTitle="Device Type"
+            statusRow1={auditData.onlinePremiseServersStatus}
+            statusRow2={auditData.onlineDedicatedServersStatus}
+            statusRow3={auditData.emailOnlinePersonalStatus}
+            statusRow4={auditData.onlineFileStorageStatus}
+            statusRow5={auditData.personalComputerStatus}
+            titleRow1="On Premise Servers"
+            titleRow2="Online Dedicated Servers"
+            titleRow3="Email and Online Personal Files"
+            titleRow4="Online File Storage"
+            titleRow5="Personal Computers"
+          />
         </div>
 
         <div className=" ">
@@ -264,7 +276,19 @@ export const AuditOne = () => {
           </p>
         </div>
         <div className="">
-          <TableItem componentData={auditData} />
+          <TableItem
+            tableTitle="Access Control Protection"
+            statusRow1={auditData.multiFactorAuthentication}
+            statusRow2={auditData.securityTrainingGiven}
+            statusRow3={auditData.accountsAudited}
+            statusRow4={auditData.vulnerabilityManagement}
+            statusRow5={auditData.mobileDeviceManagement}
+            titleRow1="Multi factor authentication implemented Protected"
+            titleRow2="Security training given to end users when onboarded/regularly"
+            titleRow3="Accounts audited, disabled and deleted –oldest password/account"
+            titleRow4="Vulnerability Management Status"
+            titleRow5="Mobile Device Management implemented & level of compliance"
+          />
 
           <div className="grid grid-cols-2 gap-2">
             <Features title="Lucidica Security Pro" imgLink={svgIcon1} />
@@ -273,7 +297,23 @@ export const AuditOne = () => {
         </div>
         <div className="">
           <div className="grid gap-2">
-            <TableItem componentData={auditData} />
+            <TableItem
+              tableTitle="Protection Against Malware"
+              statusRow1={auditData.allComputersUpToDate}
+              statusRow2={auditData.allComputersRunningAntiVirus}
+              statusRow3={auditData.advanceEmailProtectionWithAdvancedMalware}
+              statusRow4={auditData.businessFilesProtected}
+              statusRow5={auditData.aiImplemented}
+              titleRow1="All computers up to date & running supported
+              software"
+              titleRow2="All computers running anti-virus & ideally NextGen
+              Anti-Virus"
+              titleRow3="Advance email protection with advanced malware &
+              spam filtering"
+              titleRow4="Business files protected against attack including
+              ransomware"
+              titleRow5="AI implemented to look for suspicious file activity Protected"
+            />
             <TableDoubleItems />
           </div>
         </div>

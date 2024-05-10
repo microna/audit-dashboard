@@ -130,6 +130,50 @@ const AuditScheme = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    officeSuiteAssetsUnknown: {
+      type: Number,
+      required: true,
+    },
+    multiFactorAuthentication: {
+      type: String,
+      required: true,
+    },
+    securityTrainingGiven: {
+      type: String,
+      required: true,
+    },
+    accountsAudited: {
+      type: String,
+      required: true,
+    },
+    vulnerabilityManagement: {
+      type: String,
+      required: true,
+    },
+    mobileDeviceManagement: {
+      type: String,
+      required: true,
+    },
+    allComputersUpToDate: {
+      type: String,
+      required: true,
+    },
+    allComputersRunningAntiVirus: {
+      type: String,
+      required: true,
+    },
+    advanceEmailProtectionWithAdvancedMalware: {
+      type: String,
+      required: true,
+    },
+    businessFilesProtected: {
+      type: String,
+      required: true,
+    },
+    aiImplemented: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
