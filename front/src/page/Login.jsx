@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const { dispatch } = useMyContext();
-  const [loginEmail, seLoginEmail] = useState();
-  const [loginPassword, setLoginPassword] = useState();
-  const [error, setError] = useState();
+  const [loginEmail, seLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -19,7 +19,7 @@ export const Login = () => {
         setError(true);
       }
       const { email, fullName } = result.data.userData;
-      await dispatch({ type: "USER", payload: { email, fullName } });
+      await dispatch({ type: "USER", payload: { email, fullName, token: result.data.token } });
       window.localStorage.setItem("token", result.data.token);
       navigate("/");
     } catch (e) {
