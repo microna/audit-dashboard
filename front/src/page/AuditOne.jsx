@@ -314,7 +314,14 @@ export const AuditOne = () => {
               ransomware"
               titleRow5="AI implemented to look for suspicious file activity Protected"
             />
-            <TableDoubleItems />
+            <TableDoubleItems
+              globalAdminRow1={auditData.globalAdminsNames}
+              globalAdminStatusRow1={auditData.globalAdminsNamesStatus}
+              accountsRow2={auditData.desktopAdminNames}
+              adminStatusRow2={auditData.desktopAdminNamesStatus}
+              accountsRow3={auditData.serverAdminNames}
+              adminStatusRow3={auditData.serverAdminNamesStatus}
+            />
           </div>
         </div>
       </div>

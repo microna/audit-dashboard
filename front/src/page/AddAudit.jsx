@@ -37,7 +37,7 @@ export const AddAudit = () => {
         onlinePremiseServersStatus: data.get("online-premise-servers-status"),
         onlineFileStorageStatus: data.get("online-file-storage-status"),
         onlineDedicatedServersStatus: data.get(
-          "online-dedicated-servers-status"
+          "online-dedicated-servers-status",
         ),
         emailOnlinePersonalStatus: data.get("email-online-personal-status"),
         personalComputerStatus: data.get("personal-computer-status"),
@@ -49,7 +49,7 @@ export const AddAudit = () => {
         digitalMaturitIndex: data.get("digital-maturit-index"),
         hardwareAssetsSupported: data.get("hardware-assets-supported"),
         hardwareAssetsUnsupportedSoon: data.get(
-          "hardware-assets-unsupported-soon"
+          "hardware-assets-unsupported-soon",
         ),
         hardwareAssetsUnsupported: data.get("hardware-assets-unsupported"),
         hardwareAssetsUnknown: data.get("hardware-assets-unknown"),
@@ -64,17 +64,24 @@ export const AddAudit = () => {
         mobileDeviceManagement: data.get("mobile-device-management"),
         allComputersUpToDate: data.get("all-computers-up-to-date"),
         allComputersRunningAntiVirus: data.get(
-          "all-computers-running-anti-virus"
+          "all-computers-running-anti-virus",
         ),
         advanceEmailProtectionWithAdvancedMalware: data.get(
-          "advance-email-protection-with-advanced-malware"
+          "advance-email-protection-with-advanced-malware",
         ),
         businessFilesProtected: data.get("business-files-protected"),
         aiImplemented: data.get("ai-implemented"),
+
+        globalAdminsNames: data.get("global-admins-names"),
+        globalAdminsNamesStatus: data.get("global-admins-names-status"),
+        desktopAdminNames: data.get("desktop-admin-names"),
+        desktopAdminNamesStatus: data.get("desktop-admin-names-status"),
+        serverAdminNames: data.get("server-admin-names"),
+        serverAdminNamesStatus: data.get("server-admin-names-status"),
       };
       const result = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/audit",
-        body
+        body,
       );
       console.log(result);
       setIsLoading(false);
@@ -423,6 +430,7 @@ export const AddAudit = () => {
         </div>
         <div class="grid mb-4 gap-4 sm:grid-cols-2 sm:mb-5">
           <div className="block w-[100%]">
+            <h3 className="text-xl my-10">Access Control Protection</h3>
             <div class="flex items-center justify-between mb-5 gap-5">
               <label
                 for=""
@@ -505,6 +513,7 @@ export const AddAudit = () => {
             </div>
           </div>
           <div className="block w-[100%]">
+            <h3 className="text-xl my-10">Protection Against Malware</h3>
             <div class="flex items-center justify-between mb-5 gap-5">
               <label
                 for=""
@@ -583,6 +592,80 @@ export const AddAudit = () => {
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option value="Unmonitored">Unmonitored</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="block w-[100%]">
+            <h3 className="text-xl my-10">Admin Accounts</h3>
+
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Global Admins in M365
+              </label>
+              <input
+                placeholder="Type Global Admins Name"
+                required
+                className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                name="global-admins-names"
+              />
+              <select
+                required
+                id="global-admins-names-status"
+                name="global-admins-names-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Medium Risk">Medium Risk</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Desktop admin access
+              </label>
+              <input
+                placeholder="Type Desktop Admins Name"
+                required
+                className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                name="desktop-admin-names"
+              />
+              <select
+                required
+                id="desktop-admin-names-status"
+                name="desktop-admin-names-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Medium Risk">Medium Risk</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between mb-5 gap-5">
+              <label
+                for=""
+                class="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Server admin access for
+              </label>
+              <input
+                placeholder="Server Admin Name"
+                required
+                className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text"
+                name="server-admin-names"
+              />
+              <select
+                required
+                id="server-admin-names-status"
+                name="server-admin-names-status"
+                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Medium Risk">Medium Risk</option>
               </select>
             </div>
           </div>

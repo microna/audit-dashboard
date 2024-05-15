@@ -174,10 +174,34 @@ const AuditScheme = new mongoose.Schema(
       type: String,
       required: true,
     },
+    globalAdminsNames: {
+      type: String,
+      required: true,
+    },
+    globalAdminsNamesStatus: {
+      type: String,
+      required: true,
+    },
+    desktopAdminNames: {
+      type: String,
+      required: true,
+    },
+    desktopAdminNamesStatus: {
+      type: String,
+      required: true,
+    },
+    serverAdminNames: {
+      type: String,
+      required: true,
+    },
+    serverAdminNamesStatus: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.model("Audit", AuditScheme);
