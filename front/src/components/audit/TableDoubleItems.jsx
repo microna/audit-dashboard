@@ -7,7 +7,14 @@ const statusColors = {
   "N/a": "bg-gray-300",
 };
 
-export const TableDoubleItems = () => {
+export const TableDoubleItems = ({
+  globalAdminRow1,
+  globalAdminStatusRow1,
+  adminStatusRow2,
+  accountsRow2,
+  adminStatusRow3,
+  accountsRow3,
+}) => {
   return (
     <div className="relative overflow-x-auto">
       <table className="w-[100%] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -27,24 +34,26 @@ export const TableDoubleItems = () => {
         <tbody>
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">Global Admins in M365</td>
-            <td className="px-4 py-2">Lucidica, HK IT Support, Pax8</td>
+            <td className="px-4 py-2">{globalAdminRow1}</td>
             <td className="py-2 flex bg-yellow-300 text-white pl-4">
-              Medium Risk
+              {globalAdminStatusRow1}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">Desktop admin access</td>
-            <td className="px-4 py-2">All Users</td>
+            <td className="px-4 py-2">{accountsRow2}</td>
             <td className="py-2 flex bg-yellow-300 text-white pl-4">
-              Medium Risk
+              {adminStatusRow2}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">Server admin access</td>
-            <td className="px-4 py-2">Lucidica</td>
-            <td className="py-2 flex bg-green-500 text-white pl-4">Low Risk</td>
+            <td className="px-4 py-2">{accountsRow3}</td>
+            <td className="py-2 flex bg-green-500 text-white pl-4">
+              {adminStatusRow3}
+            </td>
           </tr>
         </tbody>
       </table>

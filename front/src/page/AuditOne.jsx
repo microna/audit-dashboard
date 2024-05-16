@@ -291,8 +291,16 @@ export const AuditOne = () => {
           />
 
           <div className="grid grid-cols-2 gap-2">
-            <Features title="Lucidica Security Pro" imgLink={svgIcon1} />
-            <Features title="Microsoft Secure Score" imgLink={svgIcon2} />
+            <Features
+              title="Lucidica Security Pro"
+              imgLink={svgIcon1}
+              featureData={auditData.lucidicaSecurityPro}
+            />
+            <Features
+              title="Microsoft Secure Score"
+              imgLink={svgIcon2}
+              featureData={auditData.microsoftSecureScore}
+            />
           </div>
         </div>
         <div className="">
@@ -314,7 +322,14 @@ export const AuditOne = () => {
               ransomware"
               titleRow5="AI implemented to look for suspicious file activity Protected"
             />
-            <TableDoubleItems />
+            <TableDoubleItems
+              globalAdminRow1={auditData.globalAdminsNames}
+              globalAdminStatusRow1={auditData.globalAdminsNamesStatus}
+              accountsRow2={auditData.desktopAdminNames}
+              adminStatusRow2={auditData.desktopAdminNamesStatus}
+              accountsRow3={auditData.serverAdminNames}
+              adminStatusRow3={auditData.serverAdminNamesStatus}
+            />
           </div>
         </div>
       </div>

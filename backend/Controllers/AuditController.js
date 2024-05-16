@@ -39,9 +39,18 @@ export const create = async (req, res) => {
       mobileDeviceManagement: req.body.mobileDeviceManagement,
       allComputersUpToDate: req.body.allComputersUpToDate,
       allComputersRunningAntiVirus: req.body.allComputersRunningAntiVirus,
-      advanceEmailProtectionWithAdvancedMalware: req.body.advanceEmailProtectionWithAdvancedMalware,
+      advanceEmailProtectionWithAdvancedMalware:
+        req.body.advanceEmailProtectionWithAdvancedMalware,
       businessFilesProtected: req.body.businessFilesProtected,
       aiImplemented: req.body.aiImplemented,
+      globalAdminsNames: req.body.globalAdminsNames,
+      globalAdminsNamesStatus: req.body.globalAdminsNamesStatus,
+      desktopAdminNames: req.body.desktopAdminNames,
+      desktopAdminNamesStatus: req.body.desktopAdminNamesStatus,
+      serverAdminNames: req.body.serverAdminNames,
+      serverAdminNamesStatus: req.body.serverAdminNamesStatus,
+      lucidicaSecurityPro: req.body.lucidicaSecurityPro,
+      microsoftSecureScore: req.body.microsoftSecureScore,
     }).save();
     console.log(result);
     res.status(201).json({ isSuccess: true, id: result._id });
@@ -103,7 +112,7 @@ export const remove = async (req, res) => {
         res.json({
           success: true,
         });
-      }
+      },
     );
   } catch (err) {
     console.log(err);
