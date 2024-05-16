@@ -5,8 +5,8 @@
 //   return (
 //     <>
 //           <h2 className="text-3xl mt-10">Client Score Card</h2>
-//           <div class="mt-5 bg-blue-700 h-px w-[80%]"></div>
-//           <div class="grid grid-cols-4 gap-4 mt-10">
+//           <div className="mt-5 bg-blue-700 h-px w-[80%]"></div>
+//           <div className="grid grid-cols-4 gap-4 mt-10">
 //           <div className=" ">
 //             <PieChartWithNeedle id="techHealth" title="Overall Tech Health" />
 //           </div>

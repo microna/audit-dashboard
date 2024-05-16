@@ -39,9 +39,9 @@ export const AuditOne = () => {
     <>
       {/* {auditData.auditName} */}
       <h2 className="text-3xl mt-10">Client Scorcard</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%]"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%]"></div>
 
-      <div class="grid grid-cols-4 gap-4 mt-10">
+      <div className="grid grid-cols-4 gap-4 mt-10">
         <div className=" ">
           <PieChartWithNeedle
             componentData={auditData.overallTechHealth}
@@ -80,26 +80,26 @@ export const AuditOne = () => {
         </div>
         <div className=" ">
           <ClientInfoItem>
-            <p class="text-gray-500">Contract Level</p>
-            <h5 class="text-l font-semibold">
+            <p className="text-gray-500">Contract Level</p>
+            <h5 className="text-l font-semibold">
               <p>{auditData.overallInformation}</p>
             </h5>
           </ClientInfoItem>
           <ClientInfoItem>
-            <p class="text-gray-500">Computers Covered</p>
-            <h5 class="text-l font-semibold">
+            <p className="text-gray-500">Computers Covered</p>
+            <h5 className="text-l font-semibold">
               <p>{auditData.computerCovered}</p>
             </h5>
           </ClientInfoItem>
           <ClientInfoItem>
-            <p class="text-gray-500">Cloud/hosting cost</p>
-            <h5 class="text-l font-semibold">
+            <p className="text-gray-500">Cloud/hosting cost</p>
+            <h5 className="text-l font-semibold">
               <p>£{auditData.hostingCost}</p>
             </h5>
           </ClientInfoItem>
           <ClientInfoItem>
-            <p class="text-gray-500">Contract Cost</p>
-            <h5 class="text-l font-semibold">
+            <p className="text-gray-500">Contract Cost</p>
+            <h5 className="text-l font-semibold">
               <p>£{auditData.contractCost}</p>
             </h5>
           </ClientInfoItem>
@@ -126,7 +126,7 @@ export const AuditOne = () => {
       {/* backup Backup start  */}
 
       <h2 className="text-3xl mt-10">Backup Scorecard</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
       <div className="grid grid-cols-6 gap-2">
         {/* row-1 start */}
@@ -185,7 +185,7 @@ export const AuditOne = () => {
       {/* row-2 end */}
 
       <h2 className="text-3xl mt-10"> Hardware Scorecard</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
       <div className="grid grid-cols-3 gap-2">
         {/* row-1 start */}
@@ -252,7 +252,7 @@ export const AuditOne = () => {
 
       {/* security scorecard start  */}
       <h2 className="text-3xl mt-10"> Security Scorecard</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
       {/* row-1 start */}
       <div className="grid grid-cols-3 gap-2">

@@ -1,58 +1,78 @@
 import AuditModel from "../models/Audit.js";
 
+const fullAudit = (req) => {
+  return {
+    userId: req.userId,
+    auditName: req.body.auditName,
+    overallTechHealth: req.body.overallTechHealth,
+    overallInformation: req.body.overallInformation,
+    computerCovered: req.body.computerCovered,
+    hostingCost: req.body.hostingCost,
+    contractCost: req.body.contractCost,
+    overallBackupLevel: req.body.overallBackupLevel,
+    overallSecurityLevel: req.body.overallSecurityLevel,
+    overallHardwareLevel: req.body.overallHardwareLevel,
+    onlinePremiseServersStatus: req.body.onlinePremiseServersStatus,
+    onlineFileStorageStatus: req.body.onlineFileStorageStatus,
+    onlineDedicatedServersStatus: req.body.onlineDedicatedServersStatus,
+    emailOnlinePersonalStatus: req.body.emailOnlinePersonalStatus,
+    personalComputerStatus: req.body.personalComputerStatus,
+    fileTestRecovery: req.body.fileTestRecovery,
+    backupSuccessRate: req.body.backupSuccessRate,
+    drStatus: req.body.drStatus,
+    hardwareSystemSupport: req.body.hardwareSystemSupport,
+    hardwareSystemOverdue: req.body.hardwareSystemOverdue,
+    digitalMaturitIndex: req.body.digitalMaturitIndex,
+    hardwareAssetsSupported: req.body.hardwareAssetsSupported,
+    hardwareAssetsUnsupportedSoon: req.body.hardwareAssetsUnsupportedSoon,
+    hardwareAssetsUnsupported: req.body.hardwareAssetsUnsupported,
+    hardwareAssetsUnknown: req.body.hardwareAssetsUnknown,
+    officeSuiteSupported: req.body.officeSuiteSupported,
+    officeSuiteUnsupportedSoon: req.body.officeSuiteUnsupportedSoon,
+    officeSuiteUnsupported: req.body.officeSuiteUnsupported,
+    officeSuiteAssetsUnknown: req.body.officeSuiteAssetsUnknown,
+    multiFactorAuthentication: req.body.multiFactorAuthentication,
+    securityTrainingGiven: req.body.securityTrainingGiven,
+    accountsAudited: req.body.accountsAudited,
+    vulnerabilityManagement: req.body.vulnerabilityManagement,
+    mobileDeviceManagement: req.body.mobileDeviceManagement,
+    allComputersUpToDate: req.body.allComputersUpToDate,
+    allComputersRunningAntiVirus: req.body.allComputersRunningAntiVirus,
+    advanceEmailProtectionWithAdvancedMalware:
+      req.body.advanceEmailProtectionWithAdvancedMalware,
+    businessFilesProtected: req.body.businessFilesProtected,
+    aiImplemented: req.body.aiImplemented,
+    globalAdminsNames: req.body.globalAdminsNames,
+    globalAdminsNamesStatus: req.body.globalAdminsNamesStatus,
+    desktopAdminNames: req.body.desktopAdminNames,
+    desktopAdminNamesStatus: req.body.desktopAdminNamesStatus,
+    serverAdminNames: req.body.serverAdminNames,
+    serverAdminNamesStatus: req.body.serverAdminNamesStatus,
+    lucidicaSecurityPro: req.body.lucidicaSecurityPro,
+    microsoftSecureScore: req.body.microsoftSecureScore,
+  };
+};
+
 export const create = async (req, res) => {
   try {
-    const result = await AuditModel({
-      userId: req.userId,
-      auditName: req.body.auditName,
-      overallTechHealth: req.body.overallTechHealth,
-      overallInformation: req.body.overallInformation,
-      computerCovered: req.body.computerCovered,
-      hostingCost: req.body.hostingCost,
-      contractCost: req.body.contractCost,
-      overallBackupLevel: req.body.overallBackupLevel,
-      overallSecurityLevel: req.body.overallSecurityLevel,
-      overallHardwareLevel: req.body.overallHardwareLevel,
-      onlinePremiseServersStatus: req.body.onlinePremiseServersStatus,
-      onlineFileStorageStatus: req.body.onlineFileStorageStatus,
-      onlineDedicatedServersStatus: req.body.onlineDedicatedServersStatus,
-      emailOnlinePersonalStatus: req.body.emailOnlinePersonalStatus,
-      personalComputerStatus: req.body.personalComputerStatus,
-      fileTestRecovery: req.body.fileTestRecovery,
-      backupSuccessRate: req.body.backupSuccessRate,
-      drStatus: req.body.drStatus,
-      hardwareSystemSupport: req.body.hardwareSystemSupport,
-      hardwareSystemOverdue: req.body.hardwareSystemOverdue,
-      digitalMaturitIndex: req.body.digitalMaturitIndex,
-      hardwareAssetsSupported: req.body.hardwareAssetsSupported,
-      hardwareAssetsUnsupportedSoon: req.body.hardwareAssetsUnsupportedSoon,
-      hardwareAssetsUnsupported: req.body.hardwareAssetsUnsupported,
-      hardwareAssetsUnknown: req.body.hardwareAssetsUnknown,
-      officeSuiteSupported: req.body.officeSuiteSupported,
-      officeSuiteUnsupportedSoon: req.body.officeSuiteUnsupportedSoon,
-      officeSuiteUnsupported: req.body.officeSuiteUnsupported,
-      officeSuiteAssetsUnknown: req.body.officeSuiteAssetsUnknown,
-      multiFactorAuthentication: req.body.multiFactorAuthentication,
-      securityTrainingGiven: req.body.securityTrainingGiven,
-      accountsAudited: req.body.accountsAudited,
-      vulnerabilityManagement: req.body.vulnerabilityManagement,
-      mobileDeviceManagement: req.body.mobileDeviceManagement,
-      allComputersUpToDate: req.body.allComputersUpToDate,
-      allComputersRunningAntiVirus: req.body.allComputersRunningAntiVirus,
-      advanceEmailProtectionWithAdvancedMalware:
-        req.body.advanceEmailProtectionWithAdvancedMalware,
-      businessFilesProtected: req.body.businessFilesProtected,
-      aiImplemented: req.body.aiImplemented,
-      globalAdminsNames: req.body.globalAdminsNames,
-      globalAdminsNamesStatus: req.body.globalAdminsNamesStatus,
-      desktopAdminNames: req.body.desktopAdminNames,
-      desktopAdminNamesStatus: req.body.desktopAdminNamesStatus,
-      serverAdminNames: req.body.serverAdminNames,
-      serverAdminNamesStatus: req.body.serverAdminNamesStatus,
-      lucidicaSecurityPro: req.body.lucidicaSecurityPro,
-      microsoftSecureScore: req.body.microsoftSecureScore,
-    }).save();
+    const fullAuditPrepared = fullAudit(req);
+    const result = await AuditModel(fullAuditPrepared).save();
     console.log(result);
+    res.status(201).json({ isSuccess: true, id: result._id });
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const fullAuditPrepared = fullAudit(req);
+    const _id = req.params.id;
+
+    const result = await AuditModel.findOneAndUpdate(
+      { userId: fullAuditPrepared.userId, _id },
+      fullAuditPrepared,
+    );
     res.status(201).json({ isSuccess: true, id: result._id });
   } catch (error) {
     res.status(404).json(error.message);

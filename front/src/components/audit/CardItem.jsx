@@ -1,8 +1,8 @@
 export const CardItem = ({ auditData }) => {
   return (
-    <div class="px-4 mx-auto max-w-screen-xl">
+    <div className="px-4 mx-auto max-w-screen-xl">
       <div>
-        <div class="flex items-end items-center  mb-4 rounded-full">
+        <div className="flex items-end items-center  mb-4 rounded-full">
           <svg height="100" width="100">
             <circle cx="50" cy="50" r="40" stroke-width="3" fill="green" />
           </svg>
@@ -13,7 +13,7 @@ export const CardItem = ({ auditData }) => {
             </p>
           </div>
         </div>
-        <p class="">
+        <p className="">
           We recovered the following files ‘master document’ from your main
           SharePoint library, we also recovered ‘email to client’ from
           01/01/2023 from Chris’ email. If you would like other backup sources

@@ -50,7 +50,7 @@ export const TableList = () => {
               return (
                 <tr
                   onClick={() => {
-                    navigate("audit/" + item._id);
+                    // navigate("audit/" + item._id);
                   }}
                   key={item._id}
                   className="border-b dark:border-gray-700"
@@ -75,6 +75,7 @@ export const TableList = () => {
                       data-dropdown-toggle="apple-ipad-air-dropdown"
                       className="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                       type="button"
+                      onClick={() => navigate('update-audit/' + item._id)}
                     >
                       <svg
                         className="w-5 h-5"
