@@ -49,6 +49,8 @@ export const create = async (req, res) => {
       desktopAdminNamesStatus: req.body.desktopAdminNamesStatus,
       serverAdminNames: req.body.serverAdminNames,
       serverAdminNamesStatus: req.body.serverAdminNamesStatus,
+      lucidicaSecurityPro: req.body.lucidicaSecurityPro,
+      microsoftSecureScore: req.body.microsoftSecureScore,
     }).save();
     console.log(result);
     res.status(201).json({ isSuccess: true, id: result._id });

@@ -198,6 +198,14 @@ const AuditScheme = new mongoose.Schema(
       type: String,
       required: true,
     },
+    lucidicaSecurityPro: {
+      type: Date,
+      required: true,
+    },
+    microsoftSecureScore: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

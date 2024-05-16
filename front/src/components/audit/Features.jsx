@@ -4,7 +4,9 @@ export const Features = (props) => {
       <div class="w-full bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
         <div className="text-custom text-center">
           <h4 class="font-semibold">{props.title}</h4>
-          <p class="pt-2 text-gray-500">{props.subtitle}</p>
+          <h5 class="text-xl font-bold text-yellow-300">
+            {props.featureData}
+          </h5>
         </div>
 
         <div className="">

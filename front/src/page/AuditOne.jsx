@@ -291,8 +291,16 @@ export const AuditOne = () => {
           />
 
           <div className="grid grid-cols-2 gap-2">
-            <Features title="Lucidica Security Pro" imgLink={svgIcon1} />
-            <Features title="Microsoft Secure Score" imgLink={svgIcon2} />
+            <Features
+              title="Lucidica Security Pro"
+              imgLink={svgIcon1}
+              featureData={auditData.lucidicaSecurityPro}
+            />
+            <Features
+              title="Microsoft Secure Score"
+              imgLink={svgIcon2}
+              featureData={auditData.microsoftSecureScore}
+            />
           </div>
         </div>
         <div className="">

@@ -78,6 +78,8 @@ export const AddAudit = () => {
         desktopAdminNamesStatus: data.get("desktop-admin-names-status"),
         serverAdminNames: data.get("server-admin-names"),
         serverAdminNamesStatus: data.get("server-admin-names-status"),
+        lucidicaSecurityPro: data.get("lucidica-security-pro"),
+        microsoftSecureScore: data.get("microsoft-secure-score"),
       };
       const result = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/audit",
@@ -668,10 +670,40 @@ export const AddAudit = () => {
                 <option value="Medium Risk">Medium Risk</option>
               </select>
             </div>
+            <div className="block w-[50%]">
+              <div class="flex items-center justify-between mb-5 gap-5">
+                <label
+                  for=""
+                  class="block text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Lucidica Security Pro
+                </label>
+                <input
+                  placeholder="Lucidica Security Pro"
+                  required
+                  className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="date"
+                  name="lucidica-security-pro"
+                />
+              </div>
+              <div class="flex items-center justify-between mb-5 gap-5">
+                <label
+                  for=""
+                  class="block text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Microsoft Secure Score
+                </label>
+                <input
+                  placeholder="Lucidica Security Pro"
+                  required
+                  className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="number"
+                  name="microsoft-secure-score"
+                />
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="grid my-4 sm:grid-cols-2 sm:mb-5"></div>
 
         <button
           type="submit"
