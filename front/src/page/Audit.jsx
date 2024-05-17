@@ -40,9 +40,9 @@ export const Audit = () => {
     <>
       {/* client section start */}
       <h2 className="text-3xl mt-10">Client Score Card</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%]"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%]"></div>
       {/* row-1 start */}
-      <div class="grid grid-cols-4 gap-4 mt-10">
+      <div className="grid grid-cols-4 gap-4 mt-10">
         <div className=" ">
           <PieChartWithNeedle id="techHealth" title="Overall Tech Health" />
         </div>
@@ -100,7 +100,7 @@ export const Audit = () => {
       {/* backup Backup start  */}
 
       <h2 className="text-3xl mt-10">Backup Scorecard</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
       <div className="grid grid-cols-6 gap-2">
         {/* row-1 start */}
@@ -142,7 +142,7 @@ export const Audit = () => {
       {/* row-2 end */}
 
       <h2 className="text-3xl mt-10"> Hardware Scorecard</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
       <div className="grid grid-cols-3 gap-2">
         {/* row-1 start */}
@@ -192,7 +192,7 @@ export const Audit = () => {
 
       {/* security scorecard start  */}
       <h2 className="text-3xl mt-10"> Security Scorecard</h2>
-      <div class="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
       {/* row-1 start */}
       <div className="grid grid-cols-3 gap-2">

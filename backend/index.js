@@ -34,6 +34,7 @@ app.use(express.json());
 app.get("/audit", checkAuth, AuditController.many);
 app.get("/audit/:id", checkAuth, AuditController.getOne);
 app.post("/audit", checkAuth, AuditController.create);
+app.patch("/audit/:id", checkAuth, AuditController.update);
 app.delete("/audit/:id", checkAuth, AuditController.remove);
 
 app.post(

@@ -21,7 +21,8 @@ function App() {
               <Route index element={<Home />} />
               <Route path="audit/:id" element={<AuditOne />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="add-audit" element={<AddAudit />} />
+              <Route path="add-audit" element={<AddAudit action={'create'} />} />
+              <Route path="update-audit/:id" element={<AddAudit action={'update'} />} />
               <Route path="audit" element={<AuditOne />} />
             </Route>
             <Route path="login" element={<Login />} />

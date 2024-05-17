@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../api";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+
 
 const CustomSelect = ({ children, id, name }) => {
   return (
@@ -15,11 +17,15 @@ const CustomSelect = ({ children, id, name }) => {
   );
 };
 
-export const AddAudit = () => {
+export const AddAudit = ({action}) => {
   const navigate = useNavigate();
-
-  const options = {};
   const [loading, setIsLoading] = useState(false);
+  const [auditData, setAuditData] = useState(null);
+  const { id } = useParams();
+
+  const isCreate = action === "create";
+  const isUpdate = action === "update";
+
   const handleOnSubmitForm = async (event) => {
     try {
       event.preventDefault();
@@ -81,18 +87,43 @@ export const AddAudit = () => {
         lucidicaSecurityPro: data.get("lucidica-security-pro"),
         microsoftSecureScore: data.get("microsoft-secure-score"),
       };
-      const result = await axios.post(
-        process.env.REACT_APP_SERVER_URL + "/audit",
-        body,
-      );
-      console.log(result);
-      setIsLoading(false);
-      navigate("/audit/" + result.data.id, { replace: true });
+      setIsLoading(true);
+      const backendUrl =  process.env.REACT_APP_SERVER_URL;
+      if (isCreate) {
+        const result = await axios.post(
+          backendUrl + "/audit",
+          body,
+        );
+
+        navigate("/audit/" + result.data.id, { replace: true });
+      } else {
+        const result = await axios.patch(backendUrl + '/audit/' + id, body)
+
+        navigate("/audit/" + result.data.id, { replace: true });
+      }
     } catch (err) {
-      setIsLoading(false);
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const getOne = async () => {
+    try {
+      const result = await axios.get(`/audit/${id}`);
+      setAuditData(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+
+    getOne()
+
+  },[id]);
+
 
   return (
     <>
@@ -102,6 +133,7 @@ export const AddAudit = () => {
           required
           type="text"
           name="audit-name"
+          defaultValue={auditData?.auditName}
           placeholder="Type audit name here"
           className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
@@ -116,6 +148,7 @@ export const AddAudit = () => {
             type="number"
             name="overall-tech-health"
             id="overall-tech-health"
+            defaultValue={auditData?.overallTechHealth}
             className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
@@ -200,12 +233,12 @@ export const AddAudit = () => {
         </div>
 
         {/* backup scorecard section*/}
-        <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+        <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
           <div className="block w-[70%]">
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for="name"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Online On Premise Servers
               </label>
@@ -218,10 +251,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5  gap-5">
+            <div className="flex items-center justify-between mb-5  gap-5">
               <label
-                for="name"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Online Dedicated Servers
               </label>
@@ -234,10 +267,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for="name"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Email and Online Personal Files
               </label>
@@ -250,10 +283,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5  gap-5">
+            <div className="flex items-center justify-between mb-5  gap-5">
               <label
-                for="online-file-storage-status"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="online-file-storage-status"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Online File Storage
               </label>
@@ -266,10 +299,10 @@ export const AddAudit = () => {
                 <option value="N/A">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for="personal-computer-status"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="personal-computer-status"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Personal Computers
               </label>
@@ -284,10 +317,10 @@ export const AddAudit = () => {
             </div>
           </div>
           <div className="block w-[70%]">
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for="file-test-recovery"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="file-test-recovery"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Test File Recovery
               </label>
@@ -298,10 +331,10 @@ export const AddAudit = () => {
                 className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for="backup-success-rate"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="backup-success-rate"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Backup Success Rate
               </label>
@@ -314,10 +347,10 @@ export const AddAudit = () => {
               />
             </div>
 
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
                 htmlFor="dr-status"
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 DR Status
               </label>
@@ -334,7 +367,7 @@ export const AddAudit = () => {
         </div>
 
         {/* hardware scorecard section*/}
-        <div class="grid gap-4 mb-4 sm:grid-cols-3 sm:gap-6 sm:mb-5">
+        <div className="grid gap-4 mb-4 sm:grid-cols-3 sm:gap-6 sm:mb-5">
           <div className="block w-[70%]">
             <label className="block" htmlFor="">
               The Digital Maturity Index{" "}
@@ -430,13 +463,13 @@ export const AddAudit = () => {
 
           {/* security scorecard */}
         </div>
-        <div class="grid mb-4 gap-4 sm:grid-cols-2 sm:mb-5">
+        <div className="grid mb-4 gap-4 sm:grid-cols-2 sm:mb-5">
           <div className="block w-[100%]">
             <h3 className="text-xl my-10">Access Control Protection</h3>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Multi factor authentication implemented
               </label>
@@ -449,10 +482,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5  gap-5">
+            <div className="flex items-center justify-between mb-5  gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Security training given to end users when onboarded/regularly
               </label>
@@ -465,10 +498,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Accounts audited, disabled and deleted – oldest password/account
               </label>
@@ -481,10 +514,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5  gap-5">
+            <div className="flex items-center justify-between mb-5  gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Vulnerability Management Status
               </label>
@@ -497,10 +530,10 @@ export const AddAudit = () => {
                 <option value="N/A">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Mobile Device Management implemented & level of compliance
               </label>
@@ -516,10 +549,10 @@ export const AddAudit = () => {
           </div>
           <div className="block w-[100%]">
             <h3 className="text-xl my-10">Protection Against Malware</h3>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 All computers up to date & running supported software
               </label>
@@ -532,10 +565,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5  gap-5">
+            <div className="flex items-center justify-between mb-5  gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 All computers running anti-virus & ideally NextGen Anti-Virus
               </label>
@@ -548,10 +581,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Advance email protection with advanced malware & spam filtering
               </label>
@@ -564,10 +597,10 @@ export const AddAudit = () => {
                 <option value="Protected">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5  gap-5">
+            <div className="flex items-center justify-between mb-5  gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Business files protected against attack including ransomware
               </label>
@@ -580,10 +613,10 @@ export const AddAudit = () => {
                 <option value="N/A">Protected</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 AI implemented to look for suspicious file activity
               </label>
@@ -601,10 +634,10 @@ export const AddAudit = () => {
           <div className="block w-[100%]">
             <h3 className="text-xl my-10">Admin Accounts</h3>
 
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Global Admins in M365
               </label>
@@ -624,10 +657,10 @@ export const AddAudit = () => {
                 <option value="Medium Risk">Medium Risk</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Desktop admin access
               </label>
@@ -647,10 +680,10 @@ export const AddAudit = () => {
                 <option value="Medium Risk">Medium Risk</option>
               </select>
             </div>
-            <div class="flex items-center justify-between mb-5 gap-5">
+            <div className="flex items-center justify-between mb-5 gap-5">
               <label
-                for=""
-                class="block text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor=""
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Server admin access for
               </label>
@@ -671,10 +704,10 @@ export const AddAudit = () => {
               </select>
             </div>
             <div className="block w-[50%]">
-              <div class="flex items-center justify-between mb-5 gap-5">
+              <div className="flex items-center justify-between mb-5 gap-5">
                 <label
-                  for=""
-                  class="block text-sm font-medium text-gray-900 dark:text-white"
+                  htmlFor=""
+                  className="block text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Lucidica Security Pro
                 </label>
@@ -686,10 +719,10 @@ export const AddAudit = () => {
                   name="lucidica-security-pro"
                 />
               </div>
-              <div class="flex items-center justify-between mb-5 gap-5">
+              <div className="flex items-center justify-between mb-5 gap-5">
                 <label
-                  for=""
-                  class="block text-sm font-medium text-gray-900 dark:text-white"
+                  htmlFor=""
+                  className="block text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Microsoft Secure Score
                 </label>
@@ -709,8 +742,10 @@ export const AddAudit = () => {
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          Save Audit{" "}
+        {isCreate && "Save Audit"}{isUpdate && "Update Audit"} 
         </button>
+
+        {loading && "Loading..."}
       </form>
     </>
   );

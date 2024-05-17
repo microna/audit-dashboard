@@ -9,7 +9,7 @@ export const SoftwareAssets = ({
 }) => {
   return (
     <>
-      <div class="w-full bg-blue-100 p-4 rounded-lg shadow-md flex items-center justify-between my-3">
+      <div className="w-full bg-blue-100 p-4 rounded-lg shadow-md flex items-center justify-between my-3">
         <div className="text-left">
           <FaComputer size={40} />
           <h3 className="font-bold pb-3">OS</h3>
