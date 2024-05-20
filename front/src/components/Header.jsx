@@ -65,11 +65,7 @@ export const Header = () => {
                   </button>
                 </div>
               </>
-            ) : (
-              <>
-                <></>
-              </>
-            )}
+            ) : null}
           </div>
         </div>
       </nav>
