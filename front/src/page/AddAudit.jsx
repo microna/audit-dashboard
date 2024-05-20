@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../api";
 import { useNavigate, useParams } from "react-router-dom";
 
-
+const contractTypeArr = ["Bronze", "Gold", "Platinum", "No contract"];
 
 const CustomSelect = ({ children, id, name }) => {
   return (
@@ -17,7 +17,7 @@ const CustomSelect = ({ children, id, name }) => {
   );
 };
 
-export const AddAudit = ({action}) => {
+export const AddAudit = ({ action }) => {
   const navigate = useNavigate();
   const [loading, setIsLoading] = useState(false);
   const [auditData, setAuditData] = useState(null);
@@ -88,16 +88,13 @@ export const AddAudit = ({action}) => {
         microsoftSecureScore: data.get("microsoft-secure-score"),
       };
       setIsLoading(true);
-      const backendUrl =  process.env.REACT_APP_SERVER_URL;
+      const backendUrl = process.env.REACT_APP_SERVER_URL;
       if (isCreate) {
-        const result = await axios.post(
-          backendUrl + "/audit",
-          body,
-        );
+        const result = await axios.post(backendUrl + "/audit", body);
 
         navigate("/audit/" + result.data.id, { replace: true });
       } else {
-        const result = await axios.patch(backendUrl + '/audit/' + id, body)
+        const result = await axios.patch(backendUrl + "/audit/" + id, body);
 
         navigate("/audit/" + result.data.id, { replace: true });
       }
@@ -117,13 +114,13 @@ export const AddAudit = ({action}) => {
     }
   };
 
+  useEffect(() => {
+    getOne();
+  }, [id]);
 
   useEffect(() => {
-
-    getOne()
-
-  },[id]);
-
+    if (isCreate) setAuditData(null);
+  }, [navigate]);
 
   return (
     <>
@@ -158,14 +155,37 @@ export const AddAudit = ({action}) => {
             <div className="block">
               <label className="block" htmlFor="overall-information">
                 Overall information
+                {console.log(auditData?.overallInformation)}
               </label>
-              <CustomSelect id="overall-information" name="overall-information">
+              <select
+                defaultValue={auditData?.overallInformation}
+                id="overall-information"
+                name="overall-information"
+                selected={auditData?.overallInformation}
+              >
+                {auditData?.overallInformation && (
+                  <option selected value={auditData?.overallInformation}>
+                    {auditData?.overallInformation}
+                  </option>
+                )}
+                {contractTypeArr
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.overallInformation;
+                  })
+                  .map((item) => {
+                    return <option value={item}>{item}</option>;
+                  })}
+                {/* {auditData?.overallInformation && (
+                  <option value={auditData?.overallInformation}>
+                    {auditData?.overallInformation}
+                  </option>
+                )}
                 <option value="Bronze">Bronze</option>
-                <option value="Silver">Silver</option>
                 <option value="Gold">Gold</option>
                 <option value="Platinum">Platinum</option>
-                <option value="No contract">No contract</option>
-              </CustomSelect>
+                <option value="No contract">No contract</option> */}
+              </select>
             </div>
 
             <label className=" block" htmlFor="">
@@ -175,6 +195,7 @@ export const AddAudit = ({action}) => {
               required
               type="number"
               name="computer-covered"
+              defaultValue={auditData?.computerCovered}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
 
@@ -183,6 +204,7 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               required
+              defaultValue={auditData?.hostingCost}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hosting-cost"
@@ -193,6 +215,7 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               required
+              defaultValue={auditData?.contractCost}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="contract-cost"
@@ -204,6 +227,7 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               required
+              defaultValue={auditData?.overallBackupLevel}
               id="overall-backup-level"
               type="number"
               name="overall-backup-level"
@@ -214,6 +238,7 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               required
+              defaultValue={auditData?.overallSecurityLevel}
               id="overall-security-level"
               type="number"
               name="overall-security-level"
@@ -224,6 +249,7 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               required
+              defaultValue={auditData?.overallHardwareLevel}
               id="overall-hardware-level"
               type="number"
               name="overall-hardware-level"
@@ -325,6 +351,7 @@ export const AddAudit = ({action}) => {
                 Test File Recovery
               </label>
               <input
+                defaultValue={auditData?.fileTestRecovery}
                 id="file-test-recovery"
                 name="file-test-recovery"
                 type="date"
@@ -340,6 +367,7 @@ export const AddAudit = ({action}) => {
               </label>
               <input
                 required
+                defaultValue={auditData?.backupSuccessRate}
                 id="backup-success-rate"
                 name="backup-success-rate"
                 type="number"
@@ -370,10 +398,11 @@ export const AddAudit = ({action}) => {
         <div className="grid gap-4 mb-4 sm:grid-cols-3 sm:gap-6 sm:mb-5">
           <div className="block w-[70%]">
             <label className="block" htmlFor="">
-              The Digital Maturity Index{" "}
+              The Digital Maturity Index
             </label>
             <input
               required
+              defaultValue={auditData?.digitalMaturitIndex}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="digital-maturit-index"
@@ -383,12 +412,14 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               required
+              defaultValue={auditData?.hardwareSystemSupport}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-system-support"
             />
             <input
               required
+              defaultValue={auditData?.hardwareSystemOverdue}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-system-overdue"
@@ -400,6 +431,7 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               placeholder="supported"
+              defaultValue={auditData?.hardwareAssetsSupported}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -407,6 +439,7 @@ export const AddAudit = ({action}) => {
             />
             <input
               placeholder="unsupported soon"
+              defaultValue={auditData?.hardwareAssetsUnsupportedSoon}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -414,6 +447,7 @@ export const AddAudit = ({action}) => {
             />
             <input
               placeholder="unsupported"
+              defaultValue={auditData?.hardwareAssetsUnsupported}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -421,6 +455,7 @@ export const AddAudit = ({action}) => {
             />
             <input
               placeholder="unknown"
+              defaultValue={auditData?.hardwareAssetsUnknown}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -433,6 +468,7 @@ export const AddAudit = ({action}) => {
             </label>
             <input
               placeholder="supported"
+              defaultValue={auditData?.officeSuiteSupported}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -440,6 +476,7 @@ export const AddAudit = ({action}) => {
             />
             <input
               placeholder="unsupported soon"
+              defaultValue={auditData?.officeSuiteUnsupportedSoon}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -447,6 +484,7 @@ export const AddAudit = ({action}) => {
             />
             <input
               placeholder="unsupported"
+              defaultValue={auditData?.officeSuiteUnsupported}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -454,6 +492,7 @@ export const AddAudit = ({action}) => {
             />
             <input
               placeholder="unknown"
+              defaultValue={auditData?.officeSuiteAssetsUnknown}
               required
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
@@ -643,6 +682,7 @@ export const AddAudit = ({action}) => {
               </label>
               <input
                 placeholder="Type Global Admins Name"
+                defaultValue={auditData?.globalAdminsNames}
                 required
                 className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
@@ -666,6 +706,7 @@ export const AddAudit = ({action}) => {
               </label>
               <input
                 placeholder="Type Desktop Admins Name"
+                defaultValue={auditData?.desktopAdminNames}
                 required
                 className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
@@ -689,6 +730,7 @@ export const AddAudit = ({action}) => {
               </label>
               <input
                 placeholder="Server Admin Name"
+                defaultValue={auditData?.serverAdminNames}
                 required
                 className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
@@ -713,6 +755,7 @@ export const AddAudit = ({action}) => {
                 </label>
                 <input
                   placeholder="Lucidica Security Pro"
+                  defaultValue={auditData?.lucidicaSecurityPro}
                   required
                   className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="date"
@@ -728,6 +771,7 @@ export const AddAudit = ({action}) => {
                 </label>
                 <input
                   placeholder="Lucidica Security Pro"
+                  defaultValue={auditData?.microsoftSecureScore}
                   required
                   className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="number"
@@ -742,7 +786,8 @@ export const AddAudit = ({action}) => {
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-        {isCreate && "Save Audit"}{isUpdate && "Update Audit"} 
+          {isCreate && "Save Audit"}
+          {isUpdate && "Update Audit"}
         </button>
 
         {loading && "Loading..."}
