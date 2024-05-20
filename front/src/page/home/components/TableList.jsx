@@ -22,7 +22,6 @@ export const TableList = () => {
     getItems();
   }, []);
 
-
   return (
     <div className="pt-10 overflow-x-auto">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -51,11 +50,7 @@ export const TableList = () => {
           {obj &&
             obj.map((item) => {
               return (
-                <tr
-                  onClick={() => {}}
-                  key={item._id}
-                  className="border-b dark:border-gray-700"
-                >
+                <tr key={item._id} className="border-b dark:border-gray-700">
                   <th
                     scope="row"
                     className="cursor-pointer px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -68,8 +63,6 @@ export const TableList = () => {
                   <td className="px-4 py-3">Audit</td>
                   <td className="px-4 py-3">[Lucidica]</td>
                   <td className="px-4 py-3">{formatDate(item.createdAt)}</td>
-
-                  {/* <td className="px-4 py-3">{item.timestamps}</td> */}
                   <td className="px-4 py-3 flex items-center justify-end">
                     <Dropdown label="Settings" dismissOnClick={false}>
                       <Dropdown.Item
