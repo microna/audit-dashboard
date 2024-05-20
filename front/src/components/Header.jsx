@@ -12,18 +12,17 @@ export const Header = () => {
 
       const { email, fullName } = result.data;
 
-      await dispatch({ type: "USER", payload: { email, fullName, token: localStorage.getItem('token') } });
-
-    } catch (err) {
-
-    }
+      await dispatch({
+        type: "USER",
+        payload: { email, fullName, token: localStorage.getItem("token") },
+      });
+    } catch (err) {}
   };
   useMemo(() => {
     fetchLoginUser();
   }, []);
 
   const onClickLogout = async () => {
-   
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("token");
   };
@@ -68,24 +67,7 @@ export const Header = () => {
               </>
             ) : (
               <>
-                <>
-                  <Link to="/login">
-                    <button
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                      variant="outlined"
-                    >
-                      Login
-                    </button>
-                  </Link>
-                  <Link to="/register">
-                    <button
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                      variant="contained"
-                    >
-                      Create account
-                    </button>
-                  </Link>
-                </>
+                <></>
               </>
             )}
           </div>

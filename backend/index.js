@@ -12,7 +12,6 @@ import {
 
 import checkAuth from "./utils/checkAuth.js";
 import * as UserControllers from "./Controllers/UserController.js";
-import * as PostController from "./Controllers/PostController.js";
 import * as AuditController from "./Controllers/AuditController.js";
 import handleValidationErrors from "./utils/handleValidationErrors.js";
 
@@ -24,10 +23,6 @@ mongoose
 const app = express();
 
 app.use(cors());
-
-app.get("/", (req, res) => {
-  res.status(200).json("Hello world!");
-});
 
 app.use(express.json());
 
@@ -55,31 +50,6 @@ app.post(
 ////CHECK INFO FOR MYSELF (USER)
 app.get("/auth/me", checkAuth, UserControllers.checkLogin);
 
-////CRUD  POSTS   - Create/Read/Update/Delete
-app.get("/tags", PostController.getLastTags);
-app.get("/posts", PostController.getAll);
-app.get("posts/tags", PostController.getLastTags);
-app.get("/tag/:name", PostController.getAllPostsByTag);
-app.get("/posts/:id", PostController.getOne);
-app.post("/posts/:random/date", PostController.postAllAndSortDate);
-app.post("/posts/:random/popular", PostController.postAllAndSortPopular);
-app.post(
-  "/posts",
-  checkAuth,
-  postCreateValidation,
-  handleValidationErrors,
-  PostController.create
-);
-app.delete("/posts/:id", checkAuth, PostController.remove);
-app.patch(
-  "/posts/:id",
-  checkAuth,
-  postCreateValidation,
-  handleValidationErrors,
-  PostController.update
-);
-
-app.patch("/comment/:id", checkAuth, PostController.addComment);
 
 /////START SERVER ON PORT
 //4444

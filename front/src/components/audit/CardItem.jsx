@@ -1,3 +1,5 @@
+import formatDate from "../../utils/dateFormatter";
+
 export const CardItem = ({ auditData }) => {
   return (
     <div className="px-4 mx-auto max-w-screen-xl">
@@ -9,7 +11,7 @@ export const CardItem = ({ auditData }) => {
           <div className="">
             <h2>Test file recovery</h2>
             <p className="text-green-500 weight-bold font-bold pt-3">
-              {auditData.fileTestRecovery}
+              {formatDate(auditData.fileTestRecovery)}
             </p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import axios from "../api";
+import formatDate from "../utils/dateFormatter";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { PieChartWithNeedle } from "../components/audit/PieChartWithNeedle";
@@ -294,7 +295,7 @@ export const AuditOne = () => {
             <Features
               title="Lucidica Security Pro"
               imgLink={svgIcon1}
-              featureData={auditData.lucidicaSecurityPro}
+              featureData={formatDate(auditData.lucidicaSecurityPro)}
             />
             <Features
               title="Microsoft Secure Score"

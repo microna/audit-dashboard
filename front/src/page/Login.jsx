@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const { dispatch } = useMyContext();
-  const [loginEmail, seLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
+  const [loginEmail, seLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
@@ -19,7 +19,10 @@ export const Login = () => {
         setError(true);
       }
       const { email, fullName } = result.data.userData;
-      await dispatch({ type: "USER", payload: { email, fullName, token: result.data.token } });
+      await dispatch({
+        type: "USER",
+        payload: { email, fullName, token: result.data.token },
+      });
       window.localStorage.setItem("token", result.data.token);
       navigate("/");
     } catch (e) {
@@ -58,6 +61,7 @@ export const Login = () => {
                 Password
               </label>
               <input
+                type="password"
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
