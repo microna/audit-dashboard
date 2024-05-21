@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
-import { FaComputer } from "react-icons/fa6";
 
 const data = [
   { name: "Group A", value: 400 },

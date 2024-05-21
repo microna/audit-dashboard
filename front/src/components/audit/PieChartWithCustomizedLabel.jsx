@@ -14,7 +14,6 @@ const RenderCustomizedLabel = ({
   percent,
   index,
   labels,
-
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -27,16 +26,13 @@ const RenderCustomizedLabel = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-   {labels[index]} {/* {`${(percent * 100).toFixed(0)}`}  */}
+      {labels[index]} {/* {`${(percent * 100).toFixed(0)}`}  */}
     </text>
   );
 };
 
-export const PieChartWithCustomizedLabel = ({
-  support = 145,
-  overdue = 55,
-}) => {
-  const total = support + support;
+export const PieChartWithCustomizedLabel = ({ support, overdue }) => {
+  const total = support + overdue;
   const data = [
     { name: "Group A", value: (support / total) * 100 },
     { name: "Group B", value: (overdue / total) * 100 },
@@ -49,7 +45,7 @@ export const PieChartWithCustomizedLabel = ({
           cx="50%"
           cy="50%"
           labelLine={false}
-          label={<RenderCustomizedLabel labels={[support, overdue]}/>}
+          label={<RenderCustomizedLabel labels={[support, overdue]} />}
           outerRadius={80}
           fill="#8884d8"
           dataKey="value"
