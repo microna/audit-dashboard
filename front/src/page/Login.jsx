@@ -7,21 +7,25 @@ export const Login = () => {
   const { dispatch } = useMyContext();
   const [loginEmail, seLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
-      const body = { email: loginEmail, password: loginPassword };
+      const body = {
+        email: loginEmail,
+        password: loginPassword,
+      };
       const result = await axios.post("/auth/login", body);
       if (!result.data) {
         setError(true);
       }
-      const { email, fullName } = result.data.userData;
+      const { email, fullName, isAdmin } = result.data.userData;
       await dispatch({
         type: "USER",
-        payload: { email, fullName, token: result.data.token },
+        payload: { email, fullName, isAdmin, token: result.data.token },
       });
       window.localStorage.setItem("token", result.data.token);
       navigate("/");

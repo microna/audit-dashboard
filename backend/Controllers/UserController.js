@@ -26,7 +26,7 @@ export const register = async (req, res) => {
       "secret123",
       {
         expiresIn: "30d",
-      }
+      },
     );
 
     const { passwordHash, ...userData } = user._doc;
@@ -64,13 +64,13 @@ export const login = async (req, res) => {
       "secret123",
       {
         expiresIn: "90d",
-      }
+      },
     );
 
-    const { email, fullName } = user._doc;
+    const { email, fullName, isAdmin } = user._doc;
 
     res.json({
-      userData: { email, fullName },
+      userData: { email, fullName, isAdmin },
       token,
     });
   } catch (err) {
@@ -86,6 +86,7 @@ export const login = async (req, res) => {
 export const checkLogin = async (req, res) => {
   try {
     const user = await UserModel.findById(req.userId);
+    console.log(user)
     if (!user) {
       return res.status(404).json({
         message: "User not finded",
@@ -95,11 +96,12 @@ export const checkLogin = async (req, res) => {
     res.status(200).json({
       email: user.email,
       fullName: user.fullName,
+      isAdmin: user.isAdmin,
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "access denied  ",
+      message: "access denied",
       err,
     });
   }

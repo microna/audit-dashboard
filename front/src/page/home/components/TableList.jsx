@@ -3,9 +3,11 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Dropdown } from "flowbite-react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useMyContext } from "../../../state/StateProvider";
 import formatDate from "../../../utils/dateFormatter";
 
 export const TableList = () => {
+  const { state, dispatch } = useMyContext();
   const [obj, setObj] = useState(null);
   const navigate = useNavigate();
 
@@ -64,13 +66,15 @@ export const TableList = () => {
                   <td className="px-4 py-3">[Lucidica]</td>
                   <td className="px-4 py-3">{formatDate(item.createdAt)}</td>
                   <td className="px-4 py-3 flex items-center justify-end">
-                    <Dropdown label="Settings" dismissOnClick={false}>
-                      <Dropdown.Item
-                        onClick={() => navigate("update-audit/" + item._id)}
-                      >
-                        Edit
-                      </Dropdown.Item>
-                    </Dropdown>
+                    {state.user.isAdmin && (
+                      <Dropdown label="Settings" dismissOnClick={false}>
+                        <Dropdown.Item
+                          onClick={() => navigate("update-audit/" + item._id)}
+                        >
+                          Edit
+                        </Dropdown.Item>
+                      </Dropdown>
+                    )}
                   </td>
                 </tr>
               );
