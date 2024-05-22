@@ -197,7 +197,10 @@ export const AuditOne = () => {
           />
         </div>
         <div className="">
-          <PieChartWithCustomizedLabel />
+          <PieChartWithCustomizedLabel
+            support={auditData.hardwareSystemSupport}
+            overdue={auditData.hardwareSystemOverdue}
+          />
           <div className="flex justify-around">
             <div className="flex items-center">
               <span className="inline-block w-8 h-8 bg-customBlue"></span>
