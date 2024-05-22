@@ -4,7 +4,7 @@ export const CardItemM = ({ auditData }) => {
     <div className="py-8 px-4 mx-auto ">
       <div className="flex flex-col items-center justify-center w-[100%]">
         <svg height="100" width="100">
-          <circle cx="50" cy="50" r="40" stroke-width="3" fill="green" />
+          <circle cx="50" cy="50" r="40" strokeWidth="3" fill="green" />
         </svg>
 
         <h2 className="mb-2">

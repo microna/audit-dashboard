@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "../api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
+import { useMyContext } from "../state/StateProvider";
 
 const contractTypeArr = ["Bronze", "Gold", "Platinum", "No contract"];
 
@@ -18,6 +19,7 @@ const CustomSelect = ({ children, id, name }) => {
 };
 
 export const AddAudit = ({ action }) => {
+  const { state, dispatch } = useMyContext();
   const navigate = useNavigate();
   const [loading, setIsLoading] = useState(false);
   const [auditData, setAuditData] = useState(null);
@@ -122,6 +124,13 @@ export const AddAudit = ({ action }) => {
     if (isCreate) setAuditData(null);
   }, [navigate]);
 
+  if (state.user && !state.user.isAdmin) {
+    return (
+      <>
+        <Navigate to="/" replace={true} />
+      </>
+    );
+  }
   return (
     <>
       <form className="mt-5" action="" onSubmit={handleOnSubmitForm}>
@@ -155,7 +164,6 @@ export const AddAudit = ({ action }) => {
             <div className="block">
               <label className="block" htmlFor="overall-information">
                 Overall information
-                {console.log(auditData?.overallInformation)}
               </label>
               <select
                 defaultValue={auditData?.overallInformation}
@@ -173,18 +181,13 @@ export const AddAudit = ({ action }) => {
                   .filter((item) => {
                     return item !== auditData?.overallInformation;
                   })
-                  .map((item) => {
-                    return <option value={item}>{item}</option>;
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
                   })}
-                {/* {auditData?.overallInformation && (
-                  <option value={auditData?.overallInformation}>
-                    {auditData?.overallInformation}
-                  </option>
-                )}
-                <option value="Bronze">Bronze</option>
-                <option value="Gold">Gold</option>
-                <option value="Platinum">Platinum</option>
-                <option value="No contract">No contract</option> */}
               </select>
             </div>
 

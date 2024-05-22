@@ -1,4 +1,5 @@
 import AuditModel from "../models/Audit.js";
+import UserModel from "../models/User.js";
 
 const fullAudit = (req) => {
   return {
@@ -55,17 +56,34 @@ const fullAudit = (req) => {
 
 export const create = async (req, res) => {
   try {
+    const user = await UserModel.findOne({
+      _id: req.userId,
+    });
+    if (!user.isAdmin) {
+      return res.status(403).json({
+        message: "Access denied",
+      });
+    }
+    console.log("create");
     const fullAuditPrepared = fullAudit(req);
     const result = await AuditModel(fullAuditPrepared).save();
     console.log(result);
     res.status(201).json({ isSuccess: true, id: result._id });
   } catch (error) {
-    res.status(404).json(error.message);
+    res.status(404).json(error.message + "error from here");
   }
 };
 
 export const update = async (req, res) => {
   try {
+    const user = await UserModel.findOne({
+      _id: req.userId,
+    });
+    if (!user.isAdmin) {
+      return res.status(403).json({
+        message: "Access denied",
+      });
+    }
     const fullAuditPrepared = fullAudit(req);
     const _id = req.params.id;
 

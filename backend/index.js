@@ -7,7 +7,6 @@ import mongoose from "mongoose";
 import {
   registerValidation,
   loginValidation,
-  postCreateValidation,
 } from "./validations.js";
 
 import checkAuth from "./utils/checkAuth.js";
