@@ -125,11 +125,7 @@ export const AddAudit = ({ action }) => {
   }, [navigate]);
 
   if (state.user && !state.user.isAdmin) {
-    return (
-      <>
-        <Navigate to="/" replace={true} />
-      </>
-    );
+    return <Navigate to="/" replace={true} />;
   }
   return (
     <>

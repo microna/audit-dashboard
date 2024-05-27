@@ -64,7 +64,6 @@ export const create = async (req, res) => {
         message: "Access denied",
       });
     }
-    console.log("create");
     const fullAuditPrepared = fullAudit(req);
     const result = await AuditModel(fullAuditPrepared).save();
     console.log(result);
@@ -93,7 +92,7 @@ export const update = async (req, res) => {
     );
     res.status(201).json({ isSuccess: true, id: result._id });
   } catch (error) {
-    res.status(404).json(error.message);
+    res.status(404).json("Error create audit: " + error.message);
   }
 };
 
