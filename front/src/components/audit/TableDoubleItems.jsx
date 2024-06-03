@@ -35,7 +35,7 @@ export const TableDoubleItems = ({
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">Global Admins in M365</td>
             <td className="px-4 py-2">{globalAdminRow1}</td>
-            <td className="py-2 flex bg-yellow-300 text-white pl-4">
+            <td className="py-4 bg-yellow-300 text-white text-center">
               {globalAdminStatusRow1}
             </td>
           </tr>
@@ -43,7 +43,7 @@ export const TableDoubleItems = ({
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">Desktop admin access</td>
             <td className="px-4 py-2">{accountsRow2}</td>
-            <td className="py-2 flex bg-yellow-300 text-white pl-4">
+            <td className="py-4 bg-yellow-300 text-white  text-center">
               {adminStatusRow2}
             </td>
           </tr>
@@ -51,7 +51,7 @@ export const TableDoubleItems = ({
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">Server admin access</td>
             <td className="px-4 py-2">{accountsRow3}</td>
-            <td className="py-2 flex bg-green-500 text-white pl-4">
+            <td className="py-4 bg-green-500 text-white  text-center">
               {adminStatusRow3}
             </td>
           </tr>
