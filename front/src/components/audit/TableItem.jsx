@@ -30,7 +30,7 @@ export const TableItem = ({
 }) => {
   return (
     <div className="relative overflow-x-auto">
-      <table className="w-[100%] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table className="w-[100%] text-[12px] text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-3 py-3">
@@ -44,35 +44,35 @@ export const TableItem = ({
         <tbody>
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">{titleRow1}</td>
-            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+            <td className=" bg-gray-500 text-white  text-center">
               {statusRow1}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">{titleRow2}</td>
-            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+            <td className=" bg-gray-500 text-white p-4 text-center">
               {statusRow2}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">{titleRow3}</td>
-            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+            <td className=" bg-gray-500 text-white p-4 text-center">
               {statusRow3}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">{titleRow4}</td>
-            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+            <td className=" bg-gray-500 text-white p-4 text-center">
               {statusRow4}
             </td>
           </tr>
 
           <tr className="bg-white dark:bg-gray-800">
             <td className="px-4 py-2">{titleRow5}</td>
-            <td className="px-4 py-2 bg-gray-500 text-white pl-4">
+            <td className=" bg-gray-500 text-white p-4 text-center">
               {statusRow5}
             </td>
           </tr>

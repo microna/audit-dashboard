@@ -11,7 +11,7 @@ export const CardItem = ({ auditData }) => {
           <div className="">
             <h2>Test file recovery</h2>
             <p className="text-green-500 weight-bold font-bold pt-3">
-              {formatDate(auditData.fileTestRecovery)}
+              {formatDate(auditData.fileTestRecovery)} 
             </p>
           </div>
         </div>

@@ -1,23 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "../api";
-import formatDate from "../utils/dateFormatter";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { useMyContext } from "../state/StateProvider";
-
-const contractTypeArr = ["Bronze", "Gold", "Platinum", "No contract"];
-
-const CustomSelect = ({ children, id, name }) => {
-  return (
-    <select
-      required
-      id={id}
-      name={name}
-      className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    >
-      {children}
-    </select>
-  );
-};
+import { contractTypeArr } from "./AddAudit";
 
 export const AddAudit = ({ action }) => {
   const { state, dispatch } = useMyContext();
@@ -350,9 +335,10 @@ export const AddAudit = ({ action }) => {
               >
                 Test File Recovery
               </label>
-
+              {/* {console.log(formatDate(auditData?.fileTestRecovery))} */}
               <input
-                defaultValue={formatDate(auditData?.fileTestRecovery)}
+                // defaultValue="31-05-2024"
+                value="2024-05-31"
                 id="file-test-recovery"
                 name="file-test-recovery"
                 type="date"
@@ -756,7 +742,7 @@ export const AddAudit = ({ action }) => {
                 </label>
                 <input
                   placeholder="Lucidica Security Pro"
-                  defaultValue={formatDate(auditData?.lucidicaSecurityPro)}
+                  defaultValue={auditData?.lucidicaSecurityPro}
                   required
                   className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="date"

@@ -14,8 +14,7 @@ import { Features } from "../components/audit/Features";
 import { TableDoubleItems } from "../components/audit/TableDoubleItems";
 import svgIcon1 from "../img/1.svg";
 import svgIcon2 from "../img/2.svg";
-import svgIcon3 from "../img/3.svg";
-import svgIcon4 from "../img/4.svg";
+
 
 export const AuditOne = () => {
   const { id } = useParams();
@@ -38,7 +37,6 @@ export const AuditOne = () => {
   }
   return (
     <>
-      {/* {auditData.auditName} */}
       <h2 className="text-3xl mt-10">Client Scorcard</h2>
       <div className="mt-5 bg-blue-700 h-px w-[80%]"></div>
 
@@ -294,7 +292,7 @@ export const AuditOne = () => {
             titleRow5="Mobile Device Management implemented & level of compliance"
           />
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 pt-6">
             <Features
               title="Lucidica Security Pro"
               imgLink={svgIcon1}
@@ -309,6 +307,7 @@ export const AuditOne = () => {
         </div>
         <div className="">
           <div className="grid gap-2">
+            
             <TableItem
               tableTitle="Protection Against Malware"
               statusRow1={auditData.allComputersUpToDate}
