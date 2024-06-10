@@ -45,8 +45,8 @@ export const PieChartWithPaddingAngle = ({ componentData, status }) => {
           fontWeight: "bold",
           position: "absolute",
           color: checkStatusState(componentData),
-          top: "30%",
-          left: "50%",
+          top: "37%",
+          left: "56%",
           transform: "translate(-50%, -50%)",
         }}
       >

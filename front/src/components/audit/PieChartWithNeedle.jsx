@@ -1,4 +1,3 @@
-import axios from "../../api";
 import { PieChart, Pie, Cell } from "recharts";
 
 let colors = {
@@ -63,8 +62,8 @@ export const PieChartWithNeedle = ({ componentData, title }) => {
   };
 
   return (
-    <div className="border border-solid border-grey rounded-md shadow-md">
-      <PieChart width={300} height={190}>
+    <div className="px-2 flex flex-col items-center">
+      <PieChart width={300} height={180}>
         <Pie
           dataKey="value"
           startAngle={180}
@@ -84,11 +83,11 @@ export const PieChartWithNeedle = ({ componentData, title }) => {
         {needle(value, data, cx, cy, iR, oR, "#d0d000")}
       </PieChart>
 
-      <div className="flex items-center justify-between w-[300px]">
+      <div className="flex text-sm items-center justify-around w-[300px] ">
         <p className="">At risk</p>
         <p className="">Protected</p>
       </div>
-      <div className="text-xl text-center mb-4">{title}</div>
+      <div className="text-l  text-center my-6">{title}</div>
     </div>
   );
 };

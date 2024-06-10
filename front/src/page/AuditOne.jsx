@@ -15,7 +15,6 @@ import { TableDoubleItems } from "../components/audit/TableDoubleItems";
 import svgIcon1 from "../img/1.svg";
 import svgIcon2 from "../img/2.svg";
 
-
 export const AuditOne = () => {
   const { id } = useParams();
   const [auditData, setAuditData] = useState(null);
@@ -37,277 +36,252 @@ export const AuditOne = () => {
   }
   return (
     <>
-      <h2 className="text-3xl mt-10">Client Scorcard</h2>
-      <div className="mt-5 bg-blue-700 h-px w-[80%]"></div>
+      <div className="py-10">
+        <h2 className="text-3xl mt-10">Client Scorcard</h2>
+        <div className="mt-5 bg-blue-700 h-px w-[80%]"></div>
 
-      <div className="grid grid-cols-4 gap-4 mt-10">
-        <div className=" ">
-          <PieChartWithNeedle
-            componentData={auditData.overallTechHealth}
-            title="Overall Tech Health"
-          />
-        </div>
-        <div className="col-span-3">
-          <h3 className="text-xl">Overall Tech Health</h3>
-          <p className="text-gray-500">
-            This report provides a quick snapshot of the overall tech health of
-            your business. We have split your tech health into 4 areas that are
-            assessed and updated regularly
-          </p>
-          <ul className="list-disc text-gray-500">
-            <li className="ml-5 mb-3 mt-3">
-              Backup will give you a snapshot of how well your systems are
-              backed up
-            </li>
-            <li className="ml-5 mb-3">
-              Security will give you a snapshot of how secure your systems are
-              against attack
-            </li>
-            <li className="ml-5 mb-3">
-              Hardware/software will give you a snapshot of how up to date your
-              systems are
-            </li>
-            <li className="ml-5 mb-3">
-              Data protection will let you know how compliant you are with
-              legislation like GDPR
-            </li>
-          </ul>
+        <div className="grid lg:grid-cols-4 sm:grid-cols-2 sm:justify-items-stretch gap-4 mt-10 scorecard">
+          <div className="border border-solid border-grey rounded-md shadow-md">
+            <PieChartWithNeedle
+              componentData={auditData.overallTechHealth}
+              title="Overall Tech Health"
+            />
+          </div>
+          <div className="lg:col-span-3 sm:grid-cols-1">
+            <h3 className="text-xl">Overall Tech Health</h3>
+            <p className="text-gray-500">
+              This report provides a quick snapshot of the overall tech health
+              of your business. We have split your tech health into 4 areas that
+              are assessed and updated regularly
+            </p>
+            <ul className="list-disc text-gray-500">
+              <li className="ml-5 mb-3 mt-3">
+                Backup will give you a snapshot of how well your systems are
+                backed up
+              </li>
+              <li className="ml-5 mb-3">
+                Security will give you a snapshot of how secure your systems are
+                against attack
+              </li>
+              <li className="ml-5 mb-3">
+                Hardware/software will give you a snapshot of how up to date
+                your systems are
+              </li>
+              <li className="ml-5 mb-3">
+                Data protection will let you know how compliant you are with
+                legislation like GDPR
+              </li>
+            </ul>
 
-          <p className="text-gray-500">
-            Please find more details of each area in the following reports
-          </p>
+            <p className="text-gray-500">
+              Please find more details of each area in the following reports
+            </p>
+          </div>
+          <div className="lg:col-span-1 sm:grid-cols-2 ">
+            <ClientInfoItem>
+              <p className="text-gray-500">Contract Level</p>
+              <h5 className="text-l font-semibold">
+                <p>{auditData.overallInformation}</p>
+              </h5>
+            </ClientInfoItem>
+            <ClientInfoItem>
+              <p className="text-gray-500">Computers Covered</p>
+              <h5 className="text-l font-semibold">
+                <p>{auditData.computerCovered}</p>
+              </h5>
+            </ClientInfoItem>
+            <ClientInfoItem>
+              <p className="text-gray-500">Cloud/hosting cost</p>
+              <h5 className="text-l font-semibold">
+                <p>£{auditData.hostingCost}</p>
+              </h5>
+            </ClientInfoItem>
+            <ClientInfoItem>
+              <p className="text-gray-500">Contract Cost</p>
+              <h5 className="text-l font-semibold">
+                <p>£{auditData.contractCost}</p>
+              </h5>
+            </ClientInfoItem>
+          </div>
+          <div className="border border-solid border-grey rounded-md shadow-md max-h-[80%]">
+            <PieChartWithNeedle
+              componentData={auditData.overallBackupLevel}
+              title="Overall Backup Health"
+            />
+          </div>
+          <div className="border border-solid border-grey rounded-md shadow-md max-h-[80%]">
+            <PieChartWithNeedle
+              componentData={auditData.overallSecurityLevel}
+              title="Overall Security Level"
+            />
+          </div>
+          <div className="border border-solid border-grey rounded-md shadow-md max-h-[80%]">
+            <PieChartWithNeedle
+              componentData={auditData.overallHardwareLevel}
+              title="Overall Hardware/Software Health"
+            />
+          </div>
         </div>
-        <div className=" ">
-          <ClientInfoItem>
-            <p className="text-gray-500">Contract Level</p>
-            <h5 className="text-l font-semibold">
-              <p>{auditData.overallInformation}</p>
-            </h5>
-          </ClientInfoItem>
-          <ClientInfoItem>
-            <p className="text-gray-500">Computers Covered</p>
-            <h5 className="text-l font-semibold">
-              <p>{auditData.computerCovered}</p>
-            </h5>
-          </ClientInfoItem>
-          <ClientInfoItem>
-            <p className="text-gray-500">Cloud/hosting cost</p>
-            <h5 className="text-l font-semibold">
-              <p>£{auditData.hostingCost}</p>
-            </h5>
-          </ClientInfoItem>
-          <ClientInfoItem>
-            <p className="text-gray-500">Contract Cost</p>
-            <h5 className="text-l font-semibold">
-              <p>£{auditData.contractCost}</p>
-            </h5>
-          </ClientInfoItem>
-        </div>
-        <div className=" ">
-          <PieChartWithNeedle
-            componentData={auditData.overallBackupLevel}
-            title="Overall Backup Health"
-          />
-        </div>
-        <div className="">
-          <PieChartWithNeedle
-            componentData={auditData.overallSecurityLevel}
-            title="Overall Security Level"
-          />
-        </div>
-        <div className="">
-          <PieChartWithNeedle
-            componentData={auditData.overallHardwareLevel}
-            title="Overall Hardware/Software Health"
-          />
-        </div>
-      </div>
-      {/* backup Backup start  */}
+        {/* backup Backup start  */}
 
-      <h2 className="text-3xl mt-10">Backup Scorecard</h2>
-      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+        <h2 className="text-3xl mt-10">Backup Scorecard</h2>
+        <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
-      <div className="grid grid-cols-6 gap-2">
-        {/* row-1 start */}
-        <div className="col-span-2 ">
-          <PieChartWithNeedle
-            title="Overall Backup Level"
-            componentData={auditData.overallBackupLevel}
-          />
-        </div>
+        <div className="grid lg:grid-cols-6 sm:grid-cols-2 sm:place-items-center sm:justify-items-stretch items-stretch	 gap-2">
+          {/* row-1 start */}
+          <div className="lg:col-span-2 sm:grid-cols-1 border border-solid border-grey rounded-md shadow-md">
+            <PieChartWithNeedle
+              title="Overall Backup Level"
+              componentData={auditData.overallBackupLevel}
+            />
+          </div>
 
-        <div className="col-span-2">
-          <TableItem
-            tableTitle="Device Type"
-            statusRow1={auditData.onlinePremiseServersStatus}
-            statusRow2={auditData.onlineDedicatedServersStatus}
-            statusRow3={auditData.emailOnlinePersonalStatus}
-            statusRow4={auditData.onlineFileStorageStatus}
-            statusRow5={auditData.personalComputerStatus}
-            titleRow1="On Premise Servers"
-            titleRow2="Online Dedicated Servers"
-            titleRow3="Email and Online Personal Files"
-            titleRow4="Online File Storage"
-            titleRow5="Personal Computers"
-          />
-        </div>
+          <div className="lg:col-span-2 sm:grid-cols-1">
+            <TableItem
+              tableTitle="Device Type"
+              statusRow1={auditData.onlinePremiseServersStatus}
+              statusRow2={auditData.onlineDedicatedServersStatus}
+              statusRow3={auditData.emailOnlinePersonalStatus}
+              statusRow4={auditData.onlineFileStorageStatus}
+              statusRow5={auditData.personalComputerStatus}
+              titleRow1="On Premise Servers"
+              titleRow2="Online Dedicated Servers"
+              titleRow3="Email and Online Personal Files"
+              titleRow4="Online File Storage"
+              titleRow5="Personal Computers"
+            />
+          </div>
 
-        <div className=" ">
-          <PieChartWithPaddingAngle
-            componentData={auditData.backupSuccessRate}
-          />
-        </div>
-        <div className=" ">
-          <CardItemM auditData={auditData} />
-        </div>
-        {/* row-1 end */}
+          <div className="border border-solid border-grey rounded-md shadow-md p-2">
+            <PieChartWithPaddingAngle
+              componentData={auditData.backupSuccessRate}
+            />
+          </div>
+          <div className="border border-solid border-grey rounded-md shadow-md ">
+            <CardItemM auditData={auditData} />
+          </div>
+          {/* row-1 end */}
 
-        {/* row-2 start */}
-        <div className=" col-span-2">
-          <h4 className="text-xl">Backup </h4>
-          <p className="mt-4">
-            This report provides a scorecard summary for the overall backup
-            protection level of your business, from here you can see what’s
-            currently protected, what isn’t protected
-          </p>
-          <p className="mt-4">
-            You can also see a full backup report of everything we are
-            monitoring on the full reports including 30 day history.
-          </p>
+          {/* row-2 start */}
+          <div className="lg:col-span-2 sm:grid-cols-1">
+            <h4 className="text-xl">Backup </h4>
+            <p className="mt-4">
+              This report provides a scorecard summary for the overall backup
+              protection level of your business, from here you can see what’s
+              currently protected, what isn’t protected
+            </p>
+            <p className="mt-4">
+              You can also see a full backup report of everything we are
+              monitoring on the full reports including 30 day history.
+            </p>
+          </div>
+          <div className="lg:col-span-2 sm:grid-cols-1">
+            <CardItem auditData={auditData} />
+          </div>
+          <div className=""></div>
+          <div className=""></div>
         </div>
-        <div className=" col-span-2">
-          <CardItem auditData={auditData} />
-        </div>
-        <div className=""></div>
-        <div className=""></div>
-      </div>
-      {/* row-2 end */}
+        {/* row-2 end */}
 
-      <h2 className="text-3xl mt-10"> Hardware Scorecard</h2>
-      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+        <h2 className="text-3xl mt-10"> Hardware Scorecard</h2>
+        <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
 
-      <div className="grid grid-cols-3 gap-2">
-        {/* row-1 start */}
-        <div className="">
-          <PieChartWithNeedle
-            componentData={auditData.overallHardwareLevel}
-            title="Overall Hardware/Software Health"
-          />
-        </div>
-        <div className="">
-          <PieChartWithCustomizedLabel
-            support={auditData.hardwareSystemSupport}
-            overdue={auditData.hardwareSystemOverdue}
-          />
-          <div className="flex justify-around">
-            <div className="flex items-center">
-              <span className="inline-block w-8 h-8 bg-customBlue"></span>
-              <p className="ml-5">Supported</p>
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-2">
+          {/* row-1 start */}
+          <div className="border border-solid border-grey rounded-md shadow-md ">
+            <PieChartWithNeedle
+              componentData={auditData.overallHardwareLevel}
+              title="Overall Hardware/Software Health"
+            />
+          </div>
+          <div className="border border-solid border-grey rounded-md shadow-md ">
+            <PieChartWithCustomizedLabel
+              support={auditData.hardwareSystemSupport}
+              overdue={auditData.hardwareSystemOverdue}
+            />
+            <div className="flex justify-around">
+              <div className="flex items-center">
+                <span className="inline-block w-8 h-8 bg-customBlue"></span>
+                <p className="ml-5">Supported</p>
+              </div>
+              <div className="flex items-center">
+                <span className="inline-block w-8 h-8 bg-customRed"></span>
+                <p className="ml-5">Overdue</p>
+              </div>
             </div>
-            <div className="flex items-center">
-              <span className="inline-block w-8 h-8 bg-customRed"></span>
-              <p className="ml-5">Overdue</p>
+            <h3 className="text-center mt-7">
+              Systems still within useful life
+            </h3>
+          </div>
+
+          <div className="">
+            <div className="flex gap-2">
+              <SoftwareAssets
+                title="All hardware assets in this report"
+                componentDataSupported={auditData.hardwareAssetsSupported}
+                componentDataUnsupportedSoon={
+                  auditData.hardwareAssetsUnsupportedSoon
+                }
+                componentDataUnsupported={auditData.hardwareAssetsUnsupported}
+                componentDataUnknown={auditData.hardwareAssetsUnknown}
+              />
+              <SoftwareAssets
+                title="Not Installed in 28"
+                componentDataSupported={auditData.officeSuiteSupported}
+                componentDataUnsupportedSoon={
+                  auditData.officeSuiteUnsupportedSoon
+                }
+                componentDataUnsupported={auditData.officeSuiteUnsupported}
+                componentDataUnknown={auditData.officeSuiteAssetsUnknown}
+              />
             </div>
           </div>
-          <h3 className="text-center mt-7">Systems still within useful life</h3>
-        </div>
+          {/* row-1 end */}
 
-        <div className="">
-          <div className="flex">
-            <SoftwareAssets
-              title="All hardware assets in this report"
-              componentDataSupported={auditData.hardwareAssetsSupported}
-              componentDataUnsupportedSoon={
-                auditData.hardwareAssetsUnsupportedSoon
-              }
-              componentDataUnsupported={auditData.hardwareAssetsUnsupported}
-              componentDataUnknown={auditData.hardwareAssetsUnknown}
-            />
-            <SoftwareAssets
-              title="Not Installed in 28"
-              componentDataSupported={auditData.officeSuiteSupported}
-              componentDataUnsupportedSoon={
-                auditData.officeSuiteUnsupportedSoon
-              }
-              componentDataUnsupported={auditData.officeSuiteUnsupported}
-              componentDataUnknown={auditData.officeSuiteAssetsUnknown}
+          {/* row-2 start */}
+          <div className="">
+            <h4 className="text-xl">Hardware & Software Lifecycle Audit </h4>
+            <p className="mt-4">
+              This report provides a scorecard summary for how up to date your
+              various systems are both in terms of the age of the equipment and
+              whether it is still in warranty along with whether they are
+              running any unsupported software or operating systems.
+            </p>
+          </div>
+          <div className="">{/* <PieChartWithNeedle /> */}</div>
+        </div>
+        {/* row-2end */}
+
+        {/* hardware scorecard  end  */}
+
+        {/* security scorecard start  */}
+        <h2 className="text-3xl mt-10"> Security Scorecard</h2>
+        <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
+
+        {/* row-1 start */}
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2  sm:justify-items-stretch gap-2">
+          <div className="border border-solid border-grey rounded-md shadow-md">
+            <PieChartWithNeedle
+              componentData={auditData.overallSecurityLevel}
+              title="Overall Security Level"
             />
           </div>
-        </div>
-        {/* row-1 end */}
-
-        {/* row-2 start */}
-        <div className="">
-          <h4 className="text-xl">Hardware & Software Lifecycle Audit </h4>
-          <p className="mt-4">
-            This report provides a scorecard summary for how up to date your
-            various systems are both in terms of the age of the equipment and
-            whether it is still in warranty along with whether they are running
-            any unsupported software or operating systems.
-          </p>
-        </div>
-        <div className="">{/* <PieChartWithNeedle /> */}</div>
-      </div>
-      {/* row-2end */}
-
-      {/* hardware scorecard  end  */}
-
-      {/* security scorecard start  */}
-      <h2 className="text-3xl mt-10"> Security Scorecard</h2>
-      <div className="mt-5 bg-blue-700 h-px w-[80%] my-5"></div>
-
-      {/* row-1 start */}
-      <div className="grid grid-cols-3 gap-2">
-        <div className="">
-          <PieChartWithNeedle
-            componentData={auditData.overallSecurityLevel}
-            title="Overall Security Level"
-          />
-          <p className="mt-4">
-            This report provides a scorecard summary for how up to date your IT
-            security is. We assess your systems for internal and external
-            vulnerabilities.
-          </p>
-          <p className="mt-4">
-            We generally recommend clients to undertake ‘Cyber Essentials’ and
-            also take out a ‘Lucidica Security Pro’ package, achieving this UK
-            Government backed security mark and implementing the technology
-            included in the Lucidica package will place your business in the top
-            5% of UK businesses for IT security and could provide a reduced IT
-            security insurance premium.
-          </p>
-        </div>
-        <div className="">
-          <TableItem
-            tableTitle="Access Control Protection"
-            statusRow1={auditData.multiFactorAuthentication}
-            statusRow2={auditData.securityTrainingGiven}
-            statusRow3={auditData.accountsAudited}
-            statusRow4={auditData.vulnerabilityManagement}
-            statusRow5={auditData.mobileDeviceManagement}
-            titleRow1="Multi factor authentication implemented Protected"
-            titleRow2="Security training given to end users when onboarded/regularly"
-            titleRow3="Accounts audited, disabled and deleted –oldest password/account"
-            titleRow4="Vulnerability Management Status"
-            titleRow5="Mobile Device Management implemented & level of compliance"
-          />
-
-          <div className="grid grid-cols-2 gap-2 pt-6">
-            <Features
-              title="Lucidica Security Pro"
-              imgLink={svgIcon1}
-              featureData={formatDate(auditData.lucidicaSecurityPro)}
-            />
-            <Features
-              title="Microsoft Secure Score"
-              imgLink={svgIcon2}
-              featureData={auditData.microsoftSecureScore}
+          <div className="">
+            <TableItem
+              tableTitle="Access Control Protection"
+              statusRow1={auditData.multiFactorAuthentication}
+              statusRow2={auditData.securityTrainingGiven}
+              statusRow3={auditData.accountsAudited}
+              statusRow4={auditData.vulnerabilityManagement}
+              statusRow5={auditData.mobileDeviceManagement}
+              titleRow1="Multi factor authentication implemented Protected"
+              titleRow2="Security training given to end users when onboarded/regularly"
+              titleRow3="Accounts audited, disabled and deleted –oldest password/account"
+              titleRow4="Vulnerability Management Status"
+              titleRow5="Mobile Device Management implemented & level of compliance"
             />
           </div>
-        </div>
-        <div className="">
-          <div className="grid gap-2">
-            
+          <div className="lg:row-span-1 lg:col-span-1 sm:row-span-2 sm:col-span-2">
             <TableItem
               tableTitle="Protection Against Malware"
               statusRow1={auditData.allComputersUpToDate}
@@ -325,6 +299,38 @@ export const AuditOne = () => {
               ransomware"
               titleRow5="AI implemented to look for suspicious file activity Protected"
             />
+          </div>
+          <div className="lg:row-span-1 lg:col-span-1 sm:row-span-2 sm:col-span-2">
+            <p className="mt-4">
+              This report provides a scorecard summary for how up to date your
+              IT security is. We assess your systems for internal and external
+              vulnerabilities.
+            </p>
+            <p className="mt-4">
+              We generally recommend clients to undertake ‘Cyber Essentials’ and
+              also take out a ‘Lucidica Security Pro’ package, achieving this UK
+              Government backed security mark and implementing the technology
+              included in the Lucidica package will place your business in the
+              top 5% of UK businesses for IT security and could provide a
+              reduced IT security insurance premium.
+            </p>
+          </div>
+          <div className="">
+            <div className="flex gap-1">
+              <Features
+                title="Lucidica Security Pro"
+                imgLink={svgIcon1}
+                featureData={formatDate(auditData.lucidicaSecurityPro)}
+              />
+              <Features
+                title="Microsoft Secure Score"
+                imgLink={svgIcon2}
+                featureData={auditData.microsoftSecureScore}
+              />
+            </div>
+          </div>
+
+          <div className="">
             <TableDoubleItems
               globalAdminRow1={auditData.globalAdminsNames}
               globalAdminStatusRow1={auditData.globalAdminsNamesStatus}
@@ -336,7 +342,6 @@ export const AuditOne = () => {
           </div>
         </div>
       </div>
-
       {/* security scorecard end  */}
     </>
   );
