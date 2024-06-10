@@ -39,7 +39,7 @@ export const PieChartWithCustomizedLabel = ({ support, overdue }) => {
   ];
   return (
     <ResponsiveContainer width="100%" height="100%" maxHeight={180}>
-      <PieChart width={400} height={400}>
+      <PieChart width={400} height={250}>
         <Pie
           data={data}
           cx="50%"
