@@ -12,8 +12,10 @@ import { PieChartWithCustomizedLabel } from "../components/audit/PieChartWithCus
 import { SoftwareAssets } from "../components/audit/SoftwareAsset";
 import { Features } from "../components/audit/Features";
 import { TableDoubleItems } from "../components/audit/TableDoubleItems";
-import svgIcon1 from "../img/1.svg";
-import svgIcon2 from "../img/2.svg";
+import lucidicaSecurityImg from "../img/1.jpg";
+import microsoftSecurityImg from "../img/2.jpg";
+import SoftwareImageGear from "../img/basic-gear.png";
+import SoftwareImageGraph from "../img/ecommerce-graph1.png";
 
 export const AuditOne = () => {
   const { id } = useParams();
@@ -217,6 +219,8 @@ export const AuditOne = () => {
           <div className="">
             <div className="flex gap-2">
               <SoftwareAssets
+                softwareAssetImg={SoftwareImageGear}
+                subtitle="OS"
                 title="All hardware assets in this report"
                 componentDataSupported={auditData.hardwareAssetsSupported}
                 componentDataUnsupportedSoon={
@@ -226,6 +230,8 @@ export const AuditOne = () => {
                 componentDataUnknown={auditData.hardwareAssetsUnknown}
               />
               <SoftwareAssets
+                softwareAssetImg={SoftwareImageGraph}
+                subtitle="Office suite"
                 title="Not Installed in 28"
                 componentDataSupported={auditData.officeSuiteSupported}
                 componentDataUnsupportedSoon={
@@ -319,12 +325,12 @@ export const AuditOne = () => {
             <div className="flex gap-1">
               <Features
                 title="Lucidica Security Pro"
-                imgLink={svgIcon1}
+                imgLink={lucidicaSecurityImg}
                 featureData={formatDate(auditData.lucidicaSecurityPro)}
               />
               <Features
                 title="Microsoft Secure Score"
-                imgLink={svgIcon2}
+                imgLink={microsoftSecurityImg}
                 featureData={auditData.microsoftSecureScore}
               />
             </div>
