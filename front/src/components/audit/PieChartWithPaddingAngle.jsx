@@ -22,7 +22,16 @@ export const PieChartWithPaddingAngle = ({ componentData, status }) => {
   const COLORS = [statusState.color, "#f1f1f1"];
 
   return (
-    <div style={{ height: "100%", width: "100%", position: "relative" }}>
+    <div
+      style={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        position: "relative",
+      }}
+    >
       <PieChart width={200} height={200}>
         <Pie
           data={data}
@@ -45,9 +54,7 @@ export const PieChartWithPaddingAngle = ({ componentData, status }) => {
           fontWeight: "bold",
           position: "absolute",
           color: checkStatusState(componentData),
-          top: "37%",
-          left: "56%",
-          transform: "translate(-50%, -50%)",
+          top: "29%",
         }}
       >
         {componentData}%

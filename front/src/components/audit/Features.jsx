@@ -7,17 +7,15 @@ export const Features = (props) => {
     props.featureData.length > 3 ? props.featureData : `${props.featureData}%`;
 
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="w-full bg-white p-6 border border-solid border-grey rounded-md shadow-md flex items-center justify-between">
-        <div className="text-custom text-center ">
-          <h4 className="font-semibold mb-2">{props.title}</h4>
-          <h5 className={`${cssStyle}`}>{featureData}</h5>
-        </div>
-
-        <div className="">
-          <img className="h-[100px] w-[120px]" src={props.imgLink} alt="" />
-        </div>
+    <div className="w-full bg-white p-6 border border-solid border-grey rounded-md shadow-md flex items-center justify-between">
+      <div className="text-custom text-center ">
+        <h4 className="font-semibold mb-2">{props.title}</h4>
+        <h5 className={`${cssStyle}`}>{featureData}</h5>
       </div>
-    </section>
+
+      <div className="">
+        <img className="" src={props.imgLink} alt="" />
+      </div>
+    </div>
   );
 };

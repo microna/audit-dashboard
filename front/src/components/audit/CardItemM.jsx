@@ -1,18 +1,17 @@
+import cardItemMimg from "../../img/carditem2.png";
+
 export const CardItemM = ({ auditData }) => {
-
   return (
-    <div className="py-2 px-4 mx-auto ">
+    <div className="py-2 px-4">
       <div className="flex flex-col items-center justify-center w-[100%]">
-        <svg height="100" width="100">
-          <circle cx="50" cy="50" r="40" strokeWidth="3" fill="green" />
-        </svg>
+        <img src={cardItemMimg} alt="" />
 
-        <h2 className="mb-2">
+        <h2 className="my-4">
           DR Status -{" "}
           <span className="text-red-500 font-bold">{auditData.drStatus}</span>
         </h2>
 
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-[12px] text-gray-500">
           Carrying out a full disaster recovery & business continuity audit will
           provide insight into how long it would take to recover data in the
           event of a system failure
