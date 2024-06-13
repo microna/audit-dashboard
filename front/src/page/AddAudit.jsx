@@ -15,7 +15,12 @@ export const AddAudit = ({ action }) => {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: async () => await getOne(),
+    defaultValues: async () => {
+      const result = await getOne()
+      return {
+        auditName: result.auditName,
+      }
+    },
   });
   const { state, dispatch } = useMyContext();
   const navigate = useNavigate();
@@ -149,6 +154,7 @@ export const AddAudit = ({ action }) => {
     try {
       const result = await axios.get(`/audit/${id}`);
       setAuditData(result.data);
+      return result.data;
     } catch (error) {
       console.log(error);
     }
