@@ -12,17 +12,63 @@ export const AddAudit = ({ action }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: async () => {
-      const result = await getOne()
+      if (action === "create") return;
+      const result = await getOne();
       return {
         auditName: result.auditName,
-      }
+        overallTechHealth: result.overallTechHealth,
+        overallInformation: result.overallInformation,
+        computerCovered: result.computerCovered,
+        hostingCost: result.hostingCost,
+        contractCost: result.contractCost,
+        overallBackupLevel: result.overallBackupLevel,
+        overallSecurityLevel: result.overallSecurityLevel,
+        overallHardwareLevel: result.overallHardwareLevel,
+        onlinePremiseServersStatus: result.onlinePremiseServersStatus,
+        onlineFileStorageStatus: result.onlineFileStorageStatus,
+        onlineDedicatedServersStatus: result.onlineDedicatedServersStatus,
+        emailOnlinePersonalStatus: result.emailOnlinePersonalStatus,
+        personalComputerStatus: result.personalComputerStatus,
+        fileTestRecovery: formatDate(result.fileTestRecovery),
+        backupSuccessRate: result.backupSuccessRate,
+        drStatus: result.drStatus,
+        hardwareSystemSupport: result.hardwareSystemSupport,
+        hardwareSystemOverdue: result.hardwareSystemOverdue,
+        digitalMaturitIndex: result.digitalMaturitIndex,
+        hardwareAssetsSupported: result.hardwareAssetsSupported,
+        hardwareAssetsUnsupportedSoon: result.hardwareAssetsUnsupportedSoon,
+        hardwareAssetsUnsupported: result.hardwareAssetsUnsupported,
+        hardwareAssetsUnknown: result.hardwareAssetsUnknown,
+        officeSuiteSupported: result.officeSuiteSupported,
+        officeSuiteUnsupportedSoon: result.officeSuiteUnsupportedSoon,
+        officeSuiteUnsupported: result.officeSuiteUnsupported,
+        officeSuiteAssetsUnknown: result.officeSuiteAssetsUnknown,
+        multiFactorAuthentication: result.multiFactorAuthentication,
+        securityTrainingGiven: result.securityTrainingGiven,
+        accountsAudited: result.accountsAudited,
+        vulnerabilityManagement: result.vulnerabilityManagement,
+        mobileDeviceManagement: result.mobileDeviceManagement,
+        allComputersUpToDate: result.allComputersUpToDate,
+        allComputersRunningAntiVirus: result.allComputersRunningAntiVirus,
+        advanceEmailProtectionWithAdvancedMalware:
+          result.advanceEmailProtectionWithAdvancedMalware,
+        businessFilesProtected: result.businessFilesProtected,
+        aiImplemented: result.aiImplemented,
+        globalAdminsNames: result.globalAdminsNames,
+        globalAdminsNamesStatus: result.globalAdminsNamesStatus,
+        desktopAdminNames: result.desktopAdminNames,
+        desktopAdminNamesStatus: result.desktopAdminNamesStatus,
+        serverAdminNames: result.serverAdminNames,
+        serverAdminNamesStatus: result.serverAdminNamesStatus,
+        lucidicaSecurityPro: formatDate(result.lucidicaSecurityPro),
+        microsoftSecureScore: result.microsoftSecureScore,
+      };
     },
   });
-  const { state, dispatch } = useMyContext();
+  const { state } = useMyContext();
   const navigate = useNavigate();
   const [loading, setIsLoading] = useState(false);
 
@@ -79,58 +125,59 @@ export const AddAudit = ({ action }) => {
     lucidicaSecurityPro,
     microsoftSecureScore,
   }) => {
-    // event.preventDefault();
+    const body = {
+      auditName,
+      overallTechHealth,
+      overallInformation,
+      computerCovered,
+      hostingCost,
+      contractCost,
+      overallBackupLevel,
+      overallSecurityLevel,
+      overallHardwareLevel,
+      onlinePremiseServersStatus,
+      onlineFileStorageStatus,
+      onlineDedicatedServersStatus,
+      emailOnlinePersonalStatus,
+      personalComputerStatus,
+      fileTestRecovery,
+      backupSuccessRate,
+      drStatus,
+      hardwareSystemSupport,
+      hardwareSystemOverdue,
+      digitalMaturitIndex,
+      hardwareAssetsSupported,
+      hardwareAssetsUnsupportedSoon,
+      hardwareAssetsUnsupported,
+      hardwareAssetsUnknown,
+      officeSuiteSupported,
+      officeSuiteUnsupportedSoon,
+      officeSuiteUnsupported,
+      officeSuiteAssetsUnknown,
+      multiFactorAuthentication,
+      securityTrainingGiven,
+      accountsAudited,
+      vulnerabilityManagement,
+      mobileDeviceManagement,
+      allComputersUpToDate,
+      allComputersRunningAntiVirus,
+      advanceEmailProtectionWithAdvancedMalware,
+      businessFilesProtected,
+      aiImplemented,
+      globalAdminsNames,
+      globalAdminsNamesStatus,
+      desktopAdminNames,
+      desktopAdminNamesStatus,
+      serverAdminNames,
+      serverAdminNamesStatus,
+      lucidicaSecurityPro,
+      microsoftSecureScore,
+    };
+    console.log(body);
     try {
       // const data = new FormData(event.target);
       // event.preventDefault();
-      const body = {
-        auditName,
-        overallTechHealth,
-        overallInformation,
-        computerCovered,
-        hostingCost,
-        contractCost,
-        overallBackupLevel,
-        overallSecurityLevel,
-        overallHardwareLevel,
-        onlinePremiseServersStatus,
-        onlineFileStorageStatus,
-        onlineDedicatedServersStatus,
-        emailOnlinePersonalStatus,
-        personalComputerStatus,
-        fileTestRecovery,
-        backupSuccessRate,
-        drStatus,
-        hardwareSystemSupport,
-        hardwareSystemOverdue,
-        digitalMaturitIndex,
-        hardwareAssetsSupported,
-        hardwareAssetsUnsupportedSoon,
-        hardwareAssetsUnsupported,
-        hardwareAssetsUnknown,
-        officeSuiteSupported,
-        officeSuiteUnsupportedSoon,
-        officeSuiteUnsupported,
-        officeSuiteAssetsUnknown,
-        multiFactorAuthentication,
-        securityTrainingGiven,
-        accountsAudited,
-        vulnerabilityManagement,
-        mobileDeviceManagement,
-        allComputersUpToDate,
-        allComputersRunningAntiVirus,
-        advanceEmailProtectionWithAdvancedMalware,
-        businessFilesProtected,
-        aiImplemented,
-        globalAdminsNames,
-        globalAdminsNamesStatus,
-        desktopAdminNames,
-        desktopAdminNamesStatus,
-        serverAdminNames,
-        serverAdminNamesStatus,
-        lucidicaSecurityPro,
-        microsoftSecureScore,
-      };
+
       setIsLoading(true);
       const backendUrl = process.env.REACT_APP_SERVER_URL;
       if (isCreate) {
@@ -142,7 +189,6 @@ export const AddAudit = ({ action }) => {
 
         navigate("/audit/" + result.data.id, { replace: true });
       }
-      console.log(body);
     } catch (err) {
       console.log(err);
     } finally {
@@ -160,9 +206,9 @@ export const AddAudit = ({ action }) => {
     }
   };
 
-  useEffect(() => {
-    getOne();
-  }, [id]);
+  // useEffect(() => {
+  //   getOne();
+  // }, [id]);
 
   useEffect(() => {
     if (isCreate) setAuditData(null);
@@ -182,12 +228,11 @@ export const AddAudit = ({ action }) => {
         <input
           type="text"
           name="audit-name"
-          // defaultValue={auditData?.auditName}
           placeholder="Type audit name here"
+          className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           {...register("auditName", {
             required: "this fiels is empty",
           })}
-          className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         {errors?.auditName && (
           <div className="w-full mt-1 text-red-500 text-sm ">
@@ -204,7 +249,6 @@ export const AddAudit = ({ action }) => {
             type="number"
             name="overall-tech-health"
             id="overall-tech-health"
-            defaultValue={auditData?.overallTechHealth}
             {...register("overallTechHealth", {
               required: "this fiels is empty",
               max: {
@@ -232,13 +276,12 @@ export const AddAudit = ({ action }) => {
                 Overall information
               </label>
               <select
-                defaultValue={auditData?.overallInformation}
-                id="overall-information"
-                name="overall-information"
-                selected={auditData?.overallInformation}
                 {...register("overallInformation", {
                   required: "this fiels is empty",
                 })}
+                id="overall-information"
+                name="overall-information"
+                selected={auditData?.overallInformation}
               >
                 {auditData?.overallInformation && (
                   <option selected value={auditData?.overallInformation}>
@@ -266,33 +309,30 @@ export const AddAudit = ({ action }) => {
             <input
               type="number"
               name="computer-covered"
-              defaultValue={auditData?.computerCovered}
+              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               {...register("computerCovered", {
                 required: "this fiels is empty",
               })}
-              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
 
             <label className="block" htmlFor="">
               Cloud/Hosting Cost
             </label>
             <input
-              defaultValue={auditData?.hostingCost}
-              {...register("hostingCost")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hosting-cost"
+              {...register("hostingCost")}
             />
 
             <label className="block" htmlFor="">
               Contract Cost
             </label>
             <input
-              defaultValue={auditData?.contractCost}
-              {...register("contractCost")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="contract-cost"
+              {...register("contractCost")}
             />
           </div>
           <div className="my-4 w-[40%]">
@@ -300,34 +340,31 @@ export const AddAudit = ({ action }) => {
               Overall backup level
             </label>
             <input
-              defaultValue={auditData?.overallBackupLevel}
-              {...register("overallBackupLevel")}
               id="overall-backup-level"
               type="number"
               name="overall-backup-level"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              {...register("overallBackupLevel")}
             />
             <label className="block" htmlFor="overall-security-level">
               Overall Security Level
             </label>
             <input
-              defaultValue={auditData?.overallSecurityLevel}
-              {...register("overallSecurityLevel")}
               id="overall-security-level"
               type="number"
               name="overall-security-level"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              {...register("overallSecurityLevel")}
             />
             <label className="block" htmlFor="overall-hardware-level">
               Overall Hardware/Software Health Level
             </label>
             <input
-              defaultValue={auditData?.overallHardwareLevel}
-              {...register("overallHardwareLevel")}
               id="overall-hardware-level"
               type="number"
               name="overall-hardware-level"
               className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              {...register("overallHardwareLevel")}
             />
           </div>
         </div>
@@ -346,6 +383,7 @@ export const AddAudit = ({ action }) => {
                 id="online-premise-servers-status"
                 name="online-premise-servers-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("onlinePremiseServersStatus")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -361,6 +399,7 @@ export const AddAudit = ({ action }) => {
                 id="online-dedicated-servers-status"
                 name="online-dedicated-servers-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("onlineDedicatedServersStatus")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -376,6 +415,7 @@ export const AddAudit = ({ action }) => {
                 id="email-online-personal-status"
                 name="email-online-personal-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("emailOnlinePersonalStatus")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -391,6 +431,7 @@ export const AddAudit = ({ action }) => {
                 id="online-file-storage-status"
                 name="online-file-storage-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("onlineFileStorageStatus")}
               >
                 <option value="N/A">Protected</option>
               </select>
@@ -406,6 +447,7 @@ export const AddAudit = ({ action }) => {
                 id="personal-computer-status"
                 name="personal-computer-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("personalComputerStatus")}
               >
                 <option value="Unmonitored">Unmonitored</option>
               </select>
@@ -419,14 +461,13 @@ export const AddAudit = ({ action }) => {
               >
                 Test File Recovery
               </label>
-              {/* {console.log(formatDate(auditData?.fileTestRecovery))} */}
+
               <input
-                // defaultValue="31-05-2024"
-                value="2024-05-31"
                 id="file-test-recovery"
                 name="file-test-recovery"
                 type="date"
                 className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("fileTestRecovery")}
               />
             </div>
             <div className="flex items-center justify-between mb-5 gap-5">
@@ -437,12 +478,11 @@ export const AddAudit = ({ action }) => {
                 Backup Success Rate
               </label>
               <input
-                defaultValue={auditData?.backupSuccessRate}
-                {...register("backupSuccessRate")}
                 id="backup-success-rate"
                 name="backup-success-rate"
                 type="number"
                 className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("backupSuccessRate")}
               />
             </div>
 
@@ -457,6 +497,7 @@ export const AddAudit = ({ action }) => {
                 id="dr-status"
                 name="dr-status"
                 className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("drStatus")}
               >
                 <option value="At Risk">At Risk</option>
               </select>
@@ -471,28 +512,25 @@ export const AddAudit = ({ action }) => {
               The Digital Maturity Index
             </label>
             <input
-              defaultValue={auditData?.digitalMaturitIndex}
-              {...register("digitalMaturitIndex")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="digital-maturit-index"
+              {...register("digitalMaturitIndex")}
             />
             <label className="block" htmlFor="">
               Systems still within useful life
             </label>
             <input
-              defaultValue={auditData?.hardwareSystemSupport}
-              {...register("hardwareSystemSupport")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-system-support"
+              {...register("hardwareSystemSupport")}
             />
             <input
-              defaultValue={auditData?.hardwareSystemOverdue}
-              {...register("hardwareSystemOverdue")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-system-overdue"
+              {...register("hardwareSystemOverdue")}
             />
           </div>
           <div className="block w-[70%]">
@@ -501,35 +539,31 @@ export const AddAudit = ({ action }) => {
             </label>
             <input
               placeholder="supported"
-              defaultValue={auditData?.hardwareAssetsSupported}
-              {...register("hardwareAssetsSupported")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-assets-supported"
+              {...register("hardwareAssetsSupported")}
             />
             <input
               placeholder="unsupported soon"
-              defaultValue={auditData?.hardwareAssetsUnsupportedSoon}
-              {...register("hardwareAssetsUnsupportedSoon")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-assets-unsupported-soon"
+              {...register("hardwareAssetsUnsupportedSoon")}
             />
             <input
               placeholder="unsupported"
-              defaultValue={auditData?.hardwareAssetsUnsupported}
-              {...register("hardwareAssetsUnsupported")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-assets-unsupported"
+              {...register("hardwareAssetsUnsupported")}
             />
             <input
               placeholder="unknown"
-              defaultValue={auditData?.hardwareAssetsUnknown}
-              {...register("hardwareAssetsUnknown")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="hardware-assets-unknown"
+              {...register("hardwareAssetsUnknown")}
             />
           </div>
           <div className="block w-[70%]">
@@ -538,35 +572,31 @@ export const AddAudit = ({ action }) => {
             </label>
             <input
               placeholder="supported"
-              defaultValue={auditData?.officeSuiteSupported}
-              {...register("officeSuiteSupported")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="office-suite-supported"
+              {...register("officeSuiteSupported")}
             />
             <input
               placeholder="unsupported soon"
-              defaultValue={auditData?.officeSuiteUnsupportedSoon}
-              {...register("officeSuiteUnsupportedSoon")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="office-suite-unsupported-soon"
+              {...register("officeSuiteUnsupportedSoon")}
             />
             <input
               placeholder="unsupported"
-              defaultValue={auditData?.officeSuiteUnsupported}
-              {...register("officeSuiteUnsupported")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="office-suite-unsupported"
+              {...register("officeSuiteUnsupported")}
             />
             <input
               placeholder="unknown"
-              defaultValue={auditData?.officeSuiteAssetsUnknown}
-              {...register("officeSuiteAssetsUnknown")}
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               type="number"
               name="office-suite-unknown"
+              {...register("officeSuiteAssetsUnknown")}
             />
           </div>
 
@@ -586,6 +616,7 @@ export const AddAudit = ({ action }) => {
                 id="multi-factor-authentication"
                 name="multi-factor-authentication"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("multiFactorAuthentication")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -601,6 +632,7 @@ export const AddAudit = ({ action }) => {
                 id="security-training-given"
                 name="security-training-given"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("securityTrainingGiven")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -616,6 +648,7 @@ export const AddAudit = ({ action }) => {
                 id="accounts-audited"
                 name="accounts-audited"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("accountsAudited")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -631,6 +664,7 @@ export const AddAudit = ({ action }) => {
                 id="vulnerability-management"
                 name="vulnerability-management"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("vulnerabilityManagement")}
               >
                 <option value="N/A">Protected</option>
               </select>
@@ -646,6 +680,7 @@ export const AddAudit = ({ action }) => {
                 id="mobile-device-management"
                 name="mobile-device-management"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("mobileDeviceManagement")}
               >
                 <option value="Unmonitored">Unmonitored</option>
               </select>
@@ -664,6 +699,7 @@ export const AddAudit = ({ action }) => {
                 id="all-computers-up-to-date"
                 name="all-computers-up-to-date"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("allComputersUpToDate")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -679,6 +715,7 @@ export const AddAudit = ({ action }) => {
                 id="all-computers-running-anti-virus"
                 name="all-computers-running-anti-virus"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("allComputersRunningAntiVirus")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -694,6 +731,7 @@ export const AddAudit = ({ action }) => {
                 id="advance-email-protection-with-advanced-malware"
                 name="advance-email-protection-with-advanced-malware"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("advanceEmailProtectionWithAdvancedMalware")}
               >
                 <option value="Protected">Protected</option>
               </select>
@@ -709,6 +747,7 @@ export const AddAudit = ({ action }) => {
                 id="business-files-protected"
                 name="business-files-protected"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("businessFilesProtected")}
               >
                 <option value="N/A">Protected</option>
               </select>
@@ -724,6 +763,7 @@ export const AddAudit = ({ action }) => {
                 id="ai-implemented"
                 name="ai-implemented"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("aiImplemented")}
               >
                 <option value="Unmonitored">Unmonitored</option>
               </select>
@@ -742,16 +782,16 @@ export const AddAudit = ({ action }) => {
               </label>
               <input
                 placeholder="Type Global Admins Name"
-                defaultValue={auditData?.globalAdminsNames}
-                {...register("globalAdminsNames")}
                 className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 name="global-admins-names"
+                {...register("globalAdminsNames")}
               />
               <select
                 id="global-admins-names-status"
                 name="global-admins-names-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("globalAdminsNamesStatus")}
               >
                 <option value="Medium Risk">Medium Risk</option>
               </select>
@@ -765,16 +805,16 @@ export const AddAudit = ({ action }) => {
               </label>
               <input
                 placeholder="Type Desktop Admins Name"
-                defaultValue={auditData?.desktopAdminNames}
-                {...register("desktopAdminNames")}
                 className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 name="desktop-admin-names"
+                {...register("desktopAdminNames")}
               />
               <select
                 id="desktop-admin-names-status"
                 name="desktop-admin-names-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("desktopAdminNamesStatus")}
               >
                 <option value="Medium Risk">Medium Risk</option>
               </select>
@@ -788,16 +828,16 @@ export const AddAudit = ({ action }) => {
               </label>
               <input
                 placeholder="Server Admin Name"
-                defaultValue={auditData?.serverAdminNames}
-                {...register("serverAdminNames")}
                 className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="text"
                 name="server-admin-names"
+                {...register("serverAdminNames")}
               />
               <select
                 id="server-admin-names-status"
                 name="server-admin-names-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                {...register("serverAdminNamesStatus")}
               >
                 <option value="Medium Risk">Medium Risk</option>
               </select>
@@ -812,11 +852,10 @@ export const AddAudit = ({ action }) => {
                 </label>
                 <input
                   placeholder="Lucidica Security Pro"
-                  defaultValue={formatDate(auditData?.lucidicaSecurityPro)}
-                  {...register("lucidicaSecurityPro")}
                   className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="date"
                   name="lucidica-security-pro"
+                  {...register("lucidicaSecurityPro")}
                 />
               </div>
               <div className="flex items-center justify-between mb-5 gap-5">
@@ -828,11 +867,10 @@ export const AddAudit = ({ action }) => {
                 </label>
                 <input
                   placeholder="Lucidica Security Pro"
-                  defaultValue={auditData?.microsoftSecureScore}
-                  {...register("microsoftSecureScore")}
                   className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="number"
                   name="microsoft-secure-score"
+                  {...register("microsoftSecureScore")}
                 />
               </div>
             </div>
