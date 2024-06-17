@@ -4,7 +4,7 @@ import { LayoutProvider } from "./layout/LayoutProvider.jsx";
 import { AuthLayout } from "./layout/AuthLayout.jsx";
 import { Login } from "./page/Login.jsx";
 import { AuditOne } from "./page/AuditOne.jsx";
-import { AddAudit } from "./page/AddAudit.jsx";
+import { AddAndUpdateAudit } from "./page/AddAndUpdateAudit.jsx";
 import { Home } from "./page/home/Home.jsx";
 
 import "./App.css";
@@ -20,11 +20,11 @@ function App() {
               <Route path="audit/:id" element={<AuditOne />} />
               <Route
                 path="add-audit"
-                element={<AddAudit action={"create"} />}
+                element={<AddAndUpdateAudit action={"create"} />}
               />
               <Route
                 path="update-audit/:id"
-                element={<AddAudit action={"update"} />}
+                element={<AddAndUpdateAudit action={"update"} />}
               />
               <Route path="audit" element={<AuditOne />} />
             </Route>
