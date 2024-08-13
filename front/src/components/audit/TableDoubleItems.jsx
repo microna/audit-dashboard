@@ -35,7 +35,18 @@ export const TableDoubleItems = ({
           <tr className="bg-white  border-blue-100 border-b border-t">
             <td className="px-4 py-2">Global Admins in M365</td>
             <td className="px-4 py-2">{globalAdminRow1}</td>
-            <td className="py-4 bg-yellow-300 text-white text-center">
+
+            <td
+              className={`p-4 text-center text-white ${
+                globalAdminStatusRow1 === "At risk"
+                  ? "bg-red-500"
+                  : globalAdminStatusRow1 === "No risk"
+                    ? "bg-green-500"
+                    : globalAdminStatusRow1 === "Medium Risk"
+                      ? "bg-yellow-300"
+                      : "bg-gray-500"
+              }`}
+            >
               {globalAdminStatusRow1}
             </td>
           </tr>
@@ -43,7 +54,18 @@ export const TableDoubleItems = ({
           <tr className="bg-white border-blue-100 border-b border-t">
             <td className="px-4 py-2">Desktop admin access</td>
             <td className="px-4 py-2">{accountsRow2}</td>
-            <td className="py-4 bg-yellow-300 text-white  text-center">
+
+            <td
+              className={`p-4 text-center text-white ${
+                adminStatusRow2 === "At risk"
+                  ? "bg-red-500"
+                  : adminStatusRow2 === "No risk"
+                    ? "bg-green-500"
+                    : adminStatusRow2 === "Medium Risk"
+                      ? "bg-yellow-300"
+                      : "bg-gray-500"
+              }`}
+            >
               {adminStatusRow2}
             </td>
           </tr>
@@ -51,8 +73,18 @@ export const TableDoubleItems = ({
           <tr className="bg-white border-blue-100 border-b border-t0">
             <td className="px-4 py-2">Server admin access</td>
             <td className="px-4 py-2">{accountsRow3}</td>
-            <td className="py-4 bg-green-500 text-white  text-center">
-              {adminStatusRow3}
+            <td
+              className={`p-4 text-center text-white ${
+                adminStatusRow3 === "At risk"
+                  ? "bg-red-500"
+                  : adminStatusRow3 === "No risk"
+                    ? "bg-green-500"
+                    : adminStatusRow3 === "Medium Risk"
+                      ? "bg-yellow-300"
+                      : "bg-gray-500"
+              }`}
+            >
+              {adminStatusRow2}
             </td>
           </tr>
         </tbody>

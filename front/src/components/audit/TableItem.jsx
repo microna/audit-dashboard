@@ -44,35 +44,79 @@ export const TableItem = ({
         <tbody>
           <tr className="bg-white border-blue-100 border-b border-t">
             <td className="px-4 py-2">{titleRow1}</td>
-            <td className=" bg-gray-500 text-white  text-center">
+            <td
+              className={`p-4 text-center text-white ${
+                statusRow1 === "Unprotected" || statusRow1 === "Unmonitored"
+                  ? "bg-red-500"
+                  : statusRow1 === "Protected" || statusRow1 === "Monitored"
+                    ? "bg-green-500"
+                    : "bg-gray-500"
+              }`}
+            >
               {statusRow1}
             </td>
           </tr>
 
           <tr className="bg-white border-blue-100 border-b border-t">
             <td className="px-4 py-2">{titleRow2}</td>
-            <td className=" bg-gray-500 text-white p-4 text-center">
+            <td
+              className={`p-4 text-center text-white ${
+                statusRow2 === "Unprotected" || statusRow2 === "Unmonitored"
+                  ? "bg-red-500"
+                  : statusRow2 === "Protected" || statusRow2 === "Monitored"
+                    ? "bg-green-500"
+                    : "bg-gray-500"
+              }`}
+            >
               {statusRow2}
             </td>
           </tr>
 
           <tr className="bg-white border-blue-100 border-b border-t">
             <td className="px-4 py-2">{titleRow3}</td>
-            <td className=" bg-gray-500 text-white p-4 text-center">
+            <td
+              className={`p-4 text-center text-white ${
+                statusRow3 === "Unprotected" || statusRow3 === "Unmonitored"
+                  ? "bg-red-500" || statusRow3 === "Monitored"
+                  : statusRow3 === "Protected"
+                    ? "bg-green-500"
+                    : "bg-gray-500"
+              }`}
+            >
               {statusRow3}
             </td>
           </tr>
 
           <tr className="bg-white border-blue-100 border-b border-t">
             <td className="px-4 py-2">{titleRow4}</td>
-            <td className=" bg-gray-500 text-white p-4 text-center">
+            <td
+              className={`p-4 text-center text-white ${
+                statusRow4 === "Unprotected" || statusRow4 === "Unmonitored"
+                  ? "bg-red-500" || statusRow4 === "Monitored"
+                  : statusRow4 === "Protected"
+                    ? "bg-green-500"
+                    : "bg-gray-500"
+              }`}
+            >
               {statusRow4}
             </td>
           </tr>
 
           <tr className="bg-white border-blue-100  border-t-1">
             <td className="px-4 py-2">{titleRow5}</td>
-            <td className=" bg-gray-500 text-white p-4 text-center">
+            <td
+              className={`p-4 text-center text-white ${
+                statusRow5 === "Unprotected" ||
+                statusRow5 === "Unmonitored" ||
+                statusRow5 === "At risk"
+                  ? "bg-red-500"
+                  : statusRow5 === "Protected" ||
+                      statusRow5 === "Monitored" ||
+                      statusRow5 === "No risk"
+                    ? "bg-green-500"
+                    : "bg-gray-500"
+              }`}
+            >
               {statusRow5}
             </td>
           </tr>

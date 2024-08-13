@@ -7,15 +7,21 @@ import { useForm } from "react-hook-form";
 
 export const AddAndUpdateAudit = ({ action }) => {
   const contractTypeArr = ["Bronze", "Gold", "Platinum", "No contract"];
+  const monitoredOptions = ["Unmonitored", "Monitored", "N/A"];
+  const protectedOptions = ["Unprotected", "Protected", "N/A"];
+  const riskOptions = ["At risk", "Medium Risk", "No risk", "N/A"];
   const [auditData, setAuditData] = useState(null);
   const {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: async () => {
-      if (action === "create") return;
+      if (action === "create") {
+        return;
+      }
       const result = await getOne();
       return prepareGetOne(result);
     },
@@ -30,6 +36,7 @@ export const AddAndUpdateAudit = ({ action }) => {
   const isUpdate = action === "update";
 
   const handleOnSubmitForm = async (body) => {
+    console.log(body);
     try {
       setIsLoading(true);
       const backendUrl = process.env.REACT_APP_SERVER_URL;
@@ -60,8 +67,16 @@ export const AddAndUpdateAudit = ({ action }) => {
   };
 
   useEffect(() => {
-    if (isCreate) setAuditData(null);
+    if (isCreate || window.location.pathname === "/add-audit") {
+      reset({
+        auditName: "",
+      });
+      setAuditData(null);
+      console.log(window.location.pathname);
+    }
   }, [navigate]);
+
+  console.log(auditData);
 
   if (state.user && !state.user.isAdmin) {
     return <Navigate to="/" replace={true} />;
@@ -75,6 +90,7 @@ export const AddAndUpdateAudit = ({ action }) => {
       >
         <label htmlFor="audit-name">Add new audit</label>
         <input
+          defaultValue=""
           type="text"
           name="audit-name"
           placeholder="Type audit name here"
@@ -89,7 +105,7 @@ export const AddAndUpdateAudit = ({ action }) => {
           </div>
         )}
 
-        <h2 className="text-3xl mt-10">Client Score Card</h2>
+        <h2 className="text-3xl mt-10">Add Client Score Card</h2>
         <div className="my-4">
           <label className="block" htmlFor="overall-tech-health">
             Overall tech helth
@@ -124,12 +140,12 @@ export const AddAndUpdateAudit = ({ action }) => {
               <label className="block" htmlFor="overall-information">
                 Overall information
               </label>
+
               <select
-                {...register("overallInformation", {
-                  required: "this fiels is empty",
-                })}
                 id="overall-information"
                 name="overall-information"
+                className="w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
+                {...register("overallInformation")}
                 selected={auditData?.overallInformation}
               >
                 {auditData?.overallInformation && (
@@ -158,31 +174,50 @@ export const AddAndUpdateAudit = ({ action }) => {
             <input
               type="number"
               name="computer-covered"
-              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
+              className="mb-2 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               {...register("computerCovered", {
                 required: "this fiels is empty",
               })}
             />
+            {errors?.computerCovered && (
+              <div className="w-full mt-1 text-red-500 text-sm ">
+                {errors.computerCovered.message}
+              </div>
+            )}
 
             <label className="block" htmlFor="">
               Cloud/Hosting Cost
             </label>
             <input
-              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
+              className="mb-2 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="hosting-cost"
-              {...register("hostingCost")}
+              {...register("hostingCost", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.hostingCost && (
+              <div className="w-full  text-red-500 text-sm ">
+                {errors.hostingCost.message}
+              </div>
+            )}
 
             <label className="block" htmlFor="">
               Contract Cost
             </label>
             <input
-              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
+              className="mb-2 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="contract-cost"
-              {...register("contractCost")}
+              {...register("contractCost", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.contractCost && (
+              <div className="w-full mt-1 text-red-500 text-sm ">
+                {errors.contractCost.message}
+              </div>
+            )}
           </div>
           <div className="my-4 w-[40%]">
             <label className="block" htmlFor="overall-backup-level">
@@ -192,7 +227,7 @@ export const AddAndUpdateAudit = ({ action }) => {
               id="overall-backup-level"
               type="number"
               name="overall-backup-level"
-              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
+              className="mb-2 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               {...register("overallBackupLevel", {
                 required: "this fiels is empty",
                 max: {
@@ -218,7 +253,7 @@ export const AddAndUpdateAudit = ({ action }) => {
               id="overall-security-level"
               type="number"
               name="overall-security-level"
-              className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
+              className="mb-2 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               {...register("overallSecurityLevel", {
                 required: "this fiels is empty",
                 max: {
@@ -275,13 +310,34 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Online On Premise Servers
               </label>
+
               <select
                 id="online-premise-servers-status"
                 name="online-premise-servers-status"
-                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
+                className="w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("onlinePremiseServersStatus")}
+                selected={auditData?.onlinePremiseServersStatus}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.onlinePremiseServersStatus && (
+                  <option
+                    selected
+                    value={auditData?.onlinePremiseServersStatus}
+                  >
+                    {auditData?.onlinePremiseServersStatus}
+                  </option>
+                )}
+                {monitoredOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.onlinePremiseServersStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5  gap-5">
@@ -291,13 +347,33 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Online Dedicated Servers
               </label>
+
               <select
                 id="online-dedicated-servers-status"
                 name="online-dedicated-servers-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("onlineDedicatedServersStatus")}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.onlineDedicatedServersStatus && (
+                  <option
+                    selected
+                    value={auditData?.onlineDedicatedServersStatus}
+                  >
+                    {auditData?.onlineDedicatedServersStatus}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.onlineDedicatedServersStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5 gap-5">
@@ -313,7 +389,23 @@ export const AddAndUpdateAudit = ({ action }) => {
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("emailOnlinePersonalStatus")}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.emailOnlinePersonalStatus && (
+                  <option selected value={auditData?.emailOnlinePersonalStatus}>
+                    {auditData?.emailOnlinePersonalStatus}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.emailOnlinePersonalStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5  gap-5">
@@ -323,13 +415,30 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Online File Storage
               </label>
+
               <select
                 id="online-file-storage-status"
                 name="online-file-storage-status"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("onlineFileStorageStatus")}
               >
-                <option value="N/A">Protected</option>
+                {auditData?.onlineFileStorageStatus && (
+                  <option selected value={auditData?.onlineFileStorageStatus}>
+                    {auditData?.onlineFileStorageStatus}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.onlineFileStorageStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5 gap-5">
@@ -339,13 +448,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Personal Computers
               </label>
+
               <select
                 id="personal-computer-status"
-                name="personal-computer-status"
-                className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5            "
+                name=""
+                className="w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("personalComputerStatus")}
+                selected={auditData?.personalComputerStatus}
               >
-                <option value="Unmonitored">Unmonitored</option>
+                {auditData?.personalComputerStatus && (
+                  <option selected value={auditData?.personalComputerStatus}>
+                    {auditData?.personalComputerStatus}
+                  </option>
+                )}
+                {monitoredOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.personalComputerStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
@@ -363,13 +490,21 @@ export const AddAndUpdateAudit = ({ action }) => {
                 name="file-test-recovery"
                 type="date"
                 className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5            "
-                {...register("fileTestRecovery")}
+                {...register("fileTestRecovery", {
+                  required: "this fiels is empty",
+                })}
               />
             </div>
+            {errors?.fileTestRecovery && (
+              <div className="w-full  px-1 text-red-500 text-sm text-right">
+                {errors.fileTestRecovery.message}
+              </div>
+            )}
+
             <div className="flex items-center justify-between mb-5 gap-5">
               <label
                 htmlFor="backup-success-rate"
-                className="block text-sm font-medium text-gray-900  "
+                className="block text-sm font-medium text-gray-900"
               >
                 Backup Success Rate
               </label>
@@ -391,8 +526,9 @@ export const AddAndUpdateAudit = ({ action }) => {
                 })}
               />
             </div>
+
             {errors?.backupSuccessRate && (
-              <div className="w-full mt-1 text-red-500 text-sm">
+              <div className="w-full mt-1 px-1 text-red-500 text-sm text-right">
                 {errors.backupSuccessRate.message}
               </div>
             )}
@@ -403,13 +539,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 DR Status
               </label>
+
               <select
                 id="dr-status"
                 name="dr-status"
                 className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("drStatus")}
+                selected={auditData?.drStatus}
               >
-                <option value="At Risk">At Risk</option>
+                {auditData?.drStatus && (
+                  <option selected value={auditData?.drStatus}>
+                    {auditData?.drStatus}
+                  </option>
+                )}
+                {riskOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.drStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
@@ -425,8 +579,15 @@ export const AddAndUpdateAudit = ({ action }) => {
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="digital-maturit-index"
-              {...register("digitalMaturitIndex")}
+              {...register("digitalMaturitIndex", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.digitalMaturitIndex && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.digitalMaturitIndex.message}
+              </div>
+            )}
             <label className="block" htmlFor="">
               Systems still within useful life
             </label>
@@ -434,14 +595,28 @@ export const AddAndUpdateAudit = ({ action }) => {
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="hardware-system-support"
-              {...register("hardwareSystemSupport")}
+              {...register("hardwareSystemSupport", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.hardwareSystemSupport && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.hardwareSystemSupport.message}
+              </div>
+            )}
             <input
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="hardware-system-overdue"
-              {...register("hardwareSystemOverdue")}
+              {...register("hardwareSystemOverdue", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.hardwareSystemOverdue && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.hardwareSystemOverdue.message}
+              </div>
+            )}
           </div>
           <div className="block w-[70%]">
             <label className="block" htmlFor="">
@@ -452,29 +627,57 @@ export const AddAndUpdateAudit = ({ action }) => {
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="hardware-assets-supported"
-              {...register("hardwareAssetsSupported")}
+              {...register("hardwareAssetsSupported", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.hardwareAssetsSupported && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.hardwareAssetsSupported.message}
+              </div>
+            )}
             <input
               placeholder="unsupported soon"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="hardware-assets-unsupported-soon"
-              {...register("hardwareAssetsUnsupportedSoon")}
+              {...register("hardwareAssetsUnsupportedSoon", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.hardwareAssetsUnsupportedSoon && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.hardwareAssetsUnsupportedSoon.message}
+              </div>
+            )}
             <input
               placeholder="unsupported"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="hardware-assets-unsupported"
-              {...register("hardwareAssetsUnsupported")}
+              {...register("hardwareAssetsUnsupported", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.hardwareAssetsUnsupported && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.hardwareAssetsUnsupported.message}
+              </div>
+            )}
             <input
               placeholder="unknown"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="hardware-assets-unknown"
-              {...register("hardwareAssetsUnknown")}
+              {...register("hardwareAssetsUnknown", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.hardwareAssetsUnknown && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.hardwareAssetsUnknown.message}
+              </div>
+            )}
           </div>
           <div className="block w-[70%]">
             <label className="block" htmlFor="">
@@ -485,29 +688,57 @@ export const AddAndUpdateAudit = ({ action }) => {
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="office-suite-supported"
-              {...register("officeSuiteSupported")}
+              {...register("officeSuiteSupported", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.officeSuiteSupported && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.officeSuiteSupported.message}
+              </div>
+            )}
             <input
               placeholder="unsupported soon"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="office-suite-unsupported-soon"
-              {...register("officeSuiteUnsupportedSoon")}
+              {...register("officeSuiteUnsupportedSoon", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.officeSuiteUnsupportedSoon && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.officeSuiteUnsupportedSoon.message}
+              </div>
+            )}
             <input
               placeholder="unsupported"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="office-suite-unsupported"
-              {...register("officeSuiteUnsupported")}
+              {...register("officeSuiteUnsupported", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.officeSuiteUnsupported && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.officeSuiteUnsupported.message}
+              </div>
+            )}
             <input
               placeholder="unknown"
               className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
               type="number"
               name="office-suite-unknown"
-              {...register("officeSuiteAssetsUnknown")}
+              {...register("officeSuiteAssetsUnknown", {
+                required: "this fiels is empty",
+              })}
             />
+            {errors?.officeSuiteAssetsUnknown && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.officeSuiteAssetsUnknown.message}
+              </div>
+            )}
           </div>
 
           {/* security scorecard */}
@@ -522,13 +753,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Multi factor authentication implemented
               </label>
+
               <select
                 id="multi-factor-authentication"
                 name="multi-factor-authentication"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("multiFactorAuthentication")}
+                selected={auditData?.multiFactorAuthentication}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.multiFactorAuthentication && (
+                  <option selected value={auditData?.multiFactorAuthentication}>
+                    {auditData?.multiFactorAuthentication}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.multiFactorAuthentication;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5  gap-5">
@@ -538,13 +787,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Security training given to end users when onboarded/regularly
               </label>
+
               <select
                 id="security-training-given"
                 name="security-training-given"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("securityTrainingGiven")}
+                selected={auditData?.securityTrainingGiven}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.securityTrainingGiven && (
+                  <option selected value={auditData?.securityTrainingGiven}>
+                    {auditData?.securityTrainingGiven}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.securityTrainingGiven;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5 gap-5">
@@ -554,13 +821,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Accounts audited, disabled and deleted – oldest password/account
               </label>
+
               <select
                 id="accounts-audited"
                 name="accounts-audited"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("accountsAudited")}
+                selected={auditData?.accountsAudited}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.accountsAudited && (
+                  <option selected value={auditData?.accountsAudited}>
+                    {auditData?.accountsAudited}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.accountsAudited;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5  gap-5">
@@ -570,13 +855,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Vulnerability Management Status
               </label>
+
               <select
                 id="vulnerability-management"
                 name="vulnerability-management"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("vulnerabilityManagement")}
+                selected={auditData?.vulnerabilityManagement}
               >
-                <option value="N/A">Protected</option>
+                {auditData?.vulnerabilityManagement && (
+                  <option selected value={auditData?.vulnerabilityManagement}>
+                    {auditData?.vulnerabilityManagement}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.vulnerabilityManagement;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5 gap-5">
@@ -591,8 +894,25 @@ export const AddAndUpdateAudit = ({ action }) => {
                 name="mobile-device-management"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("mobileDeviceManagement")}
+                selected={auditData?.mobileDeviceManagement}
               >
-                <option value="Unmonitored">Unmonitored</option>
+                {auditData?.mobileDeviceManagement && (
+                  <option selected value={auditData?.mobileDeviceManagement}>
+                    {auditData?.mobileDeviceManagement}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.mobileDeviceManagement;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
@@ -605,13 +925,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 All computers up to date & running supported software
               </label>
+
               <select
                 id="all-computers-up-to-date"
                 name="all-computers-up-to-date"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("allComputersUpToDate")}
+                selected={auditData?.allComputersUpToDate}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.allComputersUpToDate && (
+                  <option selected value={auditData?.allComputersUpToDate}>
+                    {auditData?.allComputersUpToDate}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.allComputersUpToDate;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5  gap-5">
@@ -621,13 +959,34 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 All computers running anti-virus & ideally NextGen Anti-Virus
               </label>
+
               <select
                 id="all-computers-running-anti-virus"
                 name="all-computers-running-anti-virus"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("allComputersRunningAntiVirus")}
+                selected={auditData?.allComputersRunningAntiVirus}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.allComputersRunningAntiVirus && (
+                  <option
+                    selected
+                    value={auditData?.allComputersRunningAntiVirus}
+                  >
+                    {auditData?.allComputersRunningAntiVirus}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.allComputersRunningAntiVirus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5 gap-5">
@@ -637,13 +996,37 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Advance email protection with advanced malware & spam filtering
               </label>
+
               <select
                 id="advance-email-protection-with-advanced-malware"
                 name="advance-email-protection-with-advanced-malware"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("advanceEmailProtectionWithAdvancedMalware")}
+                selected={auditData?.advanceEmailProtectionWithAdvancedMalware}
               >
-                <option value="Protected">Protected</option>
+                {auditData?.advanceEmailProtectionWithAdvancedMalware && (
+                  <option
+                    selected
+                    value={auditData?.advanceEmailProtectionWithAdvancedMalware}
+                  >
+                    {auditData?.advanceEmailProtectionWithAdvancedMalware}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return (
+                      item !==
+                      auditData?.advanceEmailProtectionWithAdvancedMalware
+                    );
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5  gap-5">
@@ -653,13 +1036,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 Business files protected against attack including ransomware
               </label>
+
               <select
                 id="business-files-protected"
                 name="business-files-protected"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("businessFilesProtected")}
+                selected={auditData?.businessFilesProtected}
               >
-                <option value="N/A">Protected</option>
+                {auditData?.businessFilesProtected && (
+                  <option selected value={auditData?.businessFilesProtected}>
+                    {auditData?.businessFilesProtected}
+                  </option>
+                )}
+                {protectedOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.businessFilesProtected;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="flex items-center justify-between mb-5 gap-5">
@@ -669,13 +1070,31 @@ export const AddAndUpdateAudit = ({ action }) => {
               >
                 AI implemented to look for suspicious file activity
               </label>
+
               <select
                 id="ai-implemented"
                 name="ai-implemented"
                 className=" w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("aiImplemented")}
+                selected={auditData?.aiImplemented}
               >
-                <option value="Unmonitored">Unmonitored</option>
+                {auditData?.aiImplemented && (
+                  <option selected value={auditData?.aiImplemented}>
+                    {auditData?.aiImplemented}
+                  </option>
+                )}
+                {riskOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.aiImplemented;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
@@ -697,15 +1116,38 @@ export const AddAndUpdateAudit = ({ action }) => {
                 name="global-admins-names"
                 {...register("globalAdminsNames")}
               />
+
               <select
                 id="global-admins-names-status"
                 name="global-admins-names-status"
                 className="mb-5 w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("globalAdminsNamesStatus")}
+                selected={auditData?.globalAdminsNamesStatus}
               >
-                <option value="Medium Risk">Medium Risk</option>
+                {auditData?.globalAdminsNamesStatus && (
+                  <option selected value={auditData?.globalAdminsNamesStatus}>
+                    {auditData?.globalAdminsNamesStatus}
+                  </option>
+                )}
+                {riskOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.globalAdminsNamesStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
+            {errors?.globalAdminsNames && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.globalAdminsNames.message}
+              </div>
+            )}
             <div className="flex items-center justify-between mb-5 gap-5">
               <label
                 htmlFor=""
@@ -720,15 +1162,38 @@ export const AddAndUpdateAudit = ({ action }) => {
                 name="desktop-admin-names"
                 {...register("desktopAdminNames")}
               />
+
               <select
                 id="desktop-admin-names-status"
                 name="desktop-admin-names-status"
                 className="mb-5 w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("desktopAdminNamesStatus")}
+                selected={auditData?.desktopAdminNamesStatus}
               >
-                <option value="Medium Risk">Medium Risk</option>
+                {auditData?.desktopAdminNamesStatus && (
+                  <option selected value={auditData?.desktopAdminNamesStatus}>
+                    {auditData?.desktopAdminNamesStatus}
+                  </option>
+                )}
+                {riskOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.desktopAdminNamesStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
+            {errors?.desktopAdminNames && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.desktopAdminNames.message}
+              </div>
+            )}
             <div className="flex items-center justify-between mb-5 gap-5">
               <label
                 htmlFor=""
@@ -743,15 +1208,38 @@ export const AddAndUpdateAudit = ({ action }) => {
                 name="server-admin-names"
                 {...register("serverAdminNames")}
               />
+
               <select
                 id="server-admin-names-status"
                 name="server-admin-names-status"
                 className="mb-5 w-[30%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                 {...register("serverAdminNamesStatus")}
+                selected={auditData?.serverAdminNamesStatus}
               >
-                <option value="Medium Risk">Medium Risk</option>
+                {auditData?.serverAdminNamesStatus && (
+                  <option selected value={auditData?.serverAdminNamesStatus}>
+                    {auditData?.serverAdminNamesStatus}
+                  </option>
+                )}
+                {riskOptions
+                  .slice()
+                  .filter((item) => {
+                    return item !== auditData?.serverAdminNamesStatus;
+                  })
+                  .map((item, key) => {
+                    return (
+                      <option key={key} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
+            {errors?.serverAdminNamesStatus && (
+              <div className="w-full mt-1 text-red-500 text-sm">
+                {errors.serverAdminNamesStatus.message}
+              </div>
+            )}
             <div className="block w-[50%]">
               <div className="flex items-center justify-between mb-5 gap-5">
                 <label
@@ -765,9 +1253,16 @@ export const AddAndUpdateAudit = ({ action }) => {
                   className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                   type="date"
                   name="lucidica-security-pro"
-                  {...register("lucidicaSecurityPro")}
+                  {...register("lucidicaSecurityPro", {
+                    required: "this fiels is empty",
+                  })}
                 />
               </div>
+              {errors?.lucidicaSecurityPro && (
+                <div className="w-full mt-1 text-red-500 text-sm">
+                  {errors.lucidicaSecurityPro.message}
+                </div>
+              )}
               <div className="flex items-center justify-between mb-5 gap-5">
                 <label
                   htmlFor=""
@@ -780,9 +1275,16 @@ export const AddAndUpdateAudit = ({ action }) => {
                   className="mb-5 w-[50%] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5"
                   type="number"
                   name="microsoft-secure-score"
-                  {...register("microsoftSecureScore")}
+                  {...register("microsoftSecureScore", {
+                    required: "this fiels is empty",
+                  })}
                 />
               </div>
+              {errors?.microsoftSecureScore && (
+                <div className="w-full mt-[-30px] text-red-500 text-sm">
+                  {errors.microsoftSecureScore.message}
+                </div>
+              )}
             </div>
           </div>
         </div>

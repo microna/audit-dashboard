@@ -8,7 +8,19 @@ export const CardItemM = ({ auditData }) => {
 
         <h2 className="my-4">
           DR Status -{" "}
-          <span className="text-red-500 font-bold">{auditData.drStatus}</span>
+          <span
+            className={`p-1 text-center font-bold ${
+              auditData.drStatus === "At risk"
+                ? "text-red-500"
+                : auditData.drStatus === "No risk"
+                  ? "text-green-500"
+                  : auditData.drStatus === "Medium Risk"
+                    ? "text-yellow-300"
+                    : "text-gray-700"
+            }`}
+          >
+            {auditData.drStatus}
+          </span>
         </h2>
 
         <p className="text-center text-[12px] text-gray-500">
