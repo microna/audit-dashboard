@@ -39,7 +39,7 @@ export const AuditOne = () => {
   return (
     <>
       <div className="py-10">
-        <h2 className="text-3xl mt-10">Client Scorcard</h2>
+        <h2 className="text-3xl mt-10">Score Card</h2>
         <div className="mt-5 bg-blue-700 h-px w-[80%]"></div>
 
         <div className="grid lg:grid-cols-4 sm:grid-cols-2 sm:justify-items-stretch gap-4 mt-10 scorecard">
