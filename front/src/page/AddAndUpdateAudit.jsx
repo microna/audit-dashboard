@@ -70,6 +70,33 @@ export const AddAndUpdateAudit = ({ action }) => {
     if (isCreate || window.location.pathname === "/add-audit") {
       reset({
         auditName: "",
+        overallTechHealth: null,
+        computerCovered: null,
+        hostingCost: null,
+        contractCost: null,
+        overallBackupLevel: null,
+        overallSecurityLevel: null,
+        overallHardwareLevel: null,
+        fileTestRecovery: '',
+        backupSuccessRate:null,
+        digitalMaturitIndex: null,
+        hardwareSystemSupport: null,
+        hardwareSystemOverdue: null,
+        hardwareAssetsSupported: null,
+        hardwareAssetsUnsupportedSoon: null,
+        hardwareAssetsUnsupported: null,
+        hardwareAssetsUnknown: null,
+        officeSuiteSupported: null,
+        officeSuiteUnsupportedSoon: null,
+        officeSuiteUnsupported: null,
+        officeSuiteAssetsUnknown: null,
+        globalAdminsNames: null,
+        desktopAdminNames: null,
+        serverAdminNames: null,
+        lucidicaSecurityPro: null,
+        microsoftSecureScore: null
+
+        
       });
       setAuditData(null);
       console.log(window.location.pathname);
